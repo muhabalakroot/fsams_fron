@@ -4,6 +4,6 @@
   </v-app>
 </template>
 
-<script lang="ts" setup>
+<script setup>
   import DefaultView from './View.vue'
 </script>
