@@ -1,6 +1,9 @@
 <template>
-  <router-view />
-  <div><h1>بسم الله</h1></div>
+  <v-locale-provider rtl>
+    <component :is="this.$route.meta.layout">
+      <router-view />
+    </component>
+  </v-locale-provider>
 </template>
 
 <script setup>

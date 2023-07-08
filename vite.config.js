@@ -11,11 +11,11 @@ export default defineConfig({
   plugins: [
     vue({
       template: { transformAssetUrls },
-      styles: { configFile: "src/styles/main.scss" },
     }),
     // https://github.com/vuetifyjs/vuetify-loader/tree/next/packages/vite-plugin
     vuetify({
       autoImport: true,
+      styles: { configFile: "src/styles/settings.scss" },
     }),
   ],
   define: { "process.env": {} },
