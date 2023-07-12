@@ -1,43 +1,70 @@
 <template>
-  <div class="text-h3 ma-5">تسجيل الدخول</div>
-  <v-alert type="info" class="ma-2" variant="tonal" border="start"
-    >لتسجيل الدخول، من فضلك أدخل البريد الجامعي وكلمة المرور.</v-alert
-  >
-  <v-form ref="form" class="my-7 mx-2">
-    <v-text-field
-      class="my-4"
-      max-width="200px"
-      variant="outlined"
-      v-model="email"
-      :rules="emailRules"
-      label="البريد الجامعي"
-      placeholder="example@uot.edu.ly"
-      type="email"
-      required
-    ></v-text-field>
+  <div>
+    <v-img
+      class="mx-auto my-6"
+      max-width="228"
+      src="https://cdn.vuetifyjs.com/docs/images/logos/vuetify-logo-v3-slim-text-light.svg"
+    ></v-img>
 
-    <v-text-field
-      class="my-3"
-      max-width="200px"
-      variant="outlined"
-      v-model="password"
-      :counter="10"
-      :rules="passwordRules"
-      label="كلمة المرور"
-      type="password"
-      required
-    ></v-text-field>
+    <v-card
+      class="mx-auto pa-12 pb-8"
+      elevation="8"
+      max-width="448"
+      rounded="lg"
+    >
+      <div class="text-subtitle-1 text-medium-emphasis">البريد الجامعي</div>
 
-    <v-btn @click="validate"> تسجيل الدخول </v-btn>
+      <v-text-field
+        density="compact"
+        placeholder="example@uot.edu.ly"
+        prepend-inner-icon="mdi-email-outline"
+        variant="outlined"
+      ></v-text-field>
 
-    <div class="ma-2">
-      هل نسيت <strong style="color: darkcyan">كلمة المرور؟</strong>
-    </div>
-  </v-form>
+      <div
+        class="text-subtitle-1 text-medium-emphasis d-flex align-center justify-space-between"
+      >
+        كلمة المرور
+
+        <a
+          class="text-caption text-decoration-none text-blue"
+          href="#"
+          rel="noopener noreferrer"
+          target="_blank"
+        >
+          هل نسيت كلمة المرور؟</a
+        >
+      </div>
+
+      <v-text-field
+        :append-inner-icon="visible ? 'mdi-eye-off' : 'mdi-eye'"
+        :type="visible ? 'text' : 'password'"
+        density="compact"
+        placeholder="أدخل كلمة المرور"
+        prepend-inner-icon="mdi-lock-outline"
+        variant="outlined"
+        @click:append-inner="visible = !visible"
+      ></v-text-field>
+
+      <v-card class="mb-6" color="surface-variant" variant="tonal">
+        <v-card-text class="text-medium-emphasis text-caption">
+          تحذير: بعد 3 محاولات تسجيل دخول فاشلة متتالية سيتم قفل حسابك مؤقتًا
+          لمدة ثلاث ساعات. إذا كان يجب عليك تسجيل الدخول الآن ، يمكنك انقر أيضًا
+          على "هل نسيت كلمة مرور تسجيل الدخول؟" أدناه لإعادة تعيين كلمة مرور
+          تسجيل الدخول.
+        </v-card-text>
+      </v-card>
+
+      <v-btn block class="mb-6" color="blue" size="large" variant="tonal">
+        تسجيل الدخول
+      </v-btn>
+    </v-card>
+  </div>
 </template>
 <script>
 export default {
   data: () => ({
+    visible: false,
     email: "",
     emailRules: [
       (v) => !!v || "يجب ادخال البريد الجامعي",
