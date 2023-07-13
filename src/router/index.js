@@ -14,6 +14,24 @@ const routes = [
     },
   },
   {
+    path: "/ForgotPassword",
+    name: "forgotPassword",
+    component: () => import("@/pages/ForgotPasswordPage.vue"),
+    meta: {
+      layout: EmptyLayout,
+      isAuth: true,
+    },
+  },
+  {
+    path: "/ResetPassword/:resetToken",
+    name: "resetPassword",
+    component: () => import("@/pages/ResetPasswordPage.vue"),
+    meta: {
+      layout: EmptyLayout,
+      isAuth: true,
+    },
+  },
+  {
     path: "/Home",
     name: "Home",
     component: () =>

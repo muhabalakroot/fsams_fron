@@ -27,7 +27,7 @@
 
             <a
               class="text-caption text-decoration-none text-blue"
-              href="#"
+              href="\forgotpassword"
               rel="noopener noreferrer"
               target="_blank"
             >
@@ -51,8 +51,8 @@
             <v-card-text class="text-medium-emphasis text-caption">
               تحذير: بعد 3 محاولات تسجيل دخول فاشلة متتالية سيتم قفل حسابك
               مؤقتًا لمدة ثلاث ساعات. إذا كان يجب عليك تسجيل الدخول الآن ، يمكنك
-              انقر أيضًا على "هل نسيت كلمة مرور تسجيل الدخول؟" أدناه لإعادة
-              تعيين كلمة مرور تسجيل الدخول.
+              انقر أيضًا على "هل نسيت كلمة مرور؟" لإعادة تعيين كلمة مرور وتسجيل
+              الدخول.
             </v-card-text>
           </v-card>
 
