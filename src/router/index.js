@@ -4,10 +4,11 @@ import EmptyLayout from "@/layouts/EmptyLayout.vue";
 import AuthLayout from "@/layouts/AuthLayout.vue";
 
 const routes = [
+  //Authentication
   {
     path: "/login",
     name: "login",
-    component: () => import("@/pages/LoginPage.vue"),
+    component: () => import("@/pages/Authentication/Login.vue"),
     meta: {
       layout: EmptyLayout,
       isAuth: true,
@@ -16,7 +17,7 @@ const routes = [
   {
     path: "/ForgotPassword",
     name: "forgotPassword",
-    component: () => import("@/pages/ForgotPasswordPage.vue"),
+    component: () => import("@/pages/Authentication/ForgotPassword.vue"),
     meta: {
       layout: EmptyLayout,
       isAuth: true,
@@ -25,7 +26,7 @@ const routes = [
   {
     path: "/ResetPassword/:resetToken",
     name: "resetPassword",
-    component: () => import("@/pages/ResetPasswordPage.vue"),
+    component: () => import("@/pages/Authentication/ResetPassword.vue"),
     meta: {
       layout: EmptyLayout,
       isAuth: true,
@@ -34,8 +35,32 @@ const routes = [
   {
     path: "/Home",
     name: "Home",
-    component: () =>
-      import(/* webpackChunkName: "home" */ "@/pages/HomePage.vue"),
+    component: () => import("@/pages/Home.vue"),
+    meta: {
+      layout: AuthLayout,
+    },
+  },
+  //Faculty Member
+  {
+    path: "/Main",
+    name: "Main",
+    component: () => import("@/pages/FacultyMember/Main.vue"),
+    meta: {
+      layout: AuthLayout,
+    },
+  },
+  {
+    path: "/ApplicationManagement",
+    name: "ApplicationManagement",
+    component: () => import("@/pages/FacultyMember/ApplicationManagement.vue"),
+    meta: {
+      layout: AuthLayout,
+    },
+  },
+  {
+    path: "/UserInfo",
+    name: "UserInfo",
+    component: () => import("@/pages/FacultyMember/UserInfo.vue"),
     meta: {
       layout: AuthLayout,
     },

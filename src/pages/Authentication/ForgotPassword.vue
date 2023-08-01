@@ -8,7 +8,7 @@
       rounded="lg"
     >
       <div class="text-h6 pa-2 pr-0">إعادة تعيين كلمة المرور</div>
-      <v-alert type="info" variant="tonal" class="text-subtitle-2">
+      <v-alert type="info" variant="tonal">
         إذا نسيت كلمة المرور الخاصة بك ، فيمكنك طلب كلمة مرور جديدة عبر إدخال
         البريد الجامعي أدناه.
       </v-alert>

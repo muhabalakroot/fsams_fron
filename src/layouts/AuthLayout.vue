@@ -1,24 +1,25 @@
 <template>
   <v-layout class="rounded rounded-md">
     <v-app-bar class="bg-grey-lighten-1"></v-app-bar>
+
     <v-main style="background-color: #f7f7f7">
-      <v-container max-width="800px">
-        <div align="left" class="w-100">
-          <strong class="mx-1">{{ name }}</strong>
-          <v-btn>تسجيل الخروج</v-btn>
-        </div>
-        <slot></slot>
+      <v-container class="h-100">
+        <v-card><slot></slot></v-card>
       </v-container>
     </v-main>
-    <v-footer app class="bg-grey-lighten-1" height="64px"
-      ><div class="text-center w-100">
-        <strong>جامعة طرابلس</strong> — {{ new Date().getFullYear() }}
-      </div></v-footer
-    >
+
+    <FacultyMembeNavigationDrawer></FacultyMembeNavigationDrawer>
+    <TheFooter></TheFooter>
   </v-layout>
 </template>
 <script>
+import FacultyMembeNavigationDrawer from "@/components/NavigationDrawer/FacultyMember.vue";
+import TheFooter from "@/components/ui/Thefooter.vue";
 export default {
+  components: {
+    TheFooter,
+    FacultyMembeNavigationDrawer,
+  },
   data() {
     return {
       name: "د. رضوان حسين",

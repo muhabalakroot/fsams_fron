@@ -8,10 +8,7 @@
       rounded="lg"
     >
       <div class="text-h6 pa-2 pr-0">تسجيل الدخول</div>
-      <v-alert type="success" variant="tonal" class="text-subtitle-2">
-        تم إرسال PIN مؤقت إلى عنوان بريدك الجامعي. إذا لم تستلم هذه الرسالة في
-        الدقائق القليلة القادمة ، يرجى التحقق من مجلد البريد غير الهام (spam).
-      </v-alert>
+      <v-alert type="success"> الرجاء أدخل كلمة المرور الجديد </v-alert>
 
       <div class="text-subtitle-1 text-medium-emphasis pt-4">
         كلمة المرور الجديدة
