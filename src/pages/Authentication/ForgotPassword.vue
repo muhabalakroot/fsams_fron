@@ -7,22 +7,18 @@
       max-width="450px"
       rounded="lg"
     >
-      <div class="text-h6 pa-2 pr-0">إعادة تعيين كلمة المرور</div>
+      <TheH1 class="text-h6 pa-2 pr-0">إعادة تعيين كلمة المرور</TheH1>
       <v-alert type="info" variant="tonal">
         إذا نسيت كلمة المرور الخاصة بك ، فيمكنك طلب كلمة مرور جديدة عبر إدخال
         البريد الجامعي أدناه.
       </v-alert>
-      <div class="text-subtitle-1 text-medium-emphasis pt-4">
-        البريد الجامعي
-      </div>
+      <TheTextFieldLable> البريد الجامعي </TheTextFieldLable>
 
       <v-text-field
         v-model="email"
         :rules="emailRules"
-        density="compact"
         placeholder="example@uot.edu.ly"
         prepend-inner-icon="mdi-email-outline"
-        variant="outlined"
       ></v-text-field>
 
       <v-btn

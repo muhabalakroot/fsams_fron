@@ -9,20 +9,16 @@
     >
       <v-row>
         <v-col cols="6">
-          <div class="text-subtitle-1 text-medium-emphasis">البريد الجامعي</div>
+          <TheTextFieldLable>البريد الجامعي</TheTextFieldLable>
 
           <v-text-field
             v-model="email"
             :rules="emailRules"
-            density="compact"
             placeholder="example@uot.edu.ly"
             prepend-inner-icon="mdi-email-outline"
-            variant="outlined"
           ></v-text-field>
 
-          <div
-            class="text-subtitle-1 text-medium-emphasis d-flex align-center justify-space-between"
-          >
+          <TheTextFieldLable class="d-flex align-center justify-space-between">
             كلمة المرور
 
             <a
@@ -33,17 +29,15 @@
             >
               هل نسيت كلمة المرور؟</a
             >
-          </div>
+          </TheTextFieldLable>
 
           <v-text-field
             v-model="password"
             :rules="passwordRules"
             :append-inner-icon="visible ? 'mdi-eye-off' : 'mdi-eye'"
             :type="visible ? 'text' : 'password'"
-            density="compact"
             placeholder="أدخل كلمة المرور"
             prepend-inner-icon="mdi-lock-outline"
-            variant="outlined"
             @click:append-inner="visible = !visible"
           ></v-text-field>
 

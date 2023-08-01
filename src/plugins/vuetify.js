@@ -16,8 +16,9 @@ export default createVuetify({
   defaults: {
     VAlert: { variant: "tonal", style: "font-size: 14px; font-weight: bolder" },
     VCard: {
-      style: "padding: 20px",
+      style: "padding: 20px; margin: 10px",
     },
+    VTextField: { density: "compact", variant: "outlined" },
   },
   blueprint: md3,
   theme: {

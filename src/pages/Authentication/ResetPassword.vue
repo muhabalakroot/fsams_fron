@@ -7,36 +7,30 @@
       max-width="450px"
       rounded="lg"
     >
-      <div class="text-h6 pa-2 pr-0">تسجيل الدخول</div>
+      <TheH1 class="pr-0">تسجيل الدخول</TheH1>
       <v-alert type="success"> الرجاء أدخل كلمة المرور الجديد </v-alert>
 
-      <div class="text-subtitle-1 text-medium-emphasis pt-4">
-        كلمة المرور الجديدة
-      </div>
+      <TheTextFieldLable class="pt-4"> كلمة المرور الجديدة </TheTextFieldLable>
 
       <v-text-field
         v-model="password"
         :rules="passwordRules"
         :append-inner-icon="visible ? 'mdi-eye-off' : 'mdi-eye'"
         :type="visible ? 'text' : 'password'"
-        density="compact"
         placeholder="أدخل كلمة المرور الجديدة"
         prepend-inner-icon="mdi-lock-outline"
-        variant="outlined"
         @click:append-inner="visible = !visible"
       ></v-text-field>
 
-      <div class="text-subtitle-1 text-medium-emphasis">تأكيد كلمة المرور</div>
+      <TheTextFieldLable>تأكيد كلمة المرور</TheTextFieldLable>
 
       <v-text-field
         v-model="passwordConfirm"
         :rules="passwordConfirmRules"
         :append-inner-icon="visible ? 'mdi-eye-off' : 'mdi-eye'"
         :type="visible ? 'text' : 'password'"
-        density="compact"
         placeholder="أعد إدخال كلمة المرور "
         prepend-inner-icon="mdi-lock-outline"
-        variant="outlined"
         @click:append-inner="visible = !visible"
       ></v-text-field>
 
