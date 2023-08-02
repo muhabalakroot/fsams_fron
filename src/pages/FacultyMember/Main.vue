@@ -1,5 +1,5 @@
 <template>
-  <v-alert closable type="success">
+  <v-alert type="success">
     أهلا بك {{ name }} في نظام إدارة شؤون أعضاء هيئة التدريس
   </v-alert>
   <div class="text-center pa-2">

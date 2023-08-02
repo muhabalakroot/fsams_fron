@@ -2,7 +2,7 @@
   <div>
     <v-card
       :loading="isLoading"
-      class="mx-auto pa-12 py-8"
+      class="mx-auto pa-6 py-5"
       elevation="8"
       max-width="750"
       rounded="lg"
@@ -41,7 +41,7 @@
             @click:append-inner="visible = !visible"
           ></v-text-field>
 
-          <v-card class="mb-6" color="surface-variant" variant="tonal">
+          <v-card class="mb-6 pa-2" color="surface-variant" variant="tonal">
             <v-card-text class="text-medium-emphasis text-caption">
               تحذير: بعد 3 محاولات تسجيل دخول فاشلة متتالية سيتم قفل حسابك
               مؤقتًا لمدة ثلاث ساعات. إذا كان يجب عليك تسجيل الدخول الآن ، يمكنك
