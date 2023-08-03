@@ -15,7 +15,9 @@
         </v-card-text>
         <div align="left">
           <v-divider></v-divider>
-          <v-btn variant="text" @click="dialog = false"> إلغاء </v-btn>
+          <v-btn variant="text" @click="dialog = false" class="mx-2">
+            إلغاء
+          </v-btn>
           <v-btn @click="addNewApplication"> حفظ </v-btn>
         </div>
       </v-card>

@@ -61,9 +61,10 @@ const routes = [
     },
   },
   {
-    path: "/application/:id",
-    name: "application",
-    component: () => import("@/pages/FacultyMember/application.vue"),
+    path: "/ApplicationPersonaInfo/:id",
+    name: "ApplicationPersonaInfo",
+    component: () =>
+      import("@/pages/FacultyMember/Application/ApplicationPersonaInfo.vue"),
     meta: {
       layout: AuthLayout,
       navigationDrawer: "FacultyMemberApplication",

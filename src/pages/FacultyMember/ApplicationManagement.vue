@@ -88,7 +88,7 @@ export default {
       this.$router.push({ name: "applicationStatus", params: { id: id } });
     },
     openApplicationPage(id) {
-      this.$router.push({ name: "application", params: { id: id } });
+      this.$router.push({ name: "ApplicationPersonaInfo", params: { id: id } });
     },
   },
 };
