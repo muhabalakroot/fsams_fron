@@ -1,39 +1,63 @@
 <template>
   <TheH1>حالة طلبك</TheH1>
-  <v-alert type="info"
-    >لا يمكن التعديل في البيانات الشخصية، في حالة وجود خطأ، الرجاء التواصل مع
-    رئيس قسمك العلمي.</v-alert
-  >
+  <v-alert type="info">
+    أحد أهم ميزات التي يتيحها نظام إدارة شؤون أعضاء هيئة التدريس هي امكانية
+    متابعة تقدم الطلبات عبر النظام
+  </v-alert>
   <v-container>
-    <v-stepper alt-labels hide-actions :items="['Step 1', 'Step 2', 'Step 3']">
-      <template v-slot:item.1>
-        <v-card title="Step One" flat>...</v-card>
-      </template>
-
-      <template v-slot:item.2>
-        <v-card title="Step Two" flat>...</v-card>
-      </template>
-
-      <template v-slot:item.3>
-        <v-card title="Step Three" flat>...</v-card>
-      </template>
-    </v-stepper>
+    <v-timeline side="end">
+      <v-timeline-item
+        min-width="100%"
+        v-for="item in items"
+        :key="item.id"
+        :dot-color="item.color"
+        size="small"
+      >
+        <div class="text-h6">{{ item.title }}</div>
+        <v-alert :value="true" :color="item.color" :icon="item.icon">
+          {{ item.massage }}
+        </v-alert>
+      </v-timeline-item>
+    </v-timeline>
   </v-container>
 </template>
 <script>
 export default {
   data() {
     return {
-      user: {
-        firstName: "رضوان",
-        fatherName: "عبد الله",
-        lastName: "حسين",
-        currentDegree: "أستاذ مشارك",
-        faculty: "كلية تقنيةالمعلومات",
-        department: "قسم هندسة البرمجيات",
-        degree: "دكتوراة",
-        promotionDegreeNumberDate: "2019-05-30",
-      },
+      items: [
+        {
+          id: 1,
+          title: "رئيس القسم العلمي",
+          massage: "تتم الان معالجة طلبك من قبل رئيس قسمك العلمي",
+          color: "info",
+          icon: "mdi-information",
+        },
+        {
+          id: 2,
+          title: "رئيس القسم العلمي",
+          massage:
+            "تتم الموافقة علي  طلبك من قبل رئيس قسمك العلمي، وتمت إحالته إلى مكتب شؤون أعضاء هيئة التدريس بالكلية",
+          color: "success",
+          icon: "mdi-check-circle",
+        },
+        {
+          id: 3,
+          title: "مكتب شؤون أعضاء هيئة التدريس",
+          massage:
+            "تتم الأن معالجة طلبك من قبل مكتب شؤون أعضاء هيئة التدريس بالكلية",
+          color: "info",
+          icon: "mdi-information",
+        },
+        {
+          id: 4,
+          title: "مكتب شؤون أعضاء هيئة التدريس",
+          massage:
+            "تتم الموافقة علي  طلبك من قبل مكتب شؤون أعضاء هيئة التدريس وتمت إحالته إلى إدارة شؤون أعضاء هيئة التدريس بالجامعة",
+          color: "success",
+          icon: "mdi-check-circle",
+        },
+      ],
     };
   },
 };
