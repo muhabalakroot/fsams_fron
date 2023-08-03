@@ -14,31 +14,47 @@
     <v-list density="compact" v-model:selected="selectedItem" @click="navigate">
       <v-list-item
         color="primary"
-        prepend-icon="mdi-home-city"
-        title="الصفحة الرئيسية"
-        value="Main"
-      ></v-list-item>
-      <v-list-item
-        color="primary"
-        prepend-icon="mdi-note-edit-outline"
-        title="إدارة الطلبات"
+        prepend-icon="mdi-chevron-right"
+        title="العودة لإدارة الطلبات"
         value="Application Management"
-      ></v-list-item>
-      <v-list-item
-        color="primary"
-        prepend-icon="mdi-account"
-        title="البيانات الشخصية"
-        value="User Info"
       ></v-list-item>
 
       <v-divider class="ma-2"></v-divider>
 
       <v-list-item
         color="primary"
+        prepend-icon="mdi-account"
+        title="البيانات الشخصية"
+        value="User Info"
+      ></v-list-item>
+      <v-list-item
+        color="primary"
+        prepend-icon="mdi-school-outline"
+        title="البيانات الاكاديمية"
+        value="User Info"
+      ></v-list-item>
+      <v-list-item
+        color="primary"
+        prepend-icon="mdi-paperclip"
+        title="المرفقات"
+        value="User Info"
+      ></v-list-item>
+
+      <v-list-item
+        color="primary"
+        prepend-icon="mdi-note-search-outline"
+        title="مراجعة الطلب"
+        value="User Info"
+      ></v-list-item>
+
+      <!-- <v-divider class="ma-2"></v-divider> -->
+
+      <!-- <v-list-item
+        color="primary"
         prepend-icon="mdi-logout"
         title="تسجيل الخروج"
         @click="logout"
-      ></v-list-item>
+      ></v-list-item>  -->
     </v-list>
   </v-navigation-drawer>
 </template>

@@ -39,6 +39,7 @@ const routes = [
     component: () => import("@/pages/FacultyMember/Main.vue"),
     meta: {
       layout: AuthLayout,
+      navigationDrawer: "FacultyMember",
     },
   },
   {
@@ -47,6 +48,7 @@ const routes = [
     component: () => import("@/pages/FacultyMember/ApplicationManagement.vue"),
     meta: {
       layout: AuthLayout,
+      navigationDrawer: "FacultyMember",
     },
   },
   {
@@ -55,6 +57,25 @@ const routes = [
     component: () => import("@/pages/FacultyMember/UserInfo.vue"),
     meta: {
       layout: AuthLayout,
+      navigationDrawer: "FacultyMember",
+    },
+  },
+  {
+    path: "/application/:id",
+    name: "application",
+    component: () => import("@/pages/FacultyMember/application.vue"),
+    meta: {
+      layout: AuthLayout,
+      navigationDrawer: "FacultyMemberApplication",
+    },
+  },
+  {
+    path: "/applicationStatus/:id",
+    name: "applicationStatus",
+    component: () => import("@/pages/FacultyMember/applicationStatus.vue"),
+    meta: {
+      layout: AuthLayout,
+      navigationDrawer: "FacultyMember",
     },
   },
 ];

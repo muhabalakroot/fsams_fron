@@ -33,6 +33,7 @@ export default {
     ...mapActions(useAppicationsStore, ["addApplication"]),
     addNewApplication() {
       this.addApplication({
+        applicationId: "3",
         applicationType: "طلب ترقية خريف 2024",
         createdAt: new Date().toLocaleDateString(),
         status: "جديد",

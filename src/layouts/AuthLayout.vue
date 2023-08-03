@@ -8,17 +8,25 @@
       </v-container>
     </v-main>
 
-    <FacultyMembeNavigationDrawer></FacultyMembeNavigationDrawer>
+    <FacultyMembeNavigationDrawer
+      v-if="$route.meta.navigationDrawer == 'FacultyMember'"
+    ></FacultyMembeNavigationDrawer>
+
+    <FacultyMembeApplicationNavigationDrawer
+      v-if="$route.meta.navigationDrawer == 'FacultyMemberApplication'"
+    ></FacultyMembeApplicationNavigationDrawer>
     <TheFooter></TheFooter>
   </v-layout>
 </template>
 <script>
+import FacultyMembeApplicationNavigationDrawer from "@/components/NavigationDrawer/FacultyMemberApplication.vue";
 import FacultyMembeNavigationDrawer from "@/components/NavigationDrawer/FacultyMember.vue";
 import TheFooter from "@/components/ui/Thefooter.vue";
 export default {
   components: {
     TheFooter,
     FacultyMembeNavigationDrawer,
+    FacultyMembeApplicationNavigationDrawer,
   },
   data() {
     return {
