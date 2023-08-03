@@ -25,11 +25,17 @@ export default createVuetify({
       variant: "outlined",
       style: "max-width: 340px",
     },
+    VFileInput: {
+      density: "compact",
+      variant: "outlined",
+      style: "max-width: 340px",
+    },
     VSelect: {
       density: "compact",
       variant: "outlined",
       style: "max-width: 340px",
     },
+
     VBtn: { color: "primary", style: "margin: 10px 0px" },
   },
   components: {

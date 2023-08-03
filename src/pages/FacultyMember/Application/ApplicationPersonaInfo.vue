@@ -1,195 +1,226 @@
 <template>
   <TheH1>البيانات الشخصية</TheH1>
-  <v-alert type="info"
-    >لا يمكن التعديل في البيانات الشخصية، في حالة وجود خطأ، الرجاء التواصل مع
-    رئيس قسمك العلمي.</v-alert
-  >
-  <v-container>
-    <v-row>
-      <v-col cols="4">
-        <TheTextFieldLable>الاسم الأول</TheTextFieldLable>
-        <v-text-field v-model="user.firstName"> </v-text-field>
-      </v-col>
-      <v-col cols="4"
-        ><TheTextFieldLable>الاسم الأب</TheTextFieldLable>
-        <v-text-field v-model="user.fatherName"> </v-text-field
-      ></v-col>
-      <v-col cols="4"
-        ><TheTextFieldLable>اللقب</TheTextFieldLable>
-        <v-text-field v-model="user.lastName"> </v-text-field
-      ></v-col>
-    </v-row>
-    <v-row> </v-row>
-    <v-row>
-      <v-col cols="6"
-        ><TheTextFieldLable>الكلية</TheTextFieldLable>
-        <v-select
-          item-title="value"
-          item-value="id"
-          :items="colleges"
-          v-model="user.faculty"
-        >
-        </v-select
-      ></v-col>
 
-      <!-- //كلية العلوم -->
-      <v-col cols="6" v-if="user.faculty == 1"
-        ><TheTextFieldLable>القسم العلمي</TheTextFieldLable>
-        <v-select
-          :items="[
-            'قسم الرياضيات',
-            'قسم علم الحيوان',
-            'قسم الفيزياء',
-            'قسم الكيمياء',
-            'قسم علم النبات',
-            'قسم الجيولوجيا',
-            'قسم علوم الحاسب الآلي',
-            'قسم الإحصاء',
-          ]"
-          v-model="user.department"
-        >
-        </v-select
-      ></v-col>
+  <v-alert type="info">
+    يمكنك الضعط على زر "حفظ" والخروج من النظام، ثم إكمال الطلب في وقت لاحق!
+  </v-alert>
+  <v-form ref="form">
+    <v-container>
+      <v-row>
+        <v-col cols="4">
+          <TheTextFieldLable>الاسم الأول</TheTextFieldLable>
+          <v-text-field
+            :rules="[(v) => !!v || 'هذا الحقل اجباري']"
+            v-model="user.firstName"
+          >
+          </v-text-field>
+        </v-col>
+        <v-col cols="4"
+          ><TheTextFieldLable>الاسم الأب</TheTextFieldLable>
+          <v-text-field
+            :rules="[(v) => !!v || 'هذا الحقل اجباري']"
+            v-model="user.fatherName"
+          >
+          </v-text-field
+        ></v-col>
+        <v-col cols="4"
+          ><TheTextFieldLable>اللقب</TheTextFieldLable>
+          <v-text-field
+            :rules="[(v) => !!v || 'هذا الحقل اجباري']"
+            v-model="user.lastName"
+          >
+          </v-text-field
+        ></v-col>
+      </v-row>
 
-      <!-- //كلية الهندسة -->
-      <v-col cols="6" v-if="user.faculty == 2"
-        ><TheTextFieldLable>القسم العلمي</TheTextFieldLable>
-        <v-select
-          :items="[
-            'قسم الهندسة الكهربائية والالكترونية',
-            'قسم الهندسة الميكانيكية والصناعية',
-            'قسم الهندسة الكيميائية',
-            'قسم هندسة العمارة والتخطيط العمراني',
-            'قسم هندسة النفط',
-            'قسم الهندسة الجيولوجية',
-            'قسم هندسة التعدين',
-            'قسم الهندسة النووية',
-            'قسم هندسة الحاسب الآلي',
-            'قسم هندسة المواد والمعادن',
-            'قسم الهندسة البحرية والمنصات العائمة',
-            'قسم هندسة الطيران',
-            'قسم الهندسة المدنية',
-            'قسم الدراسة والامتحانات والمرحلة العامة',
-            'قسم الهندسة الطبية',
-            'قسم الإدارة الهندسية',
-          ]"
-          v-model="user.department"
-        >
-        </v-select
-      ></v-col>
+      <v-row>
+        <v-col cols="6"
+          ><TheTextFieldLable>الكلية</TheTextFieldLable>
+          <v-select
+            :rules="[(v) => !!v || 'هذا الحقل اجباري']"
+            item-title="value"
+            item-value="id"
+            :items="colleges"
+            v-model="user.faculty"
+          >
+          </v-select
+        ></v-col>
 
-      <!-- //كلية الفنون -->
-      <v-col cols="6" v-if="user.faculty == 3"
-        ><TheTextFieldLable>القسم العلمي</TheTextFieldLable>
-        <v-select
-          :items="[
-            'قسم الفنون المرئية',
-            'قسم الفنون الدرامية',
-            'قسم التصميم الداخلي',
-            'قسم الفنون الموسيقية',
-            'قسم الفنون الجميلة والتطبيقية',
-          ]"
-          v-model="user.department"
-        >
-        </v-select
-      ></v-col>
+        <!-- //كلية العلوم -->
+        <v-col cols="6" v-if="user.faculty == 1"
+          ><TheTextFieldLable>القسم العلمي</TheTextFieldLable>
+          <v-select
+            :rules="[(v) => !!v || 'هذا الحقل اجباري']"
+            :items="[
+              'قسم الرياضيات',
+              'قسم علم الحيوان',
+              'قسم الفيزياء',
+              'قسم الكيمياء',
+              'قسم علم النبات',
+              'قسم الجيولوجيا',
+              'قسم علوم الحاسب الآلي',
+              'قسم الإحصاء',
+            ]"
+            v-model="user.department"
+          >
+          </v-select
+        ></v-col>
 
-      <!-- //كلية اللغات -->
-      <v-col cols="6" v-if="user.faculty == 4"
-        ><TheTextFieldLable>القسم العلمي</TheTextFieldLable>
-        <v-select
-          :items="[
-            'قسم اللغة الإنجليزية',
-            'قسم اللغة العربية',
-            'قسم اللغة الاسبانية',
-            'قسم اللغات الأفروآسيوية',
-            'قسم اللغة الإيطالية',
-            'قسم الترجمة والتعريب',
-            'المرحلة العامة',
-            'قسم اللغة الفرنسية',
-          ]"
-          v-model="user.department"
-        >
-        </v-select
-      ></v-col>
+        <!-- //كلية الهندسة -->
+        <v-col cols="6" v-if="user.faculty == 2"
+          ><TheTextFieldLable>القسم العلمي</TheTextFieldLable>
+          <v-select
+            :rules="[(v) => !!v || 'هذا الحقل اجباري']"
+            :items="[
+              'قسم الهندسة الكهربائية والالكترونية',
+              'قسم الهندسة الميكانيكية والصناعية',
+              'قسم الهندسة الكيميائية',
+              'قسم هندسة العمارة والتخطيط العمراني',
+              'قسم هندسة النفط',
+              'قسم الهندسة الجيولوجية',
+              'قسم هندسة التعدين',
+              'قسم الهندسة النووية',
+              'قسم هندسة الحاسب الآلي',
+              'قسم هندسة المواد والمعادن',
+              'قسم الهندسة البحرية والمنصات العائمة',
+              'قسم هندسة الطيران',
+              'قسم الهندسة المدنية',
+              'قسم الدراسة والامتحانات والمرحلة العامة',
+              'قسم الهندسة الطبية',
+              'قسم الإدارة الهندسية',
+            ]"
+            v-model="user.department"
+          >
+          </v-select
+        ></v-col>
 
-      <!-- //كلية الزراعة -->
-      <v-col cols="6" v-if="user.faculty == 5"
-        ><TheTextFieldLable>القسم العلمي</TheTextFieldLable>
-        <v-select
-          :items="[
-            'قسم الاقتصاد الزراعي',
-            'قسم الزراعات المائية',
-            'قسم المراعي والغابات',
-            'قسم اقتصاد المنزلي',
-            'قسم المحاصيل الزراعية',
-            'قسم الهندسة الزراعية',
-            'قسم البستنة',
-            'قسم وقاية النبات',
-            'قسم التربة والمياه',
-            'قسم الانتاج الحيواني',
-            'قسم علوم وتقنية الاغذية',
-          ]"
-          v-model="user.department"
-        >
-        </v-select
-      ></v-col>
+        <!-- //كلية الفنون -->
+        <v-col cols="6" v-if="user.faculty == 3"
+          ><TheTextFieldLable>القسم العلمي</TheTextFieldLable>
+          <v-select
+            :rules="[(v) => !!v || 'هذا الحقل اجباري']"
+            :items="[
+              'قسم الفنون المرئية',
+              'قسم الفنون الدرامية',
+              'قسم التصميم الداخلي',
+              'قسم الفنون الموسيقية',
+              'قسم الفنون الجميلة والتطبيقية',
+            ]"
+            v-model="user.department"
+          >
+          </v-select
+        ></v-col>
 
-      <!-- كليتنا الغالية -->
-      <v-col cols="6" v-if="user.faculty == 6"
-        ><TheTextFieldLable>القسم العلمي</TheTextFieldLable>
-        <v-select
-          :items="[
-            'قسم هندسة البرمجيات',
-            'قسم الشبكات',
-            'قسم نظم المعلومات',
-            'قسم الحوسبة المتنقلة',
-            'قسم تقنيات الإنترنت',
-            'قسم المرحلة العامة',
-          ]"
-          v-model="user.department"
-        >
-        </v-select
-      ></v-col>
+        <!-- //كلية اللغات -->
+        <v-col cols="6" v-if="user.faculty == 4"
+          ><TheTextFieldLable>القسم العلمي</TheTextFieldLable>
+          <v-select
+            :rules="[(v) => !!v || 'هذا الحقل اجباري']"
+            :items="[
+              'قسم اللغة الإنجليزية',
+              'قسم اللغة العربية',
+              'قسم اللغة الاسبانية',
+              'قسم اللغات الأفروآسيوية',
+              'قسم اللغة الإيطالية',
+              'قسم الترجمة والتعريب',
+              'المرحلة العامة',
+              'قسم اللغة الفرنسية',
+            ]"
+            v-model="user.department"
+          >
+          </v-select
+        ></v-col>
 
-      <v-col cols="6"
-        ><TheTextFieldLable>القسم العلمي</TheTextFieldLable>
-        <v-select
-          :items="['لا يوجد أقسام بالوقت الحالي']"
-          v-model="user.department"
-        >
-        </v-select
-      ></v-col>
-    </v-row>
+        <!-- //كلية الزراعة -->
+        <v-col cols="6" v-if="user.faculty == 5"
+          ><TheTextFieldLable>القسم العلمي</TheTextFieldLable>
+          <v-select
+            :rules="[(v) => !!v || 'هذا الحقل اجباري']"
+            :items="[
+              'قسم الاقتصاد الزراعي',
+              'قسم الزراعات المائية',
+              'قسم المراعي والغابات',
+              'قسم اقتصاد المنزلي',
+              'قسم المحاصيل الزراعية',
+              'قسم الهندسة الزراعية',
+              'قسم البستنة',
+              'قسم وقاية النبات',
+              'قسم التربة والمياه',
+              'قسم الانتاج الحيواني',
+              'قسم علوم وتقنية الاغذية',
+            ]"
+            v-model="user.department"
+          >
+          </v-select
+        ></v-col>
 
-    <v-row>
-      <v-col cols="6"
-        ><TheTextFieldLable>الجنسية</TheTextFieldLable>
-        <v-select
-          item-title="value"
-          item-value="id"
-          v-model="user.nationality"
-          :items="nationalityList"
-        ></v-select
-      ></v-col>
+        <!-- كليتنا الغالية -->
+        <v-col cols="6" v-if="user.faculty == 6"
+          ><TheTextFieldLable>القسم العلمي</TheTextFieldLable>
+          <v-select
+            :rules="[(v) => !!v || 'هذا الحقل اجباري']"
+            :items="[
+              'قسم هندسة البرمجيات',
+              'قسم الشبكات',
+              'قسم نظم المعلومات',
+              'قسم الحوسبة المتنقلة',
+              'قسم تقنيات الإنترنت',
+              'قسم المرحلة العامة',
+            ]"
+            v-model="user.department"
+          >
+          </v-select
+        ></v-col>
 
-      <v-col cols="6" v-if="user.nationality == 1"
-        ><TheTextFieldLable>الرقم الوطني</TheTextFieldLable>
-        <v-text-field v-model="user.nationalNumber"> </v-text-field
-      ></v-col>
+        <v-col cols="6"
+          ><TheTextFieldLable>القسم العلمي</TheTextFieldLable>
+          <v-select
+            :rules="[(v) => !!v || 'هذا الحقل اجباري']"
+            :items="['لا يوجد أقسام بالوقت الحالي']"
+            v-model="user.department"
+          >
+          </v-select
+        ></v-col>
+      </v-row>
 
-      <v-col cols="6" v-if="user.nationality > 1 && user.nationality < 20"
-        ><TheTextFieldLable>رقم جواز السفر</TheTextFieldLable>
-        <v-text-field v-model="user.passport"> </v-text-field
-      ></v-col>
-    </v-row>
+      <v-row>
+        <v-col cols="6"
+          ><TheTextFieldLable>الجنسية</TheTextFieldLable>
+          <v-select
+            :rules="[(v) => !!v || 'هذا الحقل اجباري']"
+            item-title="value"
+            item-value="id"
+            v-model="user.nationality"
+            :items="nationalityList"
+          ></v-select
+        ></v-col>
 
-    <div align="left">
-      <v-divider></v-divider>
-      <v-btn variant="text" class="mx-2"> حفظ </v-btn>
-      <v-btn> حفظ واستمرار </v-btn>
-    </div>
-  </v-container>
+        <v-col cols="6" v-if="user.nationality == 1"
+          ><TheTextFieldLable>الرقم الوطني</TheTextFieldLable>
+          <v-text-field
+            :rules="[(v) => !!v || 'هذا الحقل اجباري']"
+            v-model="user.nationalNumber"
+          >
+          </v-text-field
+        ></v-col>
+
+        <v-col cols="6" v-if="user.nationality > 1 && user.nationality < 20"
+          ><TheTextFieldLable>رقم جواز السفر</TheTextFieldLable>
+          <v-text-field
+            :rules="[(v) => !!v || 'هذا الحقل اجباري']"
+            v-model="user.passport"
+          >
+          </v-text-field
+        ></v-col>
+      </v-row>
+
+      <div align="left">
+        <v-divider></v-divider>
+        <v-btn variant="text" class="mx-2"> حفظ </v-btn>
+        <v-btn @click="goToAcadimec"> حفظ واستمرار </v-btn>
+      </div>
+    </v-container>
+  </v-form>
 </template>
 <script>
 export default {
@@ -254,6 +285,16 @@ export default {
         passport: null,
       },
     };
+  },
+  methods: {
+    async goToAcadimec() {
+      const { valid } = await this.$refs.form.validate();
+      if (valid)
+        this.$router.push({
+          name: "ApplicationAcadimecInfo",
+          params: this.$route.params.id,
+        });
+    },
   },
 };
 </script>

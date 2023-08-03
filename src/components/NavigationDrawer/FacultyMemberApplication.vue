@@ -23,15 +23,21 @@
 
       <v-list-item
         color="primary"
-        prepend-icon="mdi-account"
+        prepend-icon="mdi-account-outline"
         title="البيانات الشخصية"
-        value="User Info"
+        value="ApplicationPersonalInfo"
       ></v-list-item>
       <v-list-item
         color="primary"
         prepend-icon="mdi-school-outline"
         title="البيانات الاكاديمية"
-        value="User Info"
+        value="ApplicationAcadimecInfo"
+      ></v-list-item>
+      <v-list-item
+        color="primary"
+        prepend-icon="mdi-note-multiple-outline"
+        title="الأوراق العلمية"
+        value="ApplicationScientificPaper"
       ></v-list-item>
       <v-list-item
         color="primary"
@@ -72,11 +78,17 @@ export default {
       this.$router.push({ name: "login" });
     },
     navigate() {
-      if (this.selectedItem == "Main") this.$router.push({ name: "Main" });
       if (this.selectedItem == "Application Management")
         this.$router.push({ name: "ApplicationManagement" });
-      if (this.selectedItem == "User Info")
-        this.$router.push({ name: "UserInfo" });
+
+      if (this.selectedItem == "ApplicationPersonalInfo")
+        this.$router.push({ name: "ApplicationPersonaInfo" });
+
+      if (this.selectedItem == "ApplicationAcadimecInfo")
+        this.$router.push({ name: "ApplicationAcadimecInfo" });
+
+      if (this.selectedItem == "ApplicationScientificPaper")
+        this.$router.push({ name: "ApplicationScientificPaper" });
     },
   },
 };

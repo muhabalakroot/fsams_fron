@@ -71,6 +71,28 @@ const routes = [
     },
   },
   {
+    path: "/ApplicationAcadimecInfo/:id",
+    name: "ApplicationAcadimecInfo",
+    component: () =>
+      import("@/pages/FacultyMember/Application/ApplicationAcadimecInfo.vue"),
+    meta: {
+      layout: AuthLayout,
+      navigationDrawer: "FacultyMemberApplication",
+    },
+  },
+  {
+    path: "/ApplicationScientificPaper/:id",
+    name: "ApplicationScientificPaper",
+    component: () =>
+      import(
+        "@/pages/FacultyMember/Application/ApplicationScientificPaper.vue"
+      ),
+    meta: {
+      layout: AuthLayout,
+      navigationDrawer: "FacultyMemberApplication",
+    },
+  },
+  {
     path: "/applicationStatus/:id",
     name: "applicationStatus",
     component: () => import("@/pages/FacultyMember/applicationStatus.vue"),
