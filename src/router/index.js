@@ -32,14 +32,6 @@ const routes = [
       isAuth: true,
     },
   },
-  {
-    path: "/Home",
-    name: "Home",
-    component: () => import("@/pages/Home.vue"),
-    meta: {
-      layout: AuthLayout,
-    },
-  },
   //Faculty Member
   {
     path: "/Main",

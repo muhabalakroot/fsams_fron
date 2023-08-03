@@ -25,7 +25,12 @@ export default createVuetify({
       variant: "outlined",
       style: "max-width: 340px",
     },
-    VBtn: { style: "margin: 10px 0px" },
+    VSelect: {
+      density: "compact",
+      variant: "outlined",
+      style: "max-width: 340px",
+    },
+    VBtn: { color: "primary", style: "margin: 10px 0px" },
   },
   components: {
     VDataTable,

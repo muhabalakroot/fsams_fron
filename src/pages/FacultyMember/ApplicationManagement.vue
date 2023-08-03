@@ -8,7 +8,7 @@
   <v-data-table
     v-model:page="page"
     :headers="headers"
-    :items="desserts"
+    :items="applications"
     :items-per-page="itemsPerPage"
     hide-default-footer
     class="elevation-1"
@@ -20,12 +20,22 @@
     </template>
   </v-data-table>
 
-  <div class="d-flex justify-center">
+  <!-- <div class="d-flex justify-center">
     <v-btn @click="addApplication">إنشاء طلب</v-btn>
-  </div>
+  </div> -->
+
+  <NewApplicationDialog class="ma-2"></NewApplicationDialog>
 </template>
 <script>
+import NewApplicationDialog from "@/components/Dialogs/NewApplicationDialog.vue";
+
+import { mapState } from "pinia";
+
+import { useAppicationsStore } from "@/store/applications";
 export default {
+  components: {
+    NewApplicationDialog,
+  },
   data() {
     return {
       page: 1,
@@ -41,35 +51,12 @@ export default {
         { title: "الحالة", key: "status" },
         { title: "الإرسال", key: "isSubmited" },
       ],
-      desserts: [
-        {
-          applicationType: "طلب ترقية ربيع 2023",
-          createdAt: "5/1/2023",
-          status: "قيد المعالجة",
-          isSubmited: "نعم",
-        },
-        {
-          applicationType: "طلب ترقية خريف 2019",
-          createdAt: "5/8/2019",
-          status: "مرفوض",
-          isSubmited: "نعم",
-        },
-      ],
     };
   },
   computed: {
+    ...mapState(useAppicationsStore, ["applications"]),
     pageCount() {
-      return Math.ceil(this.desserts.length / this.itemsPerPage);
-    },
-  },
-  methods: {
-    addApplication() {
-      this.desserts.push({
-        applicationType: "طلب ترقية خريف 2023",
-        createdAt: new Date().toLocaleDateString(),
-        status: "جديد",
-        isSubmited: "لا",
-      });
+      return Math.ceil(this.applications.length / this.itemsPerPage);
     },
   },
 };
