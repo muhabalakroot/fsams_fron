@@ -20,7 +20,11 @@ export default createVuetify({
     VCard: {
       style: "padding: 20px;",
     },
-    VTextField: { density: "compact", variant: "outlined" },
+    VTextField: {
+      density: "compact",
+      variant: "outlined",
+      style: "max-width: 340px",
+    },
     VBtn: { style: "margin: 10px 0px" },
   },
   components: {

@@ -21,7 +21,7 @@
   </v-data-table>
 
   <div class="d-flex justify-center">
-    <v-btn align="center">إنشاء طلب</v-btn>
+    <v-btn @click="addApplication">إنشاء طلب</v-btn>
   </div>
 </template>
 <script>
@@ -44,13 +44,13 @@ export default {
       desserts: [
         {
           applicationType: "طلب ترقية ربيع 2023",
-          createdAt: "15-03-2023",
+          createdAt: "5/1/2023",
           status: "قيد المعالجة",
           isSubmited: "نعم",
         },
         {
           applicationType: "طلب ترقية خريف 2019",
-          createdAt: "01-02-2019",
+          createdAt: "5/8/2019",
           status: "مرفوض",
           isSubmited: "نعم",
         },
@@ -60,6 +60,16 @@ export default {
   computed: {
     pageCount() {
       return Math.ceil(this.desserts.length / this.itemsPerPage);
+    },
+  },
+  methods: {
+    addApplication() {
+      this.desserts.push({
+        applicationType: "طلب ترقية خريف 2023",
+        createdAt: new Date().toLocaleDateString(),
+        status: "جديد",
+        isSubmited: "لا",
+      });
     },
   },
 };
