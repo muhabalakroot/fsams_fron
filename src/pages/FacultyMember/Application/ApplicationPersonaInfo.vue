@@ -37,6 +37,7 @@
         <v-col cols="6"
           ><TheTextFieldLable>الكلية</TheTextFieldLable>
           <v-select
+            style="max-width: 1000px"
             :rules="[(v) => !!v || 'هذا الحقل اجباري']"
             item-title="value"
             item-value="id"
@@ -50,6 +51,7 @@
         <v-col cols="6" v-if="users.faculty == 1"
           ><TheTextFieldLable>القسم العلمي</TheTextFieldLable>
           <v-select
+            style="max-width: 1000px"
             :rules="[(v) => !!v || 'هذا الحقل اجباري']"
             :items="[
               'قسم الرياضيات',
@@ -70,6 +72,7 @@
         <v-col cols="6" v-if="users.faculty == 2"
           ><TheTextFieldLable>القسم العلمي</TheTextFieldLable>
           <v-select
+            style="max-width: 1000px"
             :rules="[(v) => !!v || 'هذا الحقل اجباري']"
             :items="[
               'قسم الهندسة الكهربائية والالكترونية',
@@ -98,6 +101,7 @@
         <v-col cols="6" v-if="users.faculty == 3"
           ><TheTextFieldLable>القسم العلمي</TheTextFieldLable>
           <v-select
+            style="max-width: 1000px"
             :rules="[(v) => !!v || 'هذا الحقل اجباري']"
             :items="[
               'قسم الفنون المرئية',
@@ -115,6 +119,7 @@
         <v-col cols="6" v-if="users.faculty == 4"
           ><TheTextFieldLable>القسم العلمي</TheTextFieldLable>
           <v-select
+            style="max-width: 1000px"
             :rules="[(v) => !!v || 'هذا الحقل اجباري']"
             :items="[
               'قسم اللغة الإنجليزية',
@@ -135,6 +140,7 @@
         <v-col cols="6" v-if="users.faculty == 5"
           ><TheTextFieldLable>القسم العلمي</TheTextFieldLable>
           <v-select
+            style="max-width: 1000px"
             :rules="[(v) => !!v || 'هذا الحقل اجباري']"
             :items="[
               'قسم الاقتصاد الزراعي',
@@ -158,6 +164,7 @@
         <v-col cols="6" v-if="users.faculty == 6"
           ><TheTextFieldLable>القسم العلمي</TheTextFieldLable>
           <v-select
+            style="max-width: 1000px"
             :rules="[(v) => !!v || 'هذا الحقل اجباري']"
             :items="[
               'قسم هندسة البرمجيات',
@@ -175,6 +182,7 @@
         <v-col cols="6"
           ><TheTextFieldLable>القسم العلمي</TheTextFieldLable>
           <v-select
+            style="max-width: 1000px"
             :rules="[(v) => !!v || 'هذا الحقل اجباري']"
             :items="['لا يوجد أقسام بالوقت الحالي']"
             v-model="users.department"
@@ -187,6 +195,7 @@
         <v-col cols="6"
           ><TheTextFieldLable>الجنسية</TheTextFieldLable>
           <v-select
+            style="max-width: 1000px"
             :rules="[(v) => !!v || 'هذا الحقل اجباري']"
             item-title="value"
             item-value="id"
@@ -198,6 +207,7 @@
         <v-col cols="6" v-if="users.nationality == 1"
           ><TheTextFieldLable>الرقم الوطني</TheTextFieldLable>
           <v-text-field
+            style="max-width: 1000px"
             :rules="[(v) => !!v || 'هذا الحقل اجباري']"
             v-model="users.nationalNumber"
           >
@@ -207,6 +217,7 @@
         <v-col cols="6" v-if="users.nationality > 1 && users.nationality < 20"
           ><TheTextFieldLable>رقم جواز السفر</TheTextFieldLable>
           <v-text-field
+            style="max-width: 1000px"
             :rules="[(v) => !!v || 'هذا الحقل اجباري']"
             v-model="users.passport"
           >

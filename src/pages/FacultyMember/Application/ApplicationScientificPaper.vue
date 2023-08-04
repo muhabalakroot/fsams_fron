@@ -7,6 +7,9 @@
   </v-alert>
   <v-form ref="form">
     <v-data-table
+      hover
+      :loading="false"
+      no-data-text="إضغط على إضافة إنتاج علمي"
       :rules="[(v) => !!v || 'هذا الحقل اجباري']"
       v-model:page="page"
       :headers="headers"
@@ -66,8 +69,9 @@ export default {
           align: "start",
           key: "scientificPaperTitle",
           title: "عنوان الانتاج العلمي",
+          sortable: false,
         },
-        { title: "حهة النشر", key: "publisher" },
+        { title: "جهة النشر", key: "publisher" },
         { title: "تاريخ النشر", key: "dateOfpublishing" },
         { title: "إجراءات", key: "id" },
       ],

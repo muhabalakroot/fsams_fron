@@ -6,6 +6,8 @@
   >
 
   <v-data-table
+    hover
+    :loading="false"
     v-model:page="page"
     :headers="headers"
     :items="applications"
