@@ -103,6 +103,26 @@ const routes = [
     },
   },
   {
+    path: "/ApplicationReview/:id",
+    name: "ApplicationReview",
+    component: () =>
+      import("@/pages/FacultyMember/Application/ApplicationReview.vue"),
+    meta: {
+      layout: AuthLayout,
+      navigationDrawer: "FacultyMemberApplication",
+    },
+  },
+  {
+    path: "/ApplicationSubmited/:id",
+    name: "ApplicationSubmited",
+    component: () =>
+      import("@/pages/FacultyMember/Application/ApplicationSubmited.vue"),
+    meta: {
+      layout: AuthLayout,
+      navigationDrawer: "FacultyMember",
+    },
+  },
+  {
     path: "/applicationStatus/:id",
     name: "applicationStatus",
     component: () => import("@/pages/FacultyMember/applicationStatus.vue"),

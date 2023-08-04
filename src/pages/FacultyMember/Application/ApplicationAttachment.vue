@@ -6,10 +6,11 @@
     <v-data-table
       hover
       v-model:page="page"
-      :headers="headers"
+      :headers="attachmentHeader"
       :items="attachments"
       :items-per-page="itemsPerPage"
       hide-default-footer
+      no-data-text="الرجاء الانتظار قليلاً"
       class="elevation-1 mt-2"
     >
       <template v-slot:item="{ item }">
@@ -68,7 +69,7 @@ export default {
       users: null,
       page: 1,
       itemsPerPage: 5,
-      headers: [
+      attachmentHeader: [
         {
           align: "start",
           key: "name",
@@ -118,7 +119,7 @@ export default {
       const { valid } = await this.$refs.form.validate();
       if (valid)
         this.$router.push({
-          name: "ApplicationScientificPaper",
+          name: "ApplicationReview",
           params: this.$route.params.id,
         });
     },

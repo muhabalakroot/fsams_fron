@@ -61,7 +61,6 @@ export default {
   },
   data() {
     return {
-      users: null,
       page: 1,
       itemsPerPage: 5,
       headers: [

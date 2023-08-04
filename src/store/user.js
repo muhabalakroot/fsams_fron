@@ -5,9 +5,9 @@ export const useUsersStore = defineStore("Users", {
   state: () => ({
     users: [
       {
-        firstName: null,
-        fatherName: null,
-        lastName: null,
+        firstName: "رضوان",
+        fatherName: "عبد  الله",
+        lastName: "حسين",
         nationality: 1,
         faculty: null,
         department: null,

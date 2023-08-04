@@ -50,7 +50,7 @@
         color="primary"
         prepend-icon="mdi-note-search-outline"
         title="مراجعة الطلب"
-        value="User Info"
+        value="ApplicationReview"
       ></v-list-item>
 
       <!-- <v-divider class="ma-2"></v-divider> -->
@@ -92,6 +92,9 @@ export default {
 
       if (this.selectedItem == "ApplicationAttachment")
         this.$router.push({ name: "ApplicationAttachment" });
+
+      if (this.selectedItem == "ApplicationReview")
+        this.$router.push({ name: "ApplicationReview" });
     },
   },
 };
