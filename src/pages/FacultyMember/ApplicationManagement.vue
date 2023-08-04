@@ -11,7 +11,7 @@
     :items="applications"
     :items-per-page="itemsPerPage"
     hide-default-footer
-    class="elevation-1"
+    class="elevation-1 mt-2"
   >
     <template v-slot:item="{ item }">
       <tr>

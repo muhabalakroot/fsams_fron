@@ -36,7 +36,7 @@
       <v-list-item
         color="primary"
         prepend-icon="mdi-note-multiple-outline"
-        title="الأوراق العلمية"
+        title="الإنتاج العلمي"
         value="ApplicationScientificPaper"
       ></v-list-item>
       <v-list-item

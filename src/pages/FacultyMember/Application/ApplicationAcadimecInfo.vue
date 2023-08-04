@@ -10,7 +10,7 @@
         <v-col cols="4">
           <TheTextFieldLable>المؤهل العلمي</TheTextFieldLable>
           <v-select
-            v-model="user.qualification"
+            v-model="users.qualification"
             :rules="[(v) => !!v || 'هذا الحقل اجباري']"
             item-title="value"
             item-value="id"
@@ -25,7 +25,7 @@
           ><TheTextFieldLable>التخصص</TheTextFieldLable>
           <v-text-field
             :rules="[(v) => !!v || 'هذا الحقل اجباري']"
-            v-model="user.generalMajor"
+            v-model="users.generalMajor"
           >
           </v-text-field
         ></v-col>
@@ -33,7 +33,7 @@
           ><TheTextFieldLable>التخصص الدقيق</TheTextFieldLable>
           <v-text-field
             :rules="[(v) => !!v || 'هذا الحقل اجباري']"
-            v-model="user.exaxtMajor"
+            v-model="users.exaxtMajor"
           >
           </v-text-field
         ></v-col>
@@ -44,7 +44,7 @@
           ><TheTextFieldLable>الجامعة</TheTextFieldLable>
           <v-text-field
             :rules="[(v) => !!v || 'هذا الحقل اجباري']"
-            v-model="user.univercity"
+            v-model="users.univercity"
           >
           </v-text-field
         ></v-col>
@@ -52,7 +52,7 @@
           ><TheTextFieldLable>البلد</TheTextFieldLable>
           <v-text-field
             :rules="[(v) => !!v || 'هذا الحقل اجباري']"
-            v-model="user.country"
+            v-model="users.country"
           >
           </v-text-field
         ></v-col>
@@ -60,7 +60,7 @@
           ><TheTextFieldLable>المدينة</TheTextFieldLable>
           <v-text-field
             :rules="[(v) => !!v || 'هذا الحقل اجباري']"
-            v-model="user.city"
+            v-model="users.city"
           >
           </v-text-field
         ></v-col>
@@ -72,7 +72,7 @@
           <v-text-field
             type="date"
             :rules="[(v) => !!v || 'هذا الحقل اجباري']"
-            v-model="user.univercity"
+            v-model="users.dateOfObtaining"
           >
           </v-text-field
         ></v-col>
@@ -84,7 +84,7 @@
         <v-col cols="4">
           <TheTextFieldLable>الدرجة العلمية الحالية</TheTextFieldLable>
           <v-select
-            v-model="user.qualification"
+            v-model="users.currentDegree"
             item-title="value"
             item-value="id"
             :rules="[(v) => !!v || 'هذا الحقل اجباري']"
@@ -102,7 +102,7 @@
           ><TheTextFieldLable>رقم قرار الترقية</TheTextFieldLable>
           <v-text-field
             :rules="[(v) => !!v || 'هذا الحقل اجباري']"
-            v-model="user.generalMajor"
+            v-model="users.promotoinDegreeNumber"
           >
           </v-text-field
         ></v-col>
@@ -111,7 +111,7 @@
           <v-text-field
             :rules="[(v) => !!v || 'هذا الحقل اجباري']"
             type="date"
-            v-model="user.exaxtMajor"
+            v-model="users.degreeDateOfObtaing"
           >
           </v-text-field
         ></v-col>
@@ -123,6 +123,7 @@
           <v-file-input
             :rules="[(v) => !!v || 'هذا الحقل اجباري']"
             hint="الرجاء رفع صورة من قرار الترقية"
+            v-mode="users.promotoinDegreeFile"
           ></v-file-input>
         </v-col>
       </v-row>
@@ -137,13 +138,12 @@
   </v-form>
 </template>
 <script>
+import { useUsersStore } from "@/store/user";
+import { mapState } from "pinia";
+
 export default {
-  data() {
-    return {
-      user: {
-        qualification: null,
-      },
-    };
+  computed: {
+    ...mapState(useUsersStore, ["users"]),
   },
   methods: {
     async validate() {

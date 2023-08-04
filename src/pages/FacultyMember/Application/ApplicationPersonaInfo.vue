@@ -11,7 +11,7 @@
           <TheTextFieldLable>الاسم الأول</TheTextFieldLable>
           <v-text-field
             :rules="[(v) => !!v || 'هذا الحقل اجباري']"
-            v-model="user.firstName"
+            v-model="users.firstName"
           >
           </v-text-field>
         </v-col>
@@ -19,7 +19,7 @@
           ><TheTextFieldLable>الاسم الأب</TheTextFieldLable>
           <v-text-field
             :rules="[(v) => !!v || 'هذا الحقل اجباري']"
-            v-model="user.fatherName"
+            v-model="users.fatherName"
           >
           </v-text-field
         ></v-col>
@@ -27,7 +27,7 @@
           ><TheTextFieldLable>اللقب</TheTextFieldLable>
           <v-text-field
             :rules="[(v) => !!v || 'هذا الحقل اجباري']"
-            v-model="user.lastName"
+            v-model="users.lastName"
           >
           </v-text-field
         ></v-col>
@@ -41,13 +41,13 @@
             item-title="value"
             item-value="id"
             :items="colleges"
-            v-model="user.faculty"
+            v-model="users.faculty"
           >
           </v-select
         ></v-col>
 
         <!-- //كلية العلوم -->
-        <v-col cols="6" v-if="user.faculty == 1"
+        <v-col cols="6" v-if="users.faculty == 1"
           ><TheTextFieldLable>القسم العلمي</TheTextFieldLable>
           <v-select
             :rules="[(v) => !!v || 'هذا الحقل اجباري']"
@@ -61,13 +61,13 @@
               'قسم علوم الحاسب الآلي',
               'قسم الإحصاء',
             ]"
-            v-model="user.department"
+            v-model="users.department"
           >
           </v-select
         ></v-col>
 
         <!-- //كلية الهندسة -->
-        <v-col cols="6" v-if="user.faculty == 2"
+        <v-col cols="6" v-if="users.faculty == 2"
           ><TheTextFieldLable>القسم العلمي</TheTextFieldLable>
           <v-select
             :rules="[(v) => !!v || 'هذا الحقل اجباري']"
@@ -89,13 +89,13 @@
               'قسم الهندسة الطبية',
               'قسم الإدارة الهندسية',
             ]"
-            v-model="user.department"
+            v-model="users.department"
           >
           </v-select
         ></v-col>
 
         <!-- //كلية الفنون -->
-        <v-col cols="6" v-if="user.faculty == 3"
+        <v-col cols="6" v-if="users.faculty == 3"
           ><TheTextFieldLable>القسم العلمي</TheTextFieldLable>
           <v-select
             :rules="[(v) => !!v || 'هذا الحقل اجباري']"
@@ -106,13 +106,13 @@
               'قسم الفنون الموسيقية',
               'قسم الفنون الجميلة والتطبيقية',
             ]"
-            v-model="user.department"
+            v-model="users.department"
           >
           </v-select
         ></v-col>
 
         <!-- //كلية اللغات -->
-        <v-col cols="6" v-if="user.faculty == 4"
+        <v-col cols="6" v-if="users.faculty == 4"
           ><TheTextFieldLable>القسم العلمي</TheTextFieldLable>
           <v-select
             :rules="[(v) => !!v || 'هذا الحقل اجباري']"
@@ -126,13 +126,13 @@
               'المرحلة العامة',
               'قسم اللغة الفرنسية',
             ]"
-            v-model="user.department"
+            v-model="users.department"
           >
           </v-select
         ></v-col>
 
         <!-- //كلية الزراعة -->
-        <v-col cols="6" v-if="user.faculty == 5"
+        <v-col cols="6" v-if="users.faculty == 5"
           ><TheTextFieldLable>القسم العلمي</TheTextFieldLable>
           <v-select
             :rules="[(v) => !!v || 'هذا الحقل اجباري']"
@@ -149,13 +149,13 @@
               'قسم الانتاج الحيواني',
               'قسم علوم وتقنية الاغذية',
             ]"
-            v-model="user.department"
+            v-model="users.department"
           >
           </v-select
         ></v-col>
 
         <!-- كليتنا الغالية -->
-        <v-col cols="6" v-if="user.faculty == 6"
+        <v-col cols="6" v-if="users.faculty == 6"
           ><TheTextFieldLable>القسم العلمي</TheTextFieldLable>
           <v-select
             :rules="[(v) => !!v || 'هذا الحقل اجباري']"
@@ -167,7 +167,7 @@
               'قسم تقنيات الإنترنت',
               'قسم المرحلة العامة',
             ]"
-            v-model="user.department"
+            v-model="users.department"
           >
           </v-select
         ></v-col>
@@ -177,7 +177,7 @@
           <v-select
             :rules="[(v) => !!v || 'هذا الحقل اجباري']"
             :items="['لا يوجد أقسام بالوقت الحالي']"
-            v-model="user.department"
+            v-model="users.department"
           >
           </v-select
         ></v-col>
@@ -190,25 +190,25 @@
             :rules="[(v) => !!v || 'هذا الحقل اجباري']"
             item-title="value"
             item-value="id"
-            v-model="user.nationality"
+            v-model="users.nationality"
             :items="nationalityList"
           ></v-select
         ></v-col>
 
-        <v-col cols="6" v-if="user.nationality == 1"
+        <v-col cols="6" v-if="users.nationality == 1"
           ><TheTextFieldLable>الرقم الوطني</TheTextFieldLable>
           <v-text-field
             :rules="[(v) => !!v || 'هذا الحقل اجباري']"
-            v-model="user.nationalNumber"
+            v-model="users.nationalNumber"
           >
           </v-text-field
         ></v-col>
 
-        <v-col cols="6" v-if="user.nationality > 1 && user.nationality < 20"
+        <v-col cols="6" v-if="users.nationality > 1 && users.nationality < 20"
           ><TheTextFieldLable>رقم جواز السفر</TheTextFieldLable>
           <v-text-field
             :rules="[(v) => !!v || 'هذا الحقل اجباري']"
-            v-model="user.passport"
+            v-model="users.passport"
           >
           </v-text-field
         ></v-col>
@@ -223,6 +223,8 @@
   </v-form>
 </template>
 <script>
+import { useUsersStore } from "@/store/user";
+import { mapState } from "pinia";
 export default {
   data() {
     return {
@@ -273,18 +275,10 @@ export default {
         { id: 18, value: "صومالي" },
         { id: 19, value: "جيبوتي" },
       ],
-      user: {
-        firstName: null,
-        fatherName: null,
-        lastName: null,
-        nationality: 1,
-        faculty: null,
-        department: null,
-        degree: null,
-        nationalNumber: null,
-        passport: null,
-      },
     };
+  },
+  computed: {
+    ...mapState(useUsersStore, ["users"]),
   },
   methods: {
     async goToAcadimec() {
