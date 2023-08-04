@@ -2,7 +2,7 @@
 import { createRouter, createWebHistory } from "vue-router";
 import EmptyLayout from "@/layouts/EmptyLayout.vue";
 import AuthLayout from "@/layouts/AuthLayout.vue";
-import { useUsersStore } from "@/store/user";
+// import { useUsersStore } from "@/store/user";
 
 const routes = [
   //Authentication
@@ -36,7 +36,6 @@ const routes = [
       isAuth: true,
     },
   },
-  //Faculty Member
   // Main
   {
     path: "/Main",
@@ -67,6 +66,7 @@ const routes = [
       navigationDrawer: "FacultyMember",
     },
   },
+  // Faculty Member
   // ApplicationPersonaInfo
   {
     path: "/ApplicationPersonaInfo/:id",
@@ -145,11 +145,32 @@ const routes = [
       navigationDrawer: "FacultyMember",
     },
   },
-  //Head of Department
+  // Head of Department
+  // FacultyMembersManagment
   {
     path: "/FacultyMembersManagment",
     name: "FacultyMembersManagment",
     component: () => import("@/pages/DepartmentHead/FacultyMembersManagment"),
+    meta: {
+      layout: AuthLayout,
+      navigationDrawer: "FacultyMember",
+    },
+  },
+  {
+    path: "/FacultyMembersAccounts",
+    name: "FacultyMembersAccounts",
+    component: () =>
+      import("@/pages/DepartmentHead/FacultyMembersAccounts.vue"),
+    meta: {
+      layout: AuthLayout,
+      navigationDrawer: "FacultyMember",
+    },
+  },
+  {
+    path: "/FacultyMembersApplications",
+    name: "FacultyMembersApplications",
+    component: () =>
+      import("@/pages/DepartmentHead/FacultyMembersApplications.vue"),
     meta: {
       layout: AuthLayout,
       navigationDrawer: "FacultyMember",

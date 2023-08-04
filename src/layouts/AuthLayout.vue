@@ -9,13 +9,37 @@
     </v-main>
 
     <FacultyMembeNavigationDrawer
-      v-if="userRole == 'faculty-member'"
+      v-if="
+        userRole == 'faculty-member' &&
+        $route.name !== 'ApplicationPersonaInfo' &&
+        $route.name !== 'ApplicationAcadimecInfo' &&
+        $route.name !== 'ApplicationScientificPaper' &&
+        $route.name !== 'ApplicationAttachment' &&
+        $route.name !== 'ApplicationReview'
+      "
     ></FacultyMembeNavigationDrawer>
 
+    <DepartmentHead
+      v-else-if="
+        userRole == 'department-head' &&
+        $route.name !== 'ApplicationPersonaInfo' &&
+        $route.name !== 'ApplicationAcadimecInfo' &&
+        $route.name !== 'ApplicationScientificPaper' &&
+        $route.name !== 'ApplicationAttachment' &&
+        $route.name !== 'ApplicationReview'
+      "
+    ></DepartmentHead>
+
     <FacultyMembeApplicationNavigationDrawer
-      v-if="userRole == 'faculty-member'"
+      v-else-if="
+        userRole == 'faculty-member' ||
+        userRole == 'department-head' ||
+        ($route.name !== 'ApplicationManagement' &&
+          $route.name !== 'Main' &&
+          $route.name !== 'FacultyMembersManagment' &&
+          $route.name !== 'UserInfo')
+      "
     ></FacultyMembeApplicationNavigationDrawer>
-    <DepartmentHead v-if="userRole == 'department-head'"></DepartmentHead>
     <TheFooter></TheFooter>
   </v-layout>
 </template>

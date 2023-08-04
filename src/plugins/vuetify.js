@@ -36,7 +36,7 @@ export default createVuetify({
       style: "max-width: 340px",
     },
 
-    VBtn: { color: "primary", style: "margin: 10px 0px" },
+    VBtn: { variant: "elevated", color: "primary", style: "margin: 10px 0px" },
   },
   components: {
     VDataTable,
