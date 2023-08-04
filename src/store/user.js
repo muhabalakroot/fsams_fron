@@ -5,6 +5,7 @@ export const useUsersStore = defineStore("Users", {
   state: () => ({
     users: [
       {
+        role: "department-head",
         firstName: "رضوان",
         fatherName: "عبد  الله",
         lastName: "حسين",
@@ -108,6 +109,9 @@ export const useUsersStore = defineStore("Users", {
         });
       });
       return attachments;
+    },
+    userRole() {
+      return this.users[0].role;
     },
   },
 });

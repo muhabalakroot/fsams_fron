@@ -102,8 +102,10 @@ export default {
 
       if (valid) {
         this.isLoading = true;
-        setTimeout(this.$router.push({ name: "Main" }), 3000);
-        this.isLoading = false;
+        setTimeout(() => {
+          this.$router.push({ name: "Main" });
+          this.isLoading = false;
+        }, 2000);
       }
     },
   },

@@ -9,29 +9,38 @@
     </v-main>
 
     <FacultyMembeNavigationDrawer
-      v-if="$route.meta.navigationDrawer == 'FacultyMember'"
+      v-if="userRole == 'faculty-member'"
     ></FacultyMembeNavigationDrawer>
 
     <FacultyMembeApplicationNavigationDrawer
-      v-if="$route.meta.navigationDrawer == 'FacultyMemberApplication'"
+      v-if="userRole == 'faculty-member'"
     ></FacultyMembeApplicationNavigationDrawer>
+    <DepartmentHead v-if="userRole == 'department-head'"></DepartmentHead>
     <TheFooter></TheFooter>
   </v-layout>
 </template>
 <script>
+import DepartmentHead from "@/components/NavigationDrawer/DepartmentHead.vue";
 import FacultyMembeApplicationNavigationDrawer from "@/components/NavigationDrawer/FacultyMemberApplication.vue";
 import FacultyMembeNavigationDrawer from "@/components/NavigationDrawer/FacultyMember.vue";
 import TheFooter from "@/components/ui/Thefooter.vue";
+
+import { useUsersStore } from "@/store/user";
+import { mapState } from "pinia";
 export default {
   components: {
     TheFooter,
     FacultyMembeNavigationDrawer,
     FacultyMembeApplicationNavigationDrawer,
+    DepartmentHead,
   },
   data() {
     return {
       name: "د. رضوان حسين",
     };
+  },
+  computed: {
+    ...mapState(useUsersStore, ["userRole"]),
   },
 };
 </script>

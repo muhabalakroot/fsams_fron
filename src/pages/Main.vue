@@ -15,6 +15,18 @@
       الإجراءات على أعضاء هيئة التدريس من خلال تقديم طلبات سلسة وفعالة.
     </div>
 
+    <div v-if="userRole == 'department-head'">
+      <v-divider></v-divider>
+
+      <div class="pb-2">
+        كرئيس قسم علمي أنت مسؤول عن معالجة الطلبات التي ترد من أعضاء هيئة
+        التدريس التابعين لقسمك العلمي، كما يمكنك إضافة وتعديل بيانات وحذف حسابات
+        أعضاء هيئة التدريس بقسمك.
+      </div>
+
+      <div class="pb-2">يمكنك أيضا تقديم الطلبات عن طريق هذا الحساب.</div>
+    </div>
+
     <v-divider></v-divider>
 
     <div class="font-weight-bold pt-2">معلومات تهمك عند تصفح الطلب:</div>
@@ -43,11 +55,16 @@
   </div>
 </template>
 <script>
+import { useUsersStore } from "@/store/user";
+import { mapState } from "pinia";
 export default {
   data() {
     return {
       name: "د. رضوان حسين",
     };
+  },
+  computed: {
+    ...mapState(useUsersStore, ["userRole"]),
   },
 };
 </script>

@@ -21,8 +21,14 @@
       <v-list-item
         color="primary"
         prepend-icon="mdi-note-edit-outline"
-        title="إدارة الطلبات"
+        title="الطلبات"
         value="Application Management"
+      ></v-list-item>
+      <v-list-item
+        color="primary"
+        prepend-icon="mdi-account-group-outline"
+        title="أعضاء هيئة التدريس"
+        value="FacultyMembersManagment"
       ></v-list-item>
       <v-list-item
         color="primary"
@@ -59,6 +65,8 @@ export default {
       if (this.selectedItem == "Main") this.$router.push({ name: "Main" });
       if (this.selectedItem == "Application Management")
         this.$router.push({ name: "ApplicationManagement" });
+      if (this.selectedItem == "FacultyMembersManagment")
+        this.$router.push({ name: "FacultyMembersManagment" });
       if (this.selectedItem == "User Info")
         this.$router.push({ name: "UserInfo" });
     },
