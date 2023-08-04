@@ -43,7 +43,7 @@
         color="primary"
         prepend-icon="mdi-paperclip"
         title="المرفقات"
-        value="User Info"
+        value="ApplicationAttachment"
       ></v-list-item>
 
       <v-list-item
@@ -89,6 +89,9 @@ export default {
 
       if (this.selectedItem == "ApplicationScientificPaper")
         this.$router.push({ name: "ApplicationScientificPaper" });
+
+      if (this.selectedItem == "ApplicationAttachment")
+        this.$router.push({ name: "ApplicationAttachment" });
     },
   },
 };

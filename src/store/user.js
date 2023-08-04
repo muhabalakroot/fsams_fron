@@ -44,6 +44,12 @@ export const useUsersStore = defineStore("Users", {
     addScientificPapers(newScientificPaper) {
       this.users[0].scientificPaper.push(newScientificPaper);
     },
+    deleteScientificPapers(paperId) {
+      console.log(paperId);
+      this.users[0].scientificPaper = this.users[0].scientificPaper.filter(
+        (paper) => paper.id !== paperId
+      );
+    },
   },
   getters: {
     scientificPaper() {

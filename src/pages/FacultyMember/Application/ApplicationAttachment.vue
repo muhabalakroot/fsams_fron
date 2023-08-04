@@ -7,7 +7,6 @@
   </v-alert>
   <v-form ref="form">
     <v-data-table
-      :rules="[(v) => !!v || 'هذا الحقل اجباري']"
       v-model:page="page"
       :headers="headers"
       :items="scientificPaper"
@@ -88,7 +87,7 @@ export default {
       const { valid } = await this.$refs.form.validate();
       if (valid)
         this.$router.push({
-          name: "ApplicationAttachment",
+          name: "ApplicationScientificPaper",
           params: this.$route.params.id,
         });
     },
