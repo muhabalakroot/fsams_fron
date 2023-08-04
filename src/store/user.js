@@ -24,7 +24,7 @@ export const useUsersStore = defineStore("Users", {
         currentDegree: null,
         promotoinDegreeNumber: null,
         degreeDateOfObtaing: null,
-        promotoinDegreeFile: null,
+        promotoinDegreeFile: [],
         scientificPaper: [
           {
             id: 1,
@@ -40,6 +40,11 @@ export const useUsersStore = defineStore("Users", {
       },
     ],
   }),
+  actions: {
+    addScientificPapers(newScientificPaper) {
+      this.users[0].scientificPaper.push(newScientificPaper);
+    },
+  },
   getters: {
     scientificPaper() {
       const scientificPapers = [];

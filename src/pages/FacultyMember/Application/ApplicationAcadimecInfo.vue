@@ -123,7 +123,7 @@
           <v-file-input
             :rules="[(v) => !!v || 'هذا الحقل اجباري']"
             hint="الرجاء رفع صورة من قرار الترقية"
-            v-mode="users.promotoinDegreeFile"
+            v-model="users.promotoinDegreeFile"
           ></v-file-input>
         </v-col>
       </v-row>

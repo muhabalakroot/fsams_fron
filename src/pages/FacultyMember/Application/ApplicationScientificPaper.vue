@@ -20,11 +20,7 @@
         <td>{{ item.columns.publisher }}</td>
         <td>{{ item.columns.dateOfpublishing }}</td>
         <td>
-          <v-btn
-            v-if="item.columns.id == null"
-            @click="openApplicationPage(item.columns.id)"
-            >تعديل</v-btn
-          >
+          <v-btn><v-icon icon="mdi-pencil-outline"></v-icon></v-btn>
         </td>
       </tr>
     </template>
@@ -58,6 +54,7 @@ export default {
         },
         { title: "حهة النشر", key: "publisher" },
         { title: "تاريخ النشر", key: "dateOfpublishing" },
+        { title: "إجراءات", key: "id" },
       ],
     };
   },

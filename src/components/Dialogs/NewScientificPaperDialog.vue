@@ -13,10 +13,10 @@
             <v-container>
               <v-row>
                 <v-col cols="4">
-                  <TheTextFieldLable>نوع الإنتاج العلمي</TheTextFieldLable>
+                  <TheTextFieldLable>عنوان الإنتاج العلمي</TheTextFieldLable>
                   <v-text-field
                     :rules="[(v) => !!v || 'هذا الحقل اجباري']"
-                    v-model="user.generalMajor"
+                    v-model="scientificPaperTitle"
                   >
                   </v-text-field>
                 </v-col>
@@ -25,7 +25,7 @@
                   ><TheTextFieldLable>جهة النشر</TheTextFieldLable>
                   <v-text-field
                     :rules="[(v) => !!v || 'هذا الحقل اجباري']"
-                    v-model="user.generalMajor"
+                    v-model="publisher"
                   >
                   </v-text-field
                 ></v-col>
@@ -33,7 +33,7 @@
                 <v-col cols="4"
                   ><TheTextFieldLable>نوع جهة النشر</TheTextFieldLable>
                   <v-select
-                    v-model="user.qualification"
+                    v-model="publisherType"
                     :rules="[(v) => !!v || 'هذا الحقل اجباري']"
                     item-title="value"
                     item-value="id"
@@ -55,7 +55,7 @@
                   >
                   <v-text-field
                     :rules="[(v) => !!v || 'هذا الحقل اجباري']"
-                    v-model="user.univercity"
+                    v-model="scientificPaperUrl"
                   >
                   </v-text-field
                 ></v-col>
@@ -64,15 +64,7 @@
                   <v-text-field
                     type="date"
                     :rules="[(v) => !!v || 'هذا الحقل اجباري']"
-                    v-model="user.country"
-                  >
-                  </v-text-field
-                ></v-col>
-                <v-col cols="4"
-                  ><TheTextFieldLable>المدينة</TheTextFieldLable>
-                  <v-text-field
-                    :rules="[(v) => !!v || 'هذا الحقل اجباري']"
-                    v-model="user.city"
+                    v-model="dateOfpublishing"
                   >
                   </v-text-field
                 ></v-col>
@@ -88,6 +80,7 @@
                   <v-file-input
                     :rules="[(v) => !!v || 'هذا الحقل اجباري']"
                     hint="الإنتاج العلمي بدون أسماء"
+                    v-model="scientificPaperNoNamesFile"
                   ></v-file-input>
                 </v-col>
               </v-row>
@@ -106,16 +99,10 @@
                   >
                   <v-file-input
                     :rules="[(v) => !!v || 'هذا الحقل اجباري']"
+                    v-model="acceptanceLetter"
                   ></v-file-input>
                 </v-col>
               </v-row>
-
-              <v-divider></v-divider>
-
-              <div align="left">
-                <v-btn variant="text" class="mx-2"> حفظ </v-btn>
-                <v-btn @click="validate"> حفظ واستمرار </v-btn>
-              </div>
             </v-container>
           </v-form>
         </v-card-text>
@@ -124,30 +111,46 @@
           <v-btn variant="text" @click="dialog = false" class="mx-2">
             إلغاء
           </v-btn>
-          <v-btn @click="addNewApplication"> حفظ </v-btn>
+          <v-btn @click="addNewScientificPapers"> حفظ </v-btn>
         </div>
       </v-card>
     </v-dialog>
   </v-row>
 </template>
 <script>
-import { useAppicationsStore } from "@/store/applications";
+import { useUsersStore } from "@/store/user";
 import { mapActions } from "pinia";
 export default {
   data: () => ({
     dialog: false,
+    acceptanceLetter: [],
+    dateOfpublishing: "",
+    id: new Date().getTime(),
+    publisher: "",
+    publisherType: "",
+    scientificPaperNoNamesFile: [],
+    scientificPaperTitle: "",
+    scientificPaperUrl: "",
   }),
+
   methods: {
-    ...mapActions(useAppicationsStore, ["addApplication"]),
-    addNewApplication() {
-      this.addApplication({
-        applicationId: "3",
-        applicationType: "طلب ترقية خريف 2024",
-        createdAt: new Date().toLocaleDateString(),
-        status: "جديد",
-        isSubmited: "لا",
-      });
-      this.dialog = false;
+    ...mapActions(useUsersStore, ["addScientificPapers"]),
+    async addNewScientificPapers() {
+      const { valid } = await this.$refs.form.validate();
+
+      if (valid) {
+        this.addScientificPapers({
+          acceptanceLetter: this.acceptanceLetter,
+          dateOfpublishing: this.dateOfpublishing,
+          id: this.id,
+          publisher: this.publisher,
+          publisherType: this.publisherType,
+          scientificPaperNoNamesFile: this.scientificPaperNoNamesFile,
+          scientificPaperTitle: this.scientificPaperTitle,
+          scientificPaperUrl: this.scientificPaperUrl,
+        });
+        this.dialog = false;
+      }
     },
   },
 };
