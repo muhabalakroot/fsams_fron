@@ -6,7 +6,7 @@
           prepend-icon=""
           color="primary"
           class="mx-auto pa-2"
-          max-width="344"
+          max-width="350"
           variant="outlined"
         >
           <v-icon
@@ -40,7 +40,7 @@
         <v-card
           color="primary"
           class="mx-auto pa-2"
-          max-width="344"
+          max-width="350"
           variant="outlined"
         >
           <v-icon

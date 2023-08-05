@@ -150,7 +150,8 @@ const routes = [
   {
     path: "/FacultyMembersManagment",
     name: "FacultyMembersManagment",
-    component: () => import("@/pages/DepartmentHead/FacultyMembersManagment"),
+    component: () =>
+      import("@/pages/FacultyMembersManagement/FacultyMembersManagment"),
     meta: {
       layout: AuthLayout,
       navigationDrawer: "FacultyMember",
@@ -160,7 +161,7 @@ const routes = [
     path: "/FacultyMembersAccounts",
     name: "FacultyMembersAccounts",
     component: () =>
-      import("@/pages/DepartmentHead/FacultyMembersAccounts.vue"),
+      import("@/pages/FacultyMembersManagement/FacultyMembersAccounts.vue"),
     meta: {
       layout: AuthLayout,
       navigationDrawer: "FacultyMember",
@@ -170,7 +171,7 @@ const routes = [
     path: "/FacultyMembersApplications",
     name: "FacultyMembersApplications",
     component: () =>
-      import("@/pages/DepartmentHead/FacultyMembersApplications.vue"),
+      import("@/pages/FacultyMembersManagement/FacultyMembersApplications.vue"),
     meta: {
       layout: AuthLayout,
       navigationDrawer: "FacultyMember",
