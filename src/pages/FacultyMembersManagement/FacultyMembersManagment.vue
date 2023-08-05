@@ -62,7 +62,9 @@
 
           <v-card-actions>
             <v-btn
-              @click="$router.push({ name: 'FacultyMembersApplications' })"
+              @click="
+                $router.push({ name: 'FacultyMembersApplicationsManagement' })
+              "
               append-icon="mdi-chevron-left"
               variant="outlined"
             >

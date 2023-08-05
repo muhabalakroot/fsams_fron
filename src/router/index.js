@@ -126,7 +126,7 @@ const routes = [
   },
   // ApplicationSubmited
   {
-    path: "/ApplicationSubmited/:id",
+    path: "/ApplicationSubmited",
     name: "ApplicationSubmited",
     component: () =>
       import("@/pages/FacultyMember/Application/ApplicationSubmited.vue"),
@@ -168,10 +168,12 @@ const routes = [
     },
   },
   {
-    path: "/FacultyMembersApplications",
-    name: "FacultyMembersApplications",
+    path: "/FacultyMembersApplicationsManagement",
+    name: "FacultyMembersApplicationsManagement",
     component: () =>
-      import("@/pages/FacultyMembersManagement/FacultyMembersApplications.vue"),
+      import(
+        "@/pages/FacultyMembersManagement/FacultyMembersApplicationsManagement.vue"
+      ),
     meta: {
       layout: AuthLayout,
       navigationDrawer: "FacultyMember",

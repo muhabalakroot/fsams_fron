@@ -8,6 +8,7 @@ export const useApplyingStore = defineStore("Applyings", {
         applyingId: "1",
         applicationType: "طلب ترقية ربيع 2023",
         createdAt: "5/1/2023",
+        submitedAt: "5/1/2023",
         status: "قيد المعالجة",
         isSubmited: "نعم",
         role: "department-head",
@@ -17,19 +18,22 @@ export const useApplyingStore = defineStore("Applyings", {
         nationality: "ليبي",
         faculty: "كلية تقنية المعلومات",
         department: "قسم هندسة البرمجيات",
-        degree: null,
+        // degree: null,
         nationalNumber: "1200000457898",
         passport: null,
         qualification: "دكتوراه",
         generalMajor: "Exper Systems",
-        exaxtMajor: null,
+        exaxtMajor: "123456",
         univercity: "جامعة المرقب",
-        country: null,
-        city: null,
+        country: "بريطانيا",
+        city: "مانشيستر",
         dateOfObtaining: "2000-01-02",
         currentDegree: "أستاذ مشارك",
         promotoinDegreeNumber: "123456",
         degreeDateOfObtaing: "2022-05-18",
+        dhNote: null,
+        departmentMeetingMinutes: [],
+        showenToDepartment: "",
         promotoinDegreeFile: [],
         scientificPaper: [
           {
@@ -39,8 +43,8 @@ export const useApplyingStore = defineStore("Applyings", {
             publisherType: "إختبار",
             scientificPaperUrl: "إختبار",
             dateOfpublishing: "01-01-2000",
-            scientificPaperNoNamesFile: "إختبار",
-            acceptanceLetter: "إختبار",
+            scientificPaperNoNamesFile: [],
+            acceptanceLetter: [],
           },
           {
             id: "2",
@@ -49,8 +53,8 @@ export const useApplyingStore = defineStore("Applyings", {
             publisherType: "إختبار",
             scientificPaperUrl: "إختبار",
             dateOfpublishing: "01-01-2000",
-            scientificPaperNoNamesFile: "إختبار",
-            acceptanceLetter: "إختبار",
+            scientificPaperNoNamesFile: [],
+            acceptanceLetter: [],
           },
           {
             id: "3",
@@ -59,8 +63,8 @@ export const useApplyingStore = defineStore("Applyings", {
             publisherType: "إختبار",
             scientificPaperUrl: "إختبار",
             dateOfpublishing: "01-01-2000",
-            scientificPaperNoNamesFile: "إختبار",
-            acceptanceLetter: "إختبار",
+            scientificPaperNoNamesFile: [],
+            acceptanceLetter: [],
           },
         ],
         attachments: [
@@ -102,12 +106,28 @@ export const useApplyingStore = defineStore("Applyings", {
             file: ["a"],
           },
         ],
+        reviewers: [
+          {
+            id: 1,
+            name: "الحرمين الحرمين",
+            univercity: "جامعة طرابلس",
+            degree: "أستاذ",
+            generalMajor: "Expert Systems",
+          },
+        ],
       },
     ],
   }),
   actions: {
-    addApplication(newApplication) {
-      this.applications.push(newApplication);
+    deleteScientificPapers(paperId) {
+      console.log(paperId);
+      this.applyings[0].scientificPaper =
+        this.applyings[0].scientificPaper.filter(
+          (paper) => paper.id !== paperId
+        );
+    },
+    addScientificPapers(newScientificPaper) {
+      this.users[0].scientificPaper.push(newScientificPaper);
     },
   },
 });

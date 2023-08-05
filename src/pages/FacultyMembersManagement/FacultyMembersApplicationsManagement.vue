@@ -193,8 +193,12 @@
               >
             </v-row>
           </PrintLayout>
+          <!--end of Form to print -->
           <v-btn class="ma-1"
-            ><v-icon @click="editItem(item.raw)" icon="mdi-eye-outline"></v-icon
+            ><v-icon
+              @click="reviewItem(item.raw.applyingId)"
+              icon="mdi-eye-outline"
+            ></v-icon
           ></v-btn>
         </td>
         <td></td>
@@ -237,45 +241,10 @@ export default {
       { title: "تاريخ التقديم", key: "createdAt" },
       { title: "الإجراءات", key: "actions", sortable: false },
     ],
-    desserts: [],
-    editedIndex: -1,
-    editedItem: {
-      email: null,
-      firstName: null,
-      fatherName: null,
-      lastName: null,
-      nationality: null,
-      faculty: null,
-      department: null,
-      qualification: null,
-      currentDegree: null,
-      dateOfObtaining: null,
-    },
-    defaultItem: {
-      email: null,
-      firstName: null,
-      fatherName: null,
-      lastName: null,
-      nationality: null,
-      faculty: null,
-      department: null,
-      qualification: null,
-      currentDegree: null,
-      dateOfObtaining: null,
-    },
   }),
 
   computed: {
     ...mapState(useApplyingStore, ["applyings"]),
-  },
-
-  watch: {
-    dialog(val) {
-      val || this.close();
-    },
-    dialogDelete(val) {
-      val || this.closeDelete();
-    },
   },
 
   created() {
@@ -284,56 +253,12 @@ export default {
 
   methods: {
     // ...mapActions(useFacultyMembersStore, ["crudChange"]),
-    saveToState() {
-      this.crudChange(this.desserts);
+    reviewItem(id) {
+      console.log(id);
+      this.$router.push({ name: "ApplicationReview", params: { id: id } });
     },
     initialize() {
       this.desserts = this.applyings;
-    },
-
-    editItem(item) {
-      this.editedIndex = this.desserts.indexOf(item);
-      this.editedItem = Object.assign({}, item);
-      this.dialog = true;
-    },
-
-    deleteItem(item) {
-      this.editedIndex = this.desserts.indexOf(item);
-      this.editedItem = Object.assign({}, item);
-      this.dialogDelete = true;
-    },
-
-    deleteItemConfirm() {
-      this.desserts.splice(this.editedIndex, 1);
-      this.closeDelete();
-    },
-
-    close() {
-      this.dialog = false;
-      this.$nextTick(() => {
-        this.editedItem = Object.assign({}, this.defaultItem);
-        this.editedIndex = -1;
-      });
-    },
-
-    closeDelete() {
-      this.dialogDelete = false;
-      this.$nextTick(() => {
-        this.editedItem = Object.assign({}, this.defaultItem);
-        this.editedIndex = -1;
-      });
-    },
-
-    async save() {
-      const { valid } = await this.$refs.form.validate();
-      if (valid) {
-        if (this.editedIndex > -1) {
-          Object.assign(this.desserts[this.editedIndex], this.editedItem);
-        } else {
-          this.desserts.push(this.editedItem);
-        }
-        this.close();
-      }
     },
     async printList() {
       console.log(this.applyings);

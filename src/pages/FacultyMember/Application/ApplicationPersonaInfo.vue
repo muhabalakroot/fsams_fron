@@ -11,7 +11,7 @@
           <TheTextFieldLable>الاسم الأول</TheTextFieldLable>
           <v-text-field
             :rules="[(v) => !!v || 'هذا الحقل اجباري']"
-            v-model="users.firstName"
+            v-model="user.firstName"
           >
           </v-text-field>
         </v-col>
@@ -19,7 +19,7 @@
           ><TheTextFieldLable>الاسم الأب</TheTextFieldLable>
           <v-text-field
             :rules="[(v) => !!v || 'هذا الحقل اجباري']"
-            v-model="users.fatherName"
+            v-model="user.fatherName"
           >
           </v-text-field
         ></v-col>
@@ -27,7 +27,7 @@
           ><TheTextFieldLable>اللقب</TheTextFieldLable>
           <v-text-field
             :rules="[(v) => !!v || 'هذا الحقل اجباري']"
-            v-model="users.lastName"
+            v-model="user.lastName"
           >
           </v-text-field
         ></v-col>
@@ -42,13 +42,13 @@
             item-title="value"
             item-value="value"
             :items="colleges"
-            v-model="users.faculty"
+            v-model="user.faculty"
           >
           </v-select
         ></v-col>
 
         <!-- //كلية العلوم -->
-        <v-col cols="6" v-if="users.faculty == 'كلية العلوم'"
+        <v-col cols="6" v-if="user.faculty == 'كلية العلوم'"
           ><TheTextFieldLable>القسم العلمي</TheTextFieldLable>
           <v-select
             style="max-width: 1000px"
@@ -63,13 +63,13 @@
               'قسم علوم الحاسب الآلي',
               'قسم الإحصاء',
             ]"
-            v-model="users.department"
+            v-model="user.department"
           >
           </v-select
         ></v-col>
 
         <!-- //كلية الهندسة -->
-        <v-col cols="6" v-if="users.faculty == 'كلية الهندسة'"
+        <v-col cols="6" v-if="user.faculty == 'كلية الهندسة'"
           ><TheTextFieldLable>القسم العلمي</TheTextFieldLable>
           <v-select
             style="max-width: 1000px"
@@ -92,13 +92,13 @@
               'قسم الهندسة الطبية',
               'قسم الإدارة الهندسية',
             ]"
-            v-model="users.department"
+            v-model="user.department"
           >
           </v-select
         ></v-col>
 
         <!-- //كلية الفنون -->
-        <v-col cols="6" v-if="users.faculty == 'كلية الفنون'"
+        <v-col cols="6" v-if="user.faculty == 'كلية الفنون'"
           ><TheTextFieldLable>القسم العلمي</TheTextFieldLable>
           <v-select
             style="max-width: 1000px"
@@ -110,13 +110,13 @@
               'قسم الفنون الموسيقية',
               'قسم الفنون الجميلة والتطبيقية',
             ]"
-            v-model="users.department"
+            v-model="user.department"
           >
           </v-select
         ></v-col>
 
         <!-- //كلية اللغات -->
-        <v-col cols="6" v-if="users.faculty == 'كلية اللغات'"
+        <v-col cols="6" v-if="user.faculty == 'كلية اللغات'"
           ><TheTextFieldLable>القسم العلمي</TheTextFieldLable>
           <v-select
             style="max-width: 1000px"
@@ -131,13 +131,13 @@
               'المرحلة العامة',
               'قسم اللغة الفرنسية',
             ]"
-            v-model="users.department"
+            v-model="user.department"
           >
           </v-select
         ></v-col>
 
         <!-- //كلية الزراعة -->
-        <v-col cols="6" v-if="users.faculty == 'كلية الزراعة'"
+        <v-col cols="6" v-if="user.faculty == 'كلية الزراعة'"
           ><TheTextFieldLable>القسم العلمي</TheTextFieldLable>
           <v-select
             style="max-width: 1000px"
@@ -155,13 +155,13 @@
               'قسم الانتاج الحيواني',
               'قسم علوم وتقنية الاغذية',
             ]"
-            v-model="users.department"
+            v-model="user.department"
           >
           </v-select
         ></v-col>
 
         <!-- كليتنا الغالية -->
-        <v-col cols="6" v-if="users.faculty == 'كلية تقنية المعلومات'"
+        <v-col cols="6" v-if="user.faculty == 'كلية تقنية المعلومات'"
           ><TheTextFieldLable>القسم العلمي</TheTextFieldLable>
           <v-select
             style="max-width: 1000px"
@@ -174,7 +174,7 @@
               'قسم تقنيات الإنترنت',
               'قسم المرحلة العامة',
             ]"
-            v-model="users.department"
+            v-model="user.department"
           >
           </v-select
         ></v-col>
@@ -188,27 +188,27 @@
             :rules="[(v) => !!v || 'هذا الحقل اجباري']"
             item-title="value"
             item-value="id"
-            v-model="users.nationality"
+            v-model="user.nationality"
             :items="nationalityList"
           ></v-select
         ></v-col>
 
-        <v-col cols="6" v-if="users.nationality == 1"
+        <v-col cols="6" v-if="user.nationality == 1"
           ><TheTextFieldLable>الرقم الوطني</TheTextFieldLable>
           <v-text-field
             style="max-width: 1000px"
             :rules="[(v) => !!v || 'هذا الحقل اجباري']"
-            v-model="users.nationalNumber"
+            v-model="user.nationalNumber"
           >
           </v-text-field
         ></v-col>
 
-        <v-col cols="6" v-if="users.nationality > 1 && users.nationality < 20"
+        <v-col cols="6" v-if="user.nationality > 1 && user.nationality < 20"
           ><TheTextFieldLable>رقم جواز السفر</TheTextFieldLable>
           <v-text-field
             style="max-width: 1000px"
             :rules="[(v) => !!v || 'هذا الحقل اجباري']"
-            v-model="users.passport"
+            v-model="user.passport"
           >
           </v-text-field
         ></v-col>
@@ -223,11 +223,12 @@
   </v-form>
 </template>
 <script>
-import { useUsersStore } from "@/store/user";
+import { useApplyingStore } from "@/store/applying";
 import { mapState } from "pinia";
 export default {
   data() {
     return {
+      user: null,
       colleges: [
         { id: 1, value: "كلية العلوم" },
         { id: 2, value: "كلية الهندسة" },
@@ -278,7 +279,7 @@ export default {
     };
   },
   computed: {
-    ...mapState(useUsersStore, ["users"]),
+    ...mapState(useApplyingStore, ["applyings"]),
   },
   methods: {
     async goToAcadimec() {
@@ -289,6 +290,12 @@ export default {
           params: this.$route.params.id,
         });
     },
+    initialize() {
+      this.user = this.applyings[0];
+    },
+  },
+  created() {
+    this.initialize();
   },
 };
 </script>

@@ -3,52 +3,33 @@
 
   <v-alert type="info">يفضل أن يتم رفع الملفات بصيغة PDF.</v-alert>
   <v-form ref="form">
-    <v-data-table
-      hover
-      v-model:page="page"
-      :headers="attachmentHeader"
-      :items="attachments"
-      :items-per-page="itemsPerPage"
-      hide-default-footer
-      no-data-text="الرجاء الانتظار قليلاً"
-      class="elevation-1 mt-2"
-    >
-      <template v-slot:item="{ item }">
+    <v-table>
+      <thead>
         <tr>
-          <td>{{ item.columns.name }}</td>
-          <td>{{ item.columns.description }}</td>
+          <th class="text-right">البيان</th>
+          <th class="text-right">الوصف</th>
+          <th class="text-right">تم</th>
+          <th class="text-center">الإجراءات</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr v-for="i in num" :key="i">
+          <td>{{ attachments[i].name }}</td>
+          <td>{{ attachments[i].description }}</td>
           <td>
-            <v-icon
-              v-if="item.columns.file.length > 0"
-              color="success"
-              :icon="item.columns.isUploaded"
-            ></v-icon>
+            <v-icon color="success">{{ attachments[i].isUploaded }}</v-icon>
           </td>
           <td>
-            <v-btn class="mx-2 my-1"
-              ><v-icon
-                icon="mdi-tray-arrow-up"
-                @click="handleFileImport"
-              ></v-icon
-              ><v-file-input
-                ref="uploader"
-                class="d-none"
-                v-model="selectedFile"
-                @change="onFileChanged($event, item.columns.id)"
-              ></v-file-input
-            ></v-btn>
-            <v-btn color="error" class="mx-2 my-1"
-              ><v-icon icon="mdi-delete-outline"></v-icon
-            ></v-btn>
+            <v-file-input
+              density="compact"
+              hide-details="true"
+              v-model="selectedFile"
+              @change="onFileChanged($event, attachments[i])"
+            ></v-file-input>
           </td>
         </tr>
-      </template>
-      <template v-slot:bottom>
-        <div class="text-center pt-2">
-          <v-pagination v-model="page" :length="pageCount"></v-pagination>
-        </div>
-      </template>
-    </v-data-table>
+      </tbody>
+    </v-table>
 
     <div align="left">
       <v-divider></v-divider>
@@ -59,11 +40,13 @@
   </v-form>
 </template>
 <script>
-import { useUsersStore } from "@/store/user";
+import { useApplyingStore } from "@/store/applying";
 import { mapWritableState } from "pinia";
 export default {
   data() {
     return {
+      attachments: null,
+      num: [0, 1, 2, 3, 4],
       isSelecting: false,
       selectedFile: [],
       users: null,
@@ -84,7 +67,7 @@ export default {
     };
   },
   computed: {
-    ...mapWritableState(useUsersStore, ["attachments"]),
+    ...mapWritableState(useApplyingStore, ["applyings"]),
     pageCount() {
       return Math.ceil(this.attachments.length / this.itemsPerPage);
     },
@@ -103,7 +86,10 @@ export default {
       );
 
       // Trigger click on the FileInput
-      this.$refs.uploader.click();
+      console.log(this.$refs.uploader.click());
+    },
+    initialize() {
+      this.attachments = this.applyings[0].attachments;
     },
     onFileChanged(e, paperId) {
       this.selectedFile = e.target.files[0];
@@ -120,9 +106,12 @@ export default {
       if (valid)
         this.$router.push({
           name: "ApplicationReview",
-          params: this.$route.params.id,
+          params: { id: this.$route.params.id },
         });
     },
+  },
+  created() {
+    this.initialize();
   },
 };
 </script>

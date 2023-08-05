@@ -1,13 +1,19 @@
 <template>
   <v-form ref="form">
     <v-container>
+      <v-alert type="info" v-if="userRole == 'department-head'"
+        >بعد الاتطلاع على الطلب والتحقق من صحته، قم بتعبأت الخانات تحت عنوان
+        إجراءات القسم العلمي بأسفل هذه الصفحة وإضغط تسليم. في حال وجود نقص في
+        الطلب إضغط على تغذر التسليم وأدخل سبب التغذر في خانة الملاحظات حتى يتمكن
+        عضو هيئة التدريس من إضافة النواقص.</v-alert
+      >
       <TheH1>البيانات الشخصية</TheH1>
       <v-row>
         <v-col cols="4">
           <TheTextFieldLable>الاسم الأول</TheTextFieldLable>
           <v-text-field
             :rules="[(v) => !!v || 'هذا الحقل اجباري']"
-            v-model="users.firstName"
+            v-model="user.firstName"
           >
           </v-text-field>
         </v-col>
@@ -15,7 +21,7 @@
           ><TheTextFieldLable>الاسم الأب</TheTextFieldLable>
           <v-text-field
             :rules="[(v) => !!v || 'هذا الحقل اجباري']"
-            v-model="users.fatherName"
+            v-model="user.fatherName"
           >
           </v-text-field
         ></v-col>
@@ -23,28 +29,28 @@
           ><TheTextFieldLable>اللقب</TheTextFieldLable>
           <v-text-field
             :rules="[(v) => !!v || 'هذا الحقل اجباري']"
-            v-model="users.lastName"
+            v-model="user.lastName"
           >
           </v-text-field
         ></v-col>
       </v-row>
 
       <v-row>
-        <v-col cols="4"
+        <v-col cols="6"
           ><TheTextFieldLable>الكلية</TheTextFieldLable>
           <v-select
             style="max-width: 1000px"
             :rules="[(v) => !!v || 'هذا الحقل اجباري']"
             item-title="value"
-            item-value="id"
+            item-value="value"
             :items="colleges"
-            v-model="users.faculty"
+            v-model="user.faculty"
           >
           </v-select
         ></v-col>
 
         <!-- //كلية العلوم -->
-        <v-col cols="4" v-if="users.faculty == 1"
+        <v-col cols="6" v-if="user.faculty == 'كلية العلوم'"
           ><TheTextFieldLable>القسم العلمي</TheTextFieldLable>
           <v-select
             style="max-width: 1000px"
@@ -59,13 +65,13 @@
               'قسم علوم الحاسب الآلي',
               'قسم الإحصاء',
             ]"
-            v-model="users.department"
+            v-model="user.department"
           >
           </v-select
         ></v-col>
 
         <!-- //كلية الهندسة -->
-        <v-col cols="4" v-if="users.faculty == 2"
+        <v-col cols="6" v-if="user.faculty == 'كلية الهندسة'"
           ><TheTextFieldLable>القسم العلمي</TheTextFieldLable>
           <v-select
             style="max-width: 1000px"
@@ -88,13 +94,13 @@
               'قسم الهندسة الطبية',
               'قسم الإدارة الهندسية',
             ]"
-            v-model="users.department"
+            v-model="user.department"
           >
           </v-select
         ></v-col>
 
         <!-- //كلية الفنون -->
-        <v-col cols="4" v-if="users.faculty == 3"
+        <v-col cols="6" v-if="user.faculty == 'كلية الفنون'"
           ><TheTextFieldLable>القسم العلمي</TheTextFieldLable>
           <v-select
             style="max-width: 1000px"
@@ -106,13 +112,13 @@
               'قسم الفنون الموسيقية',
               'قسم الفنون الجميلة والتطبيقية',
             ]"
-            v-model="users.department"
+            v-model="user.department"
           >
           </v-select
         ></v-col>
 
         <!-- //كلية اللغات -->
-        <v-col cols="4" v-if="users.faculty == 4"
+        <v-col cols="6" v-if="user.faculty == 'كلية اللغات'"
           ><TheTextFieldLable>القسم العلمي</TheTextFieldLable>
           <v-select
             style="max-width: 1000px"
@@ -127,13 +133,13 @@
               'المرحلة العامة',
               'قسم اللغة الفرنسية',
             ]"
-            v-model="users.department"
+            v-model="user.department"
           >
           </v-select
         ></v-col>
 
         <!-- //كلية الزراعة -->
-        <v-col cols="4" v-if="users.faculty == 5"
+        <v-col cols="6" v-if="user.faculty == 'كلية الزراعة'"
           ><TheTextFieldLable>القسم العلمي</TheTextFieldLable>
           <v-select
             style="max-width: 1000px"
@@ -151,13 +157,13 @@
               'قسم الانتاج الحيواني',
               'قسم علوم وتقنية الاغذية',
             ]"
-            v-model="users.department"
+            v-model="user.department"
           >
           </v-select
         ></v-col>
 
         <!-- كليتنا الغالية -->
-        <v-col cols="4" v-if="users.faculty == 6"
+        <v-col cols="6" v-if="user.faculty == 'كلية تقنية المعلومات'"
           ><TheTextFieldLable>القسم العلمي</TheTextFieldLable>
           <v-select
             style="max-width: 1000px"
@@ -170,52 +176,41 @@
               'قسم تقنيات الإنترنت',
               'قسم المرحلة العامة',
             ]"
-            v-model="users.department"
-          >
-          </v-select
-        ></v-col>
-
-        <v-col cols="4"
-          ><TheTextFieldLable>القسم العلمي</TheTextFieldLable>
-          <v-select
-            style="max-width: 1000px"
-            :rules="[(v) => !!v || 'هذا الحقل اجباري']"
-            :items="['لا يوجد أقسام بالوقت الحالي']"
-            v-model="users.department"
+            v-model="user.department"
           >
           </v-select
         ></v-col>
       </v-row>
 
       <v-row>
-        <v-col cols="4"
+        <v-col cols="6"
           ><TheTextFieldLable>الجنسية</TheTextFieldLable>
           <v-select
             style="max-width: 1000px"
             :rules="[(v) => !!v || 'هذا الحقل اجباري']"
             item-title="value"
             item-value="id"
-            v-model="users.nationality"
+            v-model="user.nationality"
             :items="nationalityList"
           ></v-select
         ></v-col>
 
-        <v-col cols="4" v-if="users.nationality == 1"
+        <v-col cols="6" v-if="user.nationality == 1"
           ><TheTextFieldLable>الرقم الوطني</TheTextFieldLable>
           <v-text-field
             style="max-width: 1000px"
             :rules="[(v) => !!v || 'هذا الحقل اجباري']"
-            v-model="users.nationalNumber"
+            v-model="user.nationalNumber"
           >
           </v-text-field
         ></v-col>
 
-        <v-col cols="4" v-if="users.nationality > 1 && users.nationality < 20"
+        <v-col cols="6" v-if="user.nationality > 1 && user.nationality < 20"
           ><TheTextFieldLable>رقم جواز السفر</TheTextFieldLable>
           <v-text-field
             style="max-width: 1000px"
             :rules="[(v) => !!v || 'هذا الحقل اجباري']"
-            v-model="users.passport"
+            v-model="user.passport"
           >
           </v-text-field
         ></v-col>
@@ -230,14 +225,11 @@
         <v-col cols="4">
           <TheTextFieldLable>المؤهل العلمي</TheTextFieldLable>
           <v-select
-            v-model="users.qualification"
+            v-model="user.qualification"
             :rules="[(v) => !!v || 'هذا الحقل اجباري']"
             item-title="value"
             item-value="id"
-            :items="[
-              { id: 1, value: 'ماجيستير' },
-              { id: 2, value: 'دكتوراه' },
-            ]"
+            :items="['ماجيستير', 'دكتوراه']"
           >
           </v-select>
         </v-col>
@@ -245,7 +237,7 @@
           ><TheTextFieldLable>التخصص</TheTextFieldLable>
           <v-text-field
             :rules="[(v) => !!v || 'هذا الحقل اجباري']"
-            v-model="users.generalMajor"
+            v-model="user.generalMajor"
           >
           </v-text-field
         ></v-col>
@@ -253,7 +245,7 @@
           ><TheTextFieldLable>التخصص الدقيق</TheTextFieldLable>
           <v-text-field
             :rules="[(v) => !!v || 'هذا الحقل اجباري']"
-            v-model="users.exaxtMajor"
+            v-model="user.exaxtMajor"
           >
           </v-text-field
         ></v-col>
@@ -264,7 +256,7 @@
           ><TheTextFieldLable>الجامعة</TheTextFieldLable>
           <v-text-field
             :rules="[(v) => !!v || 'هذا الحقل اجباري']"
-            v-model="users.univercity"
+            v-model="user.univercity"
           >
           </v-text-field
         ></v-col>
@@ -272,7 +264,7 @@
           ><TheTextFieldLable>البلد</TheTextFieldLable>
           <v-text-field
             :rules="[(v) => !!v || 'هذا الحقل اجباري']"
-            v-model="users.country"
+            v-model="user.country"
           >
           </v-text-field
         ></v-col>
@@ -280,7 +272,7 @@
           ><TheTextFieldLable>المدينة</TheTextFieldLable>
           <v-text-field
             :rules="[(v) => !!v || 'هذا الحقل اجباري']"
-            v-model="users.city"
+            v-model="user.city"
           >
           </v-text-field
         ></v-col>
@@ -292,7 +284,7 @@
           <v-text-field
             type="date"
             :rules="[(v) => !!v || 'هذا الحقل اجباري']"
-            v-model="users.dateOfObtaining"
+            v-model="user.dateOfObtaining"
           >
           </v-text-field
         ></v-col>
@@ -304,16 +296,16 @@
         <v-col cols="4">
           <TheTextFieldLable>الدرجة العلمية الحالية</TheTextFieldLable>
           <v-select
-            v-model="users.currentDegree"
+            v-model="user.currentDegree"
             item-title="value"
             item-value="id"
             :rules="[(v) => !!v || 'هذا الحقل اجباري']"
             :items="[
-              { id: 1, value: 'محاضر مساعد' },
-              { id: 2, value: 'محاضر' },
-              { id: 3, value: 'أستاذ مساعد' },
-              { id: 4, value: 'أستاذ مشارك' },
-              { id: 5, value: 'أستاذ' },
+              'محاضر مساعد',
+              'محاضر',
+              'أستاذ مساعد',
+              'أستاذ مشارك',
+              'أستاذ',
             ]"
           >
           </v-select>
@@ -322,7 +314,7 @@
           ><TheTextFieldLable>رقم قرار الترقية</TheTextFieldLable>
           <v-text-field
             :rules="[(v) => !!v || 'هذا الحقل اجباري']"
-            v-model="users.promotoinDegreeNumber"
+            v-model="user.promotoinDegreeNumber"
           >
           </v-text-field
         ></v-col>
@@ -331,7 +323,7 @@
           <v-text-field
             :rules="[(v) => !!v || 'هذا الحقل اجباري']"
             type="date"
-            v-model="users.degreeDateOfObtaing"
+            v-model="user.degreeDateOfObtaing"
           >
           </v-text-field
         ></v-col>
@@ -341,10 +333,14 @@
         <v-col cols="4"
           ><TheTextFieldLable>قرار الترقية</TheTextFieldLable>
           <v-file-input
+            v-if="$route.name !== 'ApplicationReview'"
             :rules="[(v) => !!v || 'هذا الحقل اجباري']"
             hint="الرجاء رفع صورة من قرار الترقية"
-            v-model="users.promotoinDegreeFile"
+            v-model="user.promotoinDegreeFile"
           ></v-file-input>
+          <v-btn v-if="$route.name == 'ApplicationReview'" class="ma-1"
+            ><v-icon icon="mdi-eye-outline"></v-icon
+          ></v-btn>
         </v-col>
       </v-row>
 
@@ -353,37 +349,247 @@
       <TheH1>الإنتاج العلمي</TheH1>
 
       <v-data-table
-        hover
-        :loading="false"
-        no-data-text="إضغط على إضافة إنتاج علمي"
-        :rules="[(v) => !!v || 'هذا الحقل اجباري']"
-        v-model:page="page"
         :headers="headers"
         :items="scientificPaper"
-        :items-per-page="itemsPerPage"
-        hide-default-footer
-        class="elevation-1 mt-2"
+        class="elevation-1 mt-3"
       >
         <template v-slot:item="{ item }">
           <tr>
-            <td>{{ item.columns.scientificPaperTitle }}</td>
-            <td>{{ item.columns.publisher }}</td>
-            <td>{{ item.columns.dateOfpublishing }}</td>
             <td>
-              <v-btn><v-icon icon="mdi-pencil-outline"></v-icon></v-btn>
-              <v-btn color="error" class="mx-2"
+              {{ item.columns.scientificPaperTitle }}
+            </td>
+            <td>{{ item.columns.publisher }}</td>
+            <td>
+              {{ item.columns.dateOfpublishing }}
+            </td>
+            <td align="left">
+              <v-btn v-if="$route.name !== 'ApplicationReview'" class="ma-1"
+                ><v-icon
+                  @click="editItem(item.raw)"
+                  icon="mdi-pencil-outline"
+                ></v-icon
+              ></v-btn>
+              <v-btn
+                v-if="$route.name !== 'ApplicationReview'"
+                color="error"
+                class="ma-1"
                 ><v-icon
                   icon="mdi-delete-outline"
-                  @click="deletePaper(item.columns.id)"
+                  @click="deleteItem(item.raw)"
+                ></v-icon
+              ></v-btn>
+              <v-btn v-if="$route.name == 'ApplicationReview'" class="ma-1"
+                ><v-icon
+                  icon="mdi-eye-outline"
+                  @click="editItem(item.raw)"
                 ></v-icon
               ></v-btn>
             </td>
           </tr>
         </template>
+        <template v-slot:top>
+          <v-toolbar flat>
+            <v-toolbar-title>الإنتاجات العلمية</v-toolbar-title>
+            <v-divider class="mx-4" inset vertical></v-divider>
+            <v-spacer></v-spacer>
+            <v-dialog v-model="dialog" width="1024">
+              <template v-slot:activator="{ props }">
+                <v-btn
+                  v-if="$route.name !== 'ApplicationReview'"
+                  color="primary"
+                  variant="elevated"
+                  dark
+                  class="mb-2 mx-1"
+                  v-bind="props"
+                >
+                  إضافة إنتاج علمي
+                </v-btn>
+              </template>
+              <v-card>
+                <v-card-title>
+                  <span class="text-h5">{{ formTitle }}</span>
+                </v-card-title>
+
+                <!-- add new Paper here -->
+                <v-card-text>
+                  <v-form ref="form">
+                    <v-row>
+                      <v-col cols="4">
+                        <TheTextFieldLable
+                          >عنوان الإنتاج العلمي</TheTextFieldLable
+                        >
+                        <v-text-field
+                          :rules="[(v) => !!v || 'هذا الحقل اجباري']"
+                          v-model="editedItem.scientificPaperTitle"
+                        >
+                        </v-text-field>
+                      </v-col>
+
+                      <v-col cols="4"
+                        ><TheTextFieldLable>جهة النشر</TheTextFieldLable>
+                        <v-text-field
+                          :rules="[(v) => !!v || 'هذا الحقل اجباري']"
+                          v-model="editedItem.publisher"
+                        >
+                        </v-text-field
+                      ></v-col>
+
+                      <v-col cols="4"
+                        ><TheTextFieldLable>نوع جهة النشر</TheTextFieldLable>
+                        <v-select
+                          v-model="editedItem.publisherType"
+                          :rules="[(v) => !!v || 'هذا الحقل اجباري']"
+                          item-title="value"
+                          item-value="id"
+                          :items="[
+                            { id: 1, value: 'مجلة علمية محلية' },
+                            { id: 2, value: 'مجلة علمية عالمية' },
+                            { id: 3, value: 'مؤتمر علمي محلي' },
+                            { id: 4, value: 'مؤتمر علمي عالمي' },
+                          ]"
+                        >
+                        </v-select>
+                      </v-col>
+                    </v-row>
+
+                    <v-row>
+                      <v-col cols="4"
+                        ><TheTextFieldLable
+                          >رابط موقع نشر الإنتاج العلمي</TheTextFieldLable
+                        >
+                        <v-text-field
+                          :rules="[(v) => !!v || 'هذا الحقل اجباري']"
+                          v-model="editedItem.scientificPaperUrl"
+                        >
+                        </v-text-field
+                      ></v-col>
+                      <v-col cols="4"
+                        ><TheTextFieldLable>تاريخ النشر</TheTextFieldLable>
+                        <v-text-field
+                          type="date"
+                          :rules="[(v) => !!v || 'هذا الحقل اجباري']"
+                          v-model="editedItem.dateOfpublishing"
+                        >
+                        </v-text-field
+                      ></v-col>
+                    </v-row>
+
+                    <v-divider class="ma-2"></v-divider>
+
+                    <v-alert type="info">
+                      يجب رفع الانتاج العلمي بدون أسماء
+                    </v-alert>
+
+                    <v-row>
+                      <v-col cols="4"
+                        ><TheTextFieldLable>الإنتاج العلمي</TheTextFieldLable>
+                        <v-file-input
+                          v-if="$route.name !== 'ApplicationReview'"
+                          :rules="[(v) => !!v || 'هذا الحقل اجباري']"
+                          hint="الإنتاج العلمي بدون أسماء"
+                          v-model="editedItem.scientificPaperNoNamesFile"
+                        ></v-file-input>
+                        <v-btn
+                          v-if="$route.name == 'ApplicationReview'"
+                          class="ma-1"
+                          ><v-icon icon="mdi-eye-outline"></v-icon
+                        ></v-btn>
+                      </v-col>
+                    </v-row>
+
+                    <v-divider class="ma-2"></v-divider>
+
+                    <v-alert type="info"
+                      >في حالة تم نشر الإنتاج العلمي في مؤتمر علمي، يرجي رفع
+                      رسالة من المؤتمر بقبول الإنتاج العلمي.</v-alert
+                    >
+
+                    <v-row>
+                      <v-col cols="4"
+                        ><TheTextFieldLable
+                          >رسالة بقبول الإنتاج العلمي</TheTextFieldLable
+                        >
+                        <v-file-input
+                          v-if="$route.name !== 'ApplicationReview'"
+                          :rules="[(v) => !!v || 'هذا الحقل اجباري']"
+                          v-model="editedItem.acceptanceLetter"
+                        ></v-file-input>
+                        <v-btn
+                          v-if="$route.name == 'ApplicationReview'"
+                          class="ma-1"
+                          ><v-icon icon="mdi-eye-outline"></v-icon
+                        ></v-btn>
+                      </v-col>
+                    </v-row>
+                  </v-form>
+                </v-card-text>
+
+                <v-card-actions>
+                  <v-spacer></v-spacer>
+                  <v-btn
+                    v-if="$route.name !== 'ApplicationReview'"
+                    class="mx-1"
+                    color="blue-darken-1"
+                    variant="outlined"
+                    @click="close"
+                  >
+                    إلغاء
+                  </v-btn>
+                  <v-btn
+                    v-if="$route.name !== 'ApplicationReview'"
+                    class="mx-1"
+                    color="blue-darken-1"
+                    variant="elevated"
+                    @click="validate"
+                  >
+                    حفظ
+                  </v-btn>
+                  <v-btn
+                    v-if="$route.name == 'ApplicationReview'"
+                    class="mx-1"
+                    color="blue-darken-1"
+                    variant="outlined"
+                    @click="close"
+                  >
+                    عودة
+                  </v-btn>
+                </v-card-actions>
+              </v-card>
+            </v-dialog>
+            <v-dialog v-model="dialogDelete" max-width="500px">
+              <v-card>
+                <v-card-title>سيتم حذف هذه الورقة!</v-card-title>
+                <v-card-actions>
+                  <v-spacer></v-spacer>
+                  <div align="left">
+                    <v-btn
+                      color="blue-darken-1"
+                      variant="outlined"
+                      @click="closeDelete"
+                      >إلغاء</v-btn
+                    >
+                    <v-btn
+                      class="mx-1"
+                      color="error"
+                      variant="elevated"
+                      @click="deleteItemConfirm"
+                      >حذف</v-btn
+                    >
+                  </div>
+
+                  <v-spacer></v-spacer>
+                </v-card-actions>
+              </v-card>
+            </v-dialog>
+          </v-toolbar>
+        </template>
+
         <template v-slot:bottom>
-          <div class="text-center pt-2">
-            <v-pagination v-model="page" :length="pageCount"></v-pagination>
-          </div>
+          <div></div>
+        </template>
+
+        <template v-slot:no-data>
+          <v-btn color="primary" @click="initialize"> Reset </v-btn>
         </template>
       </v-data-table>
 
@@ -391,84 +597,137 @@
 
       <TheH1>المرفقات</TheH1>
 
-      <v-data-table
-        hover
-        v-model:page="page"
-        :headers="attachmentHeader"
-        :items="attachments"
-        :items-per-page="itemsPerPage"
-        hide-default-footer
-        no-data-text="الرجاء الانتظار قليلاً"
-        class="elevation-1 mt-2"
-      >
-        <template v-slot:item="{ item }">
+      <v-table>
+        <thead>
           <tr>
-            <td>{{ item.columns.name }}</td>
-            <td>{{ item.columns.description }}</td>
+            <th class="text-right">البيان</th>
+            <th class="text-right">الوصف</th>
+            <th class="text-right">تم</th>
+            <th class="text-center">الإجراءات</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr v-for="i in num" :key="i">
+            <td>{{ attachments[i].name }}</td>
+            <td>{{ attachments[i].description }}</td>
             <td>
-              <v-icon
-                v-if="item.columns.file.length > 0"
-                color="success"
-                :icon="item.columns.isUploaded"
-              ></v-icon>
+              <v-icon color="success">{{ attachments[i].isUploaded }}</v-icon>
             </td>
             <td>
-              <v-btn class="mx-2 my-1"
-                ><v-icon
-                  icon="mdi-tray-arrow-up"
-                  @click="handleFileImport"
-                ></v-icon
-                ><v-file-input
-                  ref="uploader"
-                  class="d-none"
-                  v-model="selectedFile"
-                  @change="onFileChanged($event, item.columns.id)"
-                ></v-file-input
-              ></v-btn>
-              <v-btn color="error" class="mx-2 my-1"
-                ><v-icon icon="mdi-delete-outline"></v-icon
+              <v-file-input
+                v-if="$route.name !== 'ApplicationReview'"
+                density="compact"
+                hide-details="true"
+                v-model="selectedFile"
+                @change="onFileChanged($event, attachments[i])"
+              ></v-file-input>
+              <v-btn v-if="$route.name == 'ApplicationReview'" class="ma-1"
+                ><v-icon icon="mdi-eye-outline"></v-icon
               ></v-btn>
             </td>
           </tr>
-        </template>
-        <template v-slot:bottom>
-          <div class="text-center pt-2">
-            <v-pagination v-model="page" :length="pageCount"></v-pagination>
+        </tbody>
+      </v-table>
+
+      <v-divider class="ma-2"></v-divider>
+      <ApplicationConfirmation
+        class="my-2"
+        v-if="userRole == 'faculty-member'"
+      ></ApplicationConfirmation>
+
+      <div v-if="userRole == 'department-head'">
+        <TheH1>إجراءات القسم العلمي</TheH1>
+
+        <div>
+          <div>هل تم عرض موضوع الطلب على مجلس القسم؟</div>
+          <v-radio-group v-model="isShowen">
+            <v-radio label="لا" value="false"></v-radio>
+            <v-radio label="تعم" value="true"></v-radio>
+          </v-radio-group>
+        </div>
+
+        <v-row v-if="isShowen == 'true'">
+          <v-col cols="6"
+            ><TheTextFieldLable>تاريخ العرض</TheTextFieldLable>
+            <v-text-field
+              v-model="user.showenToDepartment"
+              type="date"
+              :rules="[(v) => !!v || 'هذا الحقل اجباري']"
+            >
+            </v-text-field
+          ></v-col>
+          <v-col cols="6"
+            ><TheTextFieldLable>نسخه من محضر إجتماع القسم</TheTextFieldLable
+            ><v-file-input
+              v-model="user.departmentMeetingMinutes"
+              hide-details="true"
+            ></v-file-input
+          ></v-col>
+        </v-row>
+
+        <div v-if="isShowen == 'true'">
+          <div>بعد مراجعة البيانات المدرجة بطلب الترقية تبين لمجلس القسم:</div>
+          <v-radio-group v-model="isComplate">
+            <v-radio label="عدم مطابقة" value="false"></v-radio>
+            <v-radio label="مطابقة" value="true"></v-radio>
+          </v-radio-group>
+        </div>
+
+        <div v-if="isComplate == 'false'">
+          <TheTextFieldLable>سبب عدم المطابقة</TheTextFieldLable>
+          <v-text-field
+            v-model="user.dhNote"
+            :rules="[(v) => !!v || 'هذا الحقل اجباري']"
+          >
+          </v-text-field>
+        </div>
+
+        <div v-if="isComplate == 'true'">
+          <div>
+            وعليه تمت ................................... على استكمال إجراءات
+            الترقية للدرجة العلمية التالية.
           </div>
-        </template>
-      </v-data-table>
+          <v-radio-group v-model="isOkay">
+            <v-radio label="عدم الموافقة" value="false"></v-radio>
+            <v-radio label="الموافقة" value="true"></v-radio>
+          </v-radio-group>
+        </div>
+
+        <v-divider class="ma-2"></v-divider>
+
+        <div v-if="isComplate == 'true' && isOkay == 'true'">
+          <div>يقترح مجلس القسم لجنة التقييم من الاخوة</div>
+          <ReviewerCRUD></ReviewerCRUD>
+        </div>
+      </div>
 
       <div align="left">
-        <v-divider></v-divider>
-        <ApplicationConfirmatiom></ApplicationConfirmatiom>
+        <v-btn @click="validate"> تسليم</v-btn>
       </div>
     </v-container>
   </v-form>
 </template>
 <script>
+import { useApplyingStore } from "@/store/applying";
 import { useUsersStore } from "@/store/user";
-import ApplicationConfirmatiom from "@/components/Dialogs/ApplicationConfirmatiom.vue";
-import { mapState, mapActions, mapWritableState } from "pinia";
+import { mapState } from "pinia";
+
+import ApplicationConfirmation from "@/components/Dialogs/ApplicationConfirmation.vue";
+import ReviewerCRUD from "@/components/ReviewersCRUD.vue";
 export default {
   components: {
-    ApplicationConfirmatiom,
+    ApplicationConfirmation,
+    ReviewerCRUD,
   },
   data() {
     return {
-      page: 1,
-      itemsPerPage: 5,
-      attachmentHeader: [
-        {
-          align: "start",
-          key: "name",
-          title: "بيان",
-          sortable: false,
-        },
-        { title: "وصف", key: "description" },
-        { title: "تم", key: "isUploaded" },
-        { title: "إجراءات", key: "file", align: "start" },
-        { key: "id" },
-      ],
+      isOkay: "",
+      isShowen: "",
+      isComplate: "",
+      num: [0, 1, 2, 3, 4],
+      selectedFile: [],
+      dialog: false,
+      dialogDelete: false,
       headers: [
         {
           align: "start",
@@ -478,7 +737,7 @@ export default {
         },
         { title: "جهة النشر", key: "publisher" },
         { title: "تاريخ النشر", key: "dateOfpublishing" },
-        { title: "إجراءات", key: "id" },
+        { title: "إجراءات", key: "id", align: "center" },
       ],
       colleges: [
         { id: 1, value: "كلية العلوم" },
@@ -527,29 +786,92 @@ export default {
         { id: 18, value: "صومالي" },
         { id: 19, value: "جيبوتي" },
       ],
+      user: null,
+      attachments: null,
+      scientificPaper: null,
+      editedIndex: -1,
+      editedItem: {
+        id: new Date().toISOString(),
+        scientificPaperTitle: null,
+        publisher: null,
+        publisherType: null,
+        scientificPaperUrl: null,
+        dateOfpublishing: null,
+        scientificPaperNoNamesFile: [],
+        acceptanceLetter: [],
+      },
+      defaultItem: {
+        id: new Date().toISOString(),
+        scientificPaperTitle: null,
+        publisher: null,
+        publisherType: null,
+        scientificPaperUrl: null,
+        dateOfpublishing: null,
+        scientificPaperNoNamesFile: [],
+        acceptanceLetter: [],
+      },
     };
   },
   computed: {
-    ...mapState(useUsersStore, ["users"]),
-    ...mapState(useUsersStore, ["scientificPaper"]),
-    ...mapWritableState(useUsersStore, ["attachments"]),
-    pageCount() {
-      return Math.ceil(this.scientificPaper.length / this.itemsPerPage);
+    ...mapState(useApplyingStore, ["applyings"]),
+    ...mapState(useUsersStore, ["userRole"]),
+    formTitle() {
+      return this.editedIndex === -1
+        ? "إضافة عضو هيئة تدريس"
+        : "تعديل البيانات";
+    },
+  },
+  watch: {
+    dialog(val) {
+      val || this.close();
+    },
+    dialogDelete(val) {
+      val || this.closeDelete();
     },
   },
   methods: {
-    ...mapActions(useUsersStore, ["deleteScientificPapers"]),
-    deletePaper(id) {
-      this.deleteScientificPapers(id);
+    initialize() {
+      this.user = this.applyings[0];
+      this.scientificPaper = this.applyings[0].scientificPaper;
+      this.attachments = this.applyings[0].attachments;
+    },
+    editItem(item) {
+      this.editedIndex = this.scientificPaper.indexOf(item);
+      this.editedItem = Object.assign({}, item);
+      this.dialog = true;
+    },
+    deleteItem(item) {
+      this.editedIndex = this.scientificPaper.indexOf(item);
+      this.editedItem = Object.assign({}, item);
+      this.dialogDelete = true;
+    },
+    deleteItemConfirm() {
+      this.scientificPaper.splice(this.editedIndex, 1);
+      this.closeDelete();
+    },
+    close() {
+      this.dialog = false;
+      this.$nextTick(() => {
+        this.editedItem = Object.assign({}, this.defaultItem);
+        this.editedIndex = -1;
+      });
+    },
+    closeDelete() {
+      this.dialogDelete = false;
+      this.$nextTick(() => {
+        this.editedItem = Object.assign({}, this.defaultItem);
+        this.editedIndex = -1;
+      });
     },
     async validate() {
       const { valid } = await this.$refs.form.validate();
-      if (valid)
-        this.$router.push({
-          name: "ApplicationAcadimecInfo",
-          params: this.$route.params.id,
-        });
+      if (valid) {
+        this.$router.push({ name: "ApplicationSubmited" });
+      }
     },
+  },
+  created() {
+    this.initialize();
   },
 };
 </script>

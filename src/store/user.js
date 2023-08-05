@@ -80,36 +80,7 @@ export const useUsersStore = defineStore("Users", {
       },
     ],
   }),
-  actions: {
-    addScientificPapers(newScientificPaper) {
-      this.users[0].scientificPaper.push(newScientificPaper);
-    },
-    deleteScientificPapers(paperId) {
-      console.log(paperId);
-      this.users[0].scientificPaper = this.users[0].scientificPaper.filter(
-        (paper) => paper.id !== paperId
-      );
-    },
-  },
   getters: {
-    scientificPaper() {
-      const scientificPapers = [];
-      this.users.forEach((user) => {
-        user.scientificPaper.forEach((paper) => {
-          scientificPapers.push(paper);
-        });
-      });
-      return scientificPapers;
-    },
-    attachments() {
-      const attachments = [];
-      this.users.forEach((user) => {
-        user.attachments.forEach((file) => {
-          attachments.push(file);
-        });
-      });
-      return attachments;
-    },
     userRole() {
       return this.users[0].role;
     },

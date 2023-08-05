@@ -10,7 +10,7 @@
         <v-col cols="4">
           <TheTextFieldLable>المؤهل العلمي</TheTextFieldLable>
           <v-select
-            v-model="users.qualification"
+            v-model="user.qualification"
             :rules="[(v) => !!v || 'هذا الحقل اجباري']"
             item-title="value"
             item-value="id"
@@ -22,7 +22,7 @@
           ><TheTextFieldLable>التخصص</TheTextFieldLable>
           <v-text-field
             :rules="[(v) => !!v || 'هذا الحقل اجباري']"
-            v-model="users.generalMajor"
+            v-model="user.generalMajor"
           >
           </v-text-field
         ></v-col>
@@ -30,7 +30,7 @@
           ><TheTextFieldLable>التخصص الدقيق</TheTextFieldLable>
           <v-text-field
             :rules="[(v) => !!v || 'هذا الحقل اجباري']"
-            v-model="users.exaxtMajor"
+            v-model="user.exaxtMajor"
           >
           </v-text-field
         ></v-col>
@@ -41,7 +41,7 @@
           ><TheTextFieldLable>الجامعة</TheTextFieldLable>
           <v-text-field
             :rules="[(v) => !!v || 'هذا الحقل اجباري']"
-            v-model="users.univercity"
+            v-model="user.univercity"
           >
           </v-text-field
         ></v-col>
@@ -49,7 +49,7 @@
           ><TheTextFieldLable>البلد</TheTextFieldLable>
           <v-text-field
             :rules="[(v) => !!v || 'هذا الحقل اجباري']"
-            v-model="users.country"
+            v-model="user.country"
           >
           </v-text-field
         ></v-col>
@@ -57,7 +57,7 @@
           ><TheTextFieldLable>المدينة</TheTextFieldLable>
           <v-text-field
             :rules="[(v) => !!v || 'هذا الحقل اجباري']"
-            v-model="users.city"
+            v-model="user.city"
           >
           </v-text-field
         ></v-col>
@@ -69,7 +69,7 @@
           <v-text-field
             type="date"
             :rules="[(v) => !!v || 'هذا الحقل اجباري']"
-            v-model="users.dateOfObtaining"
+            v-model="user.dateOfObtaining"
           >
           </v-text-field
         ></v-col>
@@ -81,7 +81,7 @@
         <v-col cols="4">
           <TheTextFieldLable>الدرجة العلمية الحالية</TheTextFieldLable>
           <v-select
-            v-model="users.currentDegree"
+            v-model="user.currentDegree"
             item-title="value"
             item-value="id"
             :rules="[(v) => !!v || 'هذا الحقل اجباري']"
@@ -99,7 +99,7 @@
           ><TheTextFieldLable>رقم قرار الترقية</TheTextFieldLable>
           <v-text-field
             :rules="[(v) => !!v || 'هذا الحقل اجباري']"
-            v-model="users.promotoinDegreeNumber"
+            v-model="user.promotoinDegreeNumber"
           >
           </v-text-field
         ></v-col>
@@ -108,7 +108,7 @@
           <v-text-field
             :rules="[(v) => !!v || 'هذا الحقل اجباري']"
             type="date"
-            v-model="users.degreeDateOfObtaing"
+            v-model="user.degreeDateOfObtaing"
           >
           </v-text-field
         ></v-col>
@@ -120,7 +120,7 @@
           <v-file-input
             :rules="[(v) => !!v || 'هذا الحقل اجباري']"
             hint="الرجاء رفع صورة من قرار الترقية"
-            v-model="users.promotoinDegreeFile"
+            v-model="user.promotoinDegreeFile"
           ></v-file-input>
         </v-col>
       </v-row>
@@ -135,12 +135,17 @@
   </v-form>
 </template>
 <script>
-import { useUsersStore } from "@/store/user";
+import { useApplyingStore } from "@/store/applying";
 import { mapState } from "pinia";
 
 export default {
+  data() {
+    return {
+      user: null,
+    };
+  },
   computed: {
-    ...mapState(useUsersStore, ["users"]),
+    ...mapState(useApplyingStore, ["applyings"]),
   },
   methods: {
     async validate() {
@@ -148,9 +153,15 @@ export default {
       if (valid)
         this.$router.push({
           name: "ApplicationScientificPaper",
-          params: this.$route.params.id,
+          params: { id: this.$route.params.id },
         });
     },
+    initialize() {
+      this.user = this.applyings[0];
+    },
+  },
+  created() {
+    this.initialize();
   },
 };
 </script>
