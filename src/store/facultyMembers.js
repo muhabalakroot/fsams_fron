@@ -9,7 +9,7 @@ export const useFacultyMembersStore = defineStore("FacultyMembers", {
         firstName: "رضوان",
         fatherName: "عبد  الله",
         lastName: "حسين",
-        email: null,
+        email: "r@useSlots.edu.ly",
         nationality: 1,
         faculty: 6,
         department: 5,
@@ -22,7 +22,7 @@ export const useFacultyMembersStore = defineStore("FacultyMembers", {
         firstName: "رضوان",
         fatherName: "عبد  الله",
         lastName: "حسين",
-        email: null,
+        email: "r@useSlots.edu.ly",
         nationality: 1,
         faculty: 6,
         department: 5,
@@ -35,7 +35,7 @@ export const useFacultyMembersStore = defineStore("FacultyMembers", {
         firstName: "رضوان",
         fatherName: "عبد  الله",
         lastName: "حسين",
-        email: null,
+        email: "r@useSlots.edu.ly",
         nationality: 1,
         faculty: 6,
         department: 5,
@@ -45,4 +45,11 @@ export const useFacultyMembersStore = defineStore("FacultyMembers", {
       },
     ],
   }),
+  actions: {
+    crudChange(newFData) {
+      console.log(this.FacultyMembers);
+      this.FacultyMembers = newFData;
+      console.log(this.FacultyMembers);
+    },
+  },
 });

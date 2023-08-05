@@ -40,7 +40,7 @@
             style="max-width: 1000px"
             :rules="[(v) => !!v || 'هذا الحقل اجباري']"
             item-title="value"
-            item-value="id"
+            item-value="value"
             :items="colleges"
             v-model="users.faculty"
           >
@@ -48,7 +48,7 @@
         ></v-col>
 
         <!-- //كلية العلوم -->
-        <v-col cols="6" v-if="users.faculty == 1"
+        <v-col cols="6" v-if="users.faculty == 'كلية العلوم'"
           ><TheTextFieldLable>القسم العلمي</TheTextFieldLable>
           <v-select
             style="max-width: 1000px"
@@ -69,7 +69,7 @@
         ></v-col>
 
         <!-- //كلية الهندسة -->
-        <v-col cols="6" v-if="users.faculty == 2"
+        <v-col cols="6" v-if="users.faculty == 'كلية الهندسة'"
           ><TheTextFieldLable>القسم العلمي</TheTextFieldLable>
           <v-select
             style="max-width: 1000px"
@@ -98,7 +98,7 @@
         ></v-col>
 
         <!-- //كلية الفنون -->
-        <v-col cols="6" v-if="users.faculty == 3"
+        <v-col cols="6" v-if="users.faculty == 'كلية الفنون'"
           ><TheTextFieldLable>القسم العلمي</TheTextFieldLable>
           <v-select
             style="max-width: 1000px"
@@ -116,7 +116,7 @@
         ></v-col>
 
         <!-- //كلية اللغات -->
-        <v-col cols="6" v-if="users.faculty == 4"
+        <v-col cols="6" v-if="users.faculty == 'كلية اللغات'"
           ><TheTextFieldLable>القسم العلمي</TheTextFieldLable>
           <v-select
             style="max-width: 1000px"
@@ -137,7 +137,7 @@
         ></v-col>
 
         <!-- //كلية الزراعة -->
-        <v-col cols="6" v-if="users.faculty == 5"
+        <v-col cols="6" v-if="users.faculty == 'كلية الزراعة'"
           ><TheTextFieldLable>القسم العلمي</TheTextFieldLable>
           <v-select
             style="max-width: 1000px"
@@ -161,7 +161,7 @@
         ></v-col>
 
         <!-- كليتنا الغالية -->
-        <v-col cols="6" v-if="users.faculty == 6"
+        <v-col cols="6" v-if="users.faculty == 'كلية تقنية المعلومات'"
           ><TheTextFieldLable>القسم العلمي</TheTextFieldLable>
           <v-select
             style="max-width: 1000px"
@@ -174,17 +174,6 @@
               'قسم تقنيات الإنترنت',
               'قسم المرحلة العامة',
             ]"
-            v-model="users.department"
-          >
-          </v-select
-        ></v-col>
-
-        <v-col cols="6" v-if="users.faculty > 6 && users.faculty < 20"
-          ><TheTextFieldLable>القسم العلمي</TheTextFieldLable>
-          <v-select
-            style="max-width: 1000px"
-            :rules="[(v) => !!v || 'هذا الحقل اجباري']"
-            :items="['لا يوجد أقسام بالوقت الحالي']"
             v-model="users.department"
           >
           </v-select
