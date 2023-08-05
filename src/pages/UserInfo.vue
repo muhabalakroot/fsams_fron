@@ -65,7 +65,9 @@
       >
         إلغاء
       </v-btn>
-      <v-btn v-if="!editable" class="mx-2"> حفظ </v-btn>
+      <v-btn v-if="!editable" @click="editable = !editable" class="mx-2">
+        حفظ
+      </v-btn>
       <v-btn v-if="editable" @click="editable = !editable">تعديل</v-btn>
     </div>
   </v-container>

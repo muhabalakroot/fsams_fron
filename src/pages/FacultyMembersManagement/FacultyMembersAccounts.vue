@@ -390,7 +390,7 @@ export default {
       { title: "القسم العلمي", key: "department" },
       { title: "المؤهل العلمي", key: "qualification" },
       { title: "الدرجة العلمي", key: "currentDegree" },
-      { title: "Actions", key: "actions", sortable: false },
+      { title: "الإجراءات", key: "actions", sortable: false },
     ],
     desserts: [],
     editedIndex: -1,
