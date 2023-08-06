@@ -20,7 +20,10 @@
         value="Main"
       ></v-list-item>
       <v-list-item
-        :active="$route.name === 'ApplicationManagement'"
+        :active="
+          $route.name === 'ApplicationManagement' ||
+          $route.name === 'applicationStatus'
+        "
         color="primary"
         prepend-icon="mdi-note-edit-outline"
         title="إدارة الطلبات"

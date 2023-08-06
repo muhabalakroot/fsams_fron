@@ -1,6 +1,12 @@
 <template>
   <v-form readonly ref="form">
     <v-container>
+      <v-btn
+        prepend-icon="mdi-chevron-right"
+        @click="$router.push({ name: 'FacultyMembersApplicationsManagement' })"
+        v-if="userRole == 'department-head'"
+        >عودة</v-btn
+      >
       <v-alert type="info" v-if="userRole == 'department-head'"
         >بعد الاتطلاع على الطلب والتحقق من صحته، قم بتعبأت الخانات تحت عنوان
         إجراءات القسم العلمي بأسفل هذه الصفحة وإضغط تسليم. في حال وجود نقص في
@@ -653,6 +659,7 @@
       </v-table>
 
       <v-divider class="ma-2"></v-divider>
+
       <ApplicationConfirmation
         class="my-2"
         v-if="userRole == 'faculty-member'"
@@ -728,7 +735,10 @@
         </div>
 
         <div align="left">
-          <ApplicationConfirmation @click="validate"></ApplicationConfirmation>
+          <ApplicationConfirmation
+            v-if="isComplate == 'true' && isOkay == 'true'"
+            @click="validate"
+          ></ApplicationConfirmation>
         </div>
       </v-card>
     </v-container>

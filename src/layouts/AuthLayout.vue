@@ -25,8 +25,7 @@
         $route.name !== 'ApplicationPersonaInfo' &&
         $route.name !== 'ApplicationAcadimecInfo' &&
         $route.name !== 'ApplicationScientificPaper' &&
-        $route.name !== 'ApplicationAttachment' &&
-        $route.name !== 'ApplicationReview'
+        $route.name !== 'ApplicationAttachment'
       "
     ></DepartmentHead>
 

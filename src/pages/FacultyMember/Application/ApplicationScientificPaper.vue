@@ -174,7 +174,7 @@
                   class="mx-1"
                   color="blue-darken-1"
                   variant="elevated"
-                  @click="validate"
+                  @click="save"
                 >
                   حفظ
                 </v-btn>

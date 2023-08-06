@@ -13,20 +13,29 @@
 
     <v-list density="compact" v-model:selected="selectedItem" @click="navigate">
       <v-list-item
+        :active="$route.name === 'Main'"
         color="primary"
         prepend-icon="mdi-home-city"
         title="الصفحة الرئيسية"
         value="Main"
       ></v-list-item>
       <v-list-item
-        :active="$route.name === 'ApplicationManagement'"
+        :active="
+          $route.name === 'ApplicationManagement' ||
+          $route.name === 'applicationStatus'
+        "
         color="primary"
         prepend-icon="mdi-note-edit-outline"
         title="الطلبات"
         value="Application Management"
       ></v-list-item>
       <v-list-item
-        :active="$route.name === 'FacultyMembersManagment'"
+        :active="
+          $route.name === 'FacultyMembersManagment' ||
+          $route.name === 'FacultyMembersAccounts' ||
+          $route.name === 'FacultyMembersApplicationsManagement' ||
+          $route.name === 'ApplicationReview'
+        "
         color="primary"
         prepend-icon="mdi-account-group-outline"
         title="أعضاء هيئة التدريس"
@@ -43,6 +52,7 @@
       <v-divider class="ma-2"></v-divider>
 
       <v-list-item
+        :active="$route.name === 'Login'"
         color="primary"
         prepend-icon="mdi-logout"
         title="تسجيل الخروج"

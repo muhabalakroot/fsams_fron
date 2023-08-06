@@ -103,11 +103,11 @@ export const useApplyingStore = defineStore("Applyings", {
         ],
         reviewers: [
           {
-            id: 1,
-            name: "الحرمين الحرمين",
-            univercity: "جامعة طرابلس",
-            degree: "أستاذ",
-            generalMajor: "Expert Systems",
+            id: null,
+            name: null,
+            univercity: null,
+            degree: null,
+            generalMajor: null,
           },
         ],
       },

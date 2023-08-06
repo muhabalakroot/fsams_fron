@@ -1,5 +1,9 @@
 <template>
-  <!-- :sort-by="[{ key: 'calories', order: 'asc' }]" -->
+  <v-btn
+    prepend-icon="mdi-chevron-right"
+    @click="$router.push({ name: 'FacultyMembersManagment' })"
+    >عودة</v-btn
+  >
   <v-data-table :headers="headers" :items="desserts" class="elevation-1">
     <template v-slot:item="{ item }">
       <tr>

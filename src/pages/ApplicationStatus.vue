@@ -1,4 +1,9 @@
 <template>
+  <v-btn
+    prepend-icon="mdi-chevron-right"
+    @click="$router.push({ name: 'ApplicationManagement' })"
+    >العودة لإدارة الطلبات</v-btn
+  >
   <TheH1>حالة طلبك</TheH1>
   <v-alert type="info">
     أحد أهم ميزات التي يتيحها نظام إدارة شؤون أعضاء هيئة التدريس هي امكانية
