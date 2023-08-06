@@ -19,18 +19,21 @@
         value="Main"
       ></v-list-item>
       <v-list-item
+        :active="$route.name === 'ApplicationManagement'"
         color="primary"
         prepend-icon="mdi-note-edit-outline"
         title="الطلبات"
         value="Application Management"
       ></v-list-item>
       <v-list-item
+        :active="$route.name === 'FacultyMembersManagment'"
         color="primary"
         prepend-icon="mdi-account-group-outline"
         title="أعضاء هيئة التدريس"
         value="FacultyMembersManagment"
       ></v-list-item>
       <v-list-item
+        :active="$route.name === 'UserInfo'"
         color="primary"
         prepend-icon="mdi-account-outline"
         title="البيانات الشخصية"

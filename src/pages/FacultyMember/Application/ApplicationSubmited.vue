@@ -3,7 +3,7 @@
     لقد تم إرسال طلب بنجاح🎉. حظ موفق.
   </v-alert>
   <v-alert v-if="userRole == 'department-head'" type="success">
-    لقد تم تسليم طلب بنجاح. شكراً لك.
+    لقد تم التسليم بنجاح. شكراً لك.
   </v-alert>
   <div class="text-center pa-2">
     <v-img class="mx-auto" width="70" src="/uot_logo.png"></v-img>

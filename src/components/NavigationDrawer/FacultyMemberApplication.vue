@@ -22,24 +22,28 @@
       <v-divider class="ma-2"></v-divider>
 
       <v-list-item
+        :active="$route.name === 'ApplicationPersonaInfo'"
         color="primary"
         prepend-icon="mdi-account-outline"
         title="البيانات الشخصية"
         value="ApplicationPersonalInfo"
       ></v-list-item>
       <v-list-item
+        :active="$route.name === 'ApplicationAcadimecInfo'"
         color="primary"
         prepend-icon="mdi-school-outline"
         title="البيانات الاكاديمية"
         value="ApplicationAcadimecInfo"
       ></v-list-item>
       <v-list-item
+        :active="$route.name === 'ApplicationScientificPaper'"
         color="primary"
         prepend-icon="mdi-note-multiple-outline"
         title="الإنتاج العلمي"
         value="ApplicationScientificPaper"
       ></v-list-item>
       <v-list-item
+        :active="$route.name === 'ApplicationAttachment'"
         color="primary"
         prepend-icon="mdi-paperclip"
         title="المرفقات"
@@ -47,6 +51,7 @@
       ></v-list-item>
 
       <v-list-item
+        :active="$route.name === 'ApplicationReview'"
         color="primary"
         prepend-icon="mdi-note-search-outline"
         title="مراجعة الطلب"

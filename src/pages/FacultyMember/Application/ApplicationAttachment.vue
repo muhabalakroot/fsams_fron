@@ -17,15 +17,32 @@
           <td>{{ attachments[i].name }}</td>
           <td>{{ attachments[i].description }}</td>
           <td>
-            <v-icon color="success">{{ attachments[i].isUploaded }}</v-icon>
+            <v-icon
+              :icon="attachments[i].file.name ? 'mdi-check' : ''"
+              color="success"
+            >
+            </v-icon>
           </td>
           <td>
             <v-file-input
+              v-if="attachments[i].file.name == null"
               density="compact"
               hide-details="true"
-              v-model="selectedFile"
-              @change="onFileChanged($event, attachments[i])"
+              @change="onFileChanged($event, i)"
             ></v-file-input>
+            <v-btn v-if="attachments[i].file.name" class="ma-1"
+              ><v-icon
+                v-model="attachments[i].file"
+                icon="mdi-eye-outline"
+              ></v-icon
+            ></v-btn>
+            <v-btn
+              v-if="attachments[i].file.name"
+              @click="deleteFile(i)"
+              color="error"
+              class="ma-1"
+              ><v-icon icon="mdi-delete-outline"></v-icon
+            ></v-btn>
           </td>
         </tr>
       </tbody>
@@ -41,7 +58,7 @@
 </template>
 <script>
 import { useApplyingStore } from "@/store/applying";
-import { mapWritableState } from "pinia";
+import { mapWritableState, mapActions } from "pinia";
 export default {
   data() {
     return {
@@ -68,11 +85,9 @@ export default {
   },
   computed: {
     ...mapWritableState(useApplyingStore, ["applyings"]),
-    pageCount() {
-      return Math.ceil(this.attachments.length / this.itemsPerPage);
-    },
   },
   methods: {
+    ...mapActions(useApplyingStore, ["addAttachment"]),
     handleFileImport() {
       this.isSelecting = true;
 
@@ -91,15 +106,12 @@ export default {
     initialize() {
       this.attachments = this.applyings[0].attachments;
     },
-    onFileChanged(e, paperId) {
-      this.selectedFile = e.target.files[0];
-
-      const attachment = this.attachments.find((file) => file.id === paperId);
-      console.log(paperId);
-      console.log(attachment.file);
-      console.log(this.selectedFile);
-      // Update the file property of the attachment
-      // attachment.file = [this.selectedFile];
+    onFileChanged(e, i) {
+      this.applyings[0].attachments[i].file = e.target.files[0];
+      console.log(this.applyings[0].attachments[i].file);
+    },
+    deleteFile(i) {
+      this.applyings[0].attachments[i].file = [];
     },
     async validate() {
       const { valid } = await this.$refs.form.validate();

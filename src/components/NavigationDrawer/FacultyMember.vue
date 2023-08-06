@@ -13,18 +13,21 @@
 
     <v-list density="compact" v-model:selected="selectedItem" @click="navigate">
       <v-list-item
+        :active="$route.name === 'Main'"
         color="primary"
         prepend-icon="mdi-home-city"
         title="الصفحة الرئيسية"
         value="Main"
       ></v-list-item>
       <v-list-item
+        :active="$route.name === 'ApplicationManagement'"
         color="primary"
         prepend-icon="mdi-note-edit-outline"
         title="إدارة الطلبات"
         value="Application Management"
       ></v-list-item>
       <v-list-item
+        :active="$route.name === 'UserInfo'"
         color="primary"
         prepend-icon="mdi-account-outline"
         title="البيانات الشخصية"

@@ -73,37 +73,32 @@ export const useApplyingStore = defineStore("Applyings", {
             name: "ملخص رسالة الماجستير",
             description:
               " الرجاء رفع صورة من عنوان وملخص رسالة الماجستير، بدون اسماء.",
-            isUploaded: "mdi-check-circle",
-            file: ["a"],
+            file: [],
           },
           {
             id: 2,
             name: "ملخص اطروحة الدكتوراه",
             description:
               "الرجاء رفع نسخة من عنوان وملخص اطروحة الدكتوراه، بدون أسماء.",
-            isUploaded: "mdi-check-circle",
-            file: ["a"],
+            file: [],
           },
           {
             id: 3,
             name: "السيرة الذاتية",
             description: "الرجاء رفع سيرة ذاتية حديثة",
-            isUploaded: "mdi-check-circle",
-            file: ["a"],
+            file: [],
           },
           {
             id: 4,
             name: " مباشرة العمل",
             description: "رفع صورة من رسالة مباشرة العمل للفصل الدراسي الحالي",
-            isUploaded: "mdi-check-circle",
-            file: ["a"],
+            file: [],
           },
           {
             id: 5,
             name: "إقرار",
             description: "إقرار منك بصحة البيانات التي ذكرتها في هذا الطلب.",
-            isUploaded: "mdi-check-circle",
-            file: ["a"],
+            file: [],
           },
         ],
         reviewers: [
@@ -119,6 +114,9 @@ export const useApplyingStore = defineStore("Applyings", {
     ],
   }),
   actions: {
+    addAttachment(index, file) {
+      this.applyings.attachments[index].file = file;
+    },
     deleteScientificPapers(paperId) {
       console.log(paperId);
       this.applyings[0].scientificPaper =

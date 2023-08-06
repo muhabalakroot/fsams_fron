@@ -1,5 +1,5 @@
 <template>
-  <v-form ref="form">
+  <v-form readonly ref="form">
     <v-container>
       <v-alert type="info" v-if="userRole == 'department-head'"
         >بعد الاتطلاع على الطلب والتحقق من صحته، قم بتعبأت الخانات تحت عنوان
@@ -611,18 +611,41 @@
             <td>{{ attachments[i].name }}</td>
             <td>{{ attachments[i].description }}</td>
             <td>
-              <v-icon color="success">{{ attachments[i].isUploaded }}</v-icon>
+              <v-icon
+                :icon="attachments[i].file.name ? 'mdi-check' : ''"
+                color="success"
+              >
+              </v-icon>
             </td>
             <td>
               <v-file-input
-                v-if="$route.name !== 'ApplicationReview'"
+                v-if="
+                  attachments[i].file.name == null &&
+                  $route.name !== 'ApplicationReview'
+                "
                 density="compact"
                 hide-details="true"
-                v-model="selectedFile"
-                @change="onFileChanged($event, attachments[i])"
+                @change="onFileChanged($event, i)"
               ></v-file-input>
-              <v-btn v-if="$route.name == 'ApplicationReview'" class="ma-1"
-                ><v-icon icon="mdi-eye-outline"></v-icon
+              <v-btn
+                v-if="
+                  attachments[i].file.name || $route.name == 'ApplicationReview'
+                "
+                class="ma-1"
+                ><v-icon
+                  v-model="attachments[i].file"
+                  icon="mdi-eye-outline"
+                ></v-icon
+              ></v-btn>
+              <v-btn
+                v-if="
+                  attachments[i].file.name &&
+                  $route.name !== 'ApplicationReview'
+                "
+                @click="deleteFile(i)"
+                color="error"
+                class="ma-1"
+                ><v-icon icon="mdi-delete-outline"></v-icon
               ></v-btn>
             </td>
           </tr>
@@ -635,7 +658,11 @@
         v-if="userRole == 'faculty-member'"
       ></ApplicationConfirmation>
 
-      <div v-if="userRole == 'department-head'">
+      <v-card
+        variant="outlined"
+        color="error"
+        v-if="userRole == 'department-head'"
+      >
         <TheH1>إجراءات القسم العلمي</TheH1>
 
         <div>
@@ -699,11 +726,11 @@
           <div>يقترح مجلس القسم لجنة التقييم من الاخوة</div>
           <ReviewerCRUD></ReviewerCRUD>
         </div>
-      </div>
 
-      <div align="left">
-        <v-btn @click="validate"> تسليم</v-btn>
-      </div>
+        <div align="left">
+          <ApplicationConfirmation @click="validate"></ApplicationConfirmation>
+        </div>
+      </v-card>
     </v-container>
   </v-form>
 </template>
