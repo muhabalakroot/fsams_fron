@@ -8,7 +8,9 @@
     <v-container>
       <v-row>
         <v-col cols="4">
-          <TheTextFieldLable>المؤهل العلمي</TheTextFieldLable>
+          <TheTextFieldLable
+            >المؤهل العلمي<span style="color: red">*</span></TheTextFieldLable
+          >
           <v-select
             v-model="user.qualification"
             :rules="[(v) => !!v || 'هذا الحقل اجباري']"
@@ -19,7 +21,9 @@
           </v-select>
         </v-col>
         <v-col cols="4"
-          ><TheTextFieldLable>التخصص</TheTextFieldLable>
+          ><TheTextFieldLable
+            >التخصص<span style="color: red">*</span></TheTextFieldLable
+          >
           <v-text-field
             :rules="[(v) => !!v || 'هذا الحقل اجباري']"
             v-model="user.generalMajor"
@@ -27,7 +31,9 @@
           </v-text-field
         ></v-col>
         <v-col cols="4"
-          ><TheTextFieldLable>التخصص الدقيق</TheTextFieldLable>
+          ><TheTextFieldLable
+            >التخصص الدقيق<span style="color: red">*</span></TheTextFieldLable
+          >
           <v-text-field
             :rules="[(v) => !!v || 'هذا الحقل اجباري']"
             v-model="user.exaxtMajor"
@@ -38,7 +44,9 @@
 
       <v-row>
         <v-col cols="4"
-          ><TheTextFieldLable>الجامعة</TheTextFieldLable>
+          ><TheTextFieldLable
+            >الجامعة<span style="color: red">*</span></TheTextFieldLable
+          >
           <v-text-field
             :rules="[(v) => !!v || 'هذا الحقل اجباري']"
             v-model="user.univercity"
@@ -46,7 +54,9 @@
           </v-text-field
         ></v-col>
         <v-col cols="4"
-          ><TheTextFieldLable>البلد</TheTextFieldLable>
+          ><TheTextFieldLable
+            >البلد<span style="color: red">*</span></TheTextFieldLable
+          >
           <v-text-field
             :rules="[(v) => !!v || 'هذا الحقل اجباري']"
             v-model="user.country"
@@ -54,7 +64,9 @@
           </v-text-field
         ></v-col>
         <v-col cols="4"
-          ><TheTextFieldLable>المدينة</TheTextFieldLable>
+          ><TheTextFieldLable
+            >المدينة<span style="color: red">*</span></TheTextFieldLable
+          >
           <v-text-field
             :rules="[(v) => !!v || 'هذا الحقل اجباري']"
             v-model="user.city"
@@ -65,7 +77,11 @@
 
       <v-row>
         <v-col cols="4"
-          ><TheTextFieldLable>تاريخ الحصول عليه</TheTextFieldLable>
+          ><TheTextFieldLable
+            >تاريخ الحصول عليه<span style="color: red"
+              >*</span
+            ></TheTextFieldLable
+          >
           <v-text-field
             type="date"
             :rules="[(v) => !!v || 'هذا الحقل اجباري']"
@@ -79,7 +95,11 @@
 
       <v-row>
         <v-col cols="4">
-          <TheTextFieldLable>الدرجة العلمية الحالية</TheTextFieldLable>
+          <TheTextFieldLable
+            >الدرجة العلمية الحالية<span style="color: red"
+              >*</span
+            ></TheTextFieldLable
+          >
           <v-select
             v-model="user.currentDegree"
             item-title="value"
@@ -96,7 +116,11 @@
           </v-select>
         </v-col>
         <v-col cols="4"
-          ><TheTextFieldLable>رقم قرار الترقية</TheTextFieldLable>
+          ><TheTextFieldLable
+            >رقم قرار الترقية<span style="color: red"
+              >*</span
+            ></TheTextFieldLable
+          >
           <v-text-field
             :rules="[(v) => !!v || 'هذا الحقل اجباري']"
             v-model="user.promotoinDegreeNumber"
@@ -104,7 +128,11 @@
           </v-text-field
         ></v-col>
         <v-col cols="4"
-          ><TheTextFieldLable>تاريخ قرار الترقية</TheTextFieldLable>
+          ><TheTextFieldLable
+            >تاريخ قرار الترقية<span style="color: red"
+              >*</span
+            ></TheTextFieldLable
+          >
           <v-text-field
             :rules="[(v) => !!v || 'هذا الحقل اجباري']"
             type="date"
@@ -116,7 +144,9 @@
 
       <v-row>
         <v-col cols="4"
-          ><TheTextFieldLable>قرار الترقية</TheTextFieldLable>
+          ><TheTextFieldLable
+            >قرار الترقية<span style="color: red">*</span></TheTextFieldLable
+          >
           <v-file-input
             :rules="[(v) => !!v || 'هذا الحقل اجباري']"
             hint="الرجاء رفع صورة من قرار الترقية"

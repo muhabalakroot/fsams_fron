@@ -14,7 +14,7 @@
       </thead>
       <tbody>
         <tr v-for="i in num" :key="i">
-          <td>{{ attachments[i].name }}</td>
+          <td>{{ attachments[i].name }}<span style="color: red">*</span></td>
           <td>{{ attachments[i].description }}</td>
           <td>
             <v-icon
@@ -63,7 +63,7 @@ export default {
   data() {
     return {
       attachments: null,
-      num: [0, 1, 2, 3, 4],
+      num: [0, 1, 2, 3, 4, 5],
       isSelecting: false,
       selectedFile: [],
       users: null,

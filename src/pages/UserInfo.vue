@@ -236,6 +236,7 @@
 </template>
 <script>
 import { useUsersStore } from "@/store/user";
+import { useApplyingStore } from "@/store/applying";
 import { mapState } from "pinia";
 export default {
   data() {
@@ -266,21 +267,21 @@ export default {
         { id: 23, value: "المرحلة التمهيدية" },
         { id: 24, value: "كلية الإعلام" },
       ],
-      user: {
-        firstName: "رضوان",
-        fatherName: "عبد الله",
-        lastName: "حسين",
-        currentDegree: "أستاذ مشارك",
-        faculty: "كلية تقنيةالمعلومات",
-        department: "قسم هندسة البرمجيات",
-        qualification: "دكتوراه",
-        promotionDegreeNumberDate: "2019-05-30",
-      },
+      user: null,
       editable: true,
     };
   },
   computed: {
     ...mapState(useUsersStore, ["userRole"]),
+    ...mapState(useApplyingStore, ["applyings"]),
+  },
+  methods: {
+    initialize() {
+      this.user = this.applyings[0];
+    },
+  },
+  created() {
+    this.initialize();
   },
 };
 </script>

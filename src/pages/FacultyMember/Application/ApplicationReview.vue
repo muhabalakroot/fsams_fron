@@ -1,21 +1,27 @@
 <template>
   <v-form readonly ref="form">
+    <v-btn
+      prepend-icon="mdi-chevron-right"
+      @click="$router.push({ name: 'FacultyMembersApplicationsManagement' })"
+      v-if="userRole == 'department-head'"
+      >عودة</v-btn
+    >
     <v-container>
-      <v-btn
-        prepend-icon="mdi-chevron-right"
-        @click="$router.push({ name: 'FacultyMembersApplicationsManagement' })"
-        v-if="userRole == 'department-head'"
-        >عودة</v-btn
+      <TheH1 class="mb-2" v-if="userRole == 'department-head'"
+        >{{ applyings[0].applicationType }} الخاص بـ{{
+          applyings[0].firstName
+        }}
+        {{ applyings[0].lastName }}</TheH1
       >
       <v-alert type="info" v-if="userRole == 'department-head'"
         >بعد الاتطلاع على الطلب والتحقق من صحته، قم بتعبأت الخانات تحت عنوان
-        إجراءات القسم العلمي بأسفل هذه الصفحة وإضغط تسليم. في حال وجود نقص في
-        الطلب إضغط على تغذر التسليم وأدخل سبب التغذر في خانة الملاحظات حتى يتمكن
-        عضو هيئة التدريس من إضافة النواقص.</v-alert
+        إجراءات القسم العلمي بأسفل هذه الصفحة وإضغط ارسال. في حال وجود نقص في
+        الطلب وأدخل النوافص في خانة سبب عدم المطابقة حتى يتمكن عضو هيئة التدريس
+        من إضافة النواقص.</v-alert
       >
       <TheH1>البيانات الشخصية</TheH1>
       <v-row>
-        <v-col cols="4">
+        <v-col cols="3">
           <TheTextFieldLable>الاسم الأول</TheTextFieldLable>
           <v-text-field
             :rules="[(v) => !!v || 'هذا الحقل اجباري']"
@@ -23,7 +29,7 @@
           >
           </v-text-field>
         </v-col>
-        <v-col cols="4"
+        <v-col cols="3"
           ><TheTextFieldLable>الاسم الأب</TheTextFieldLable>
           <v-text-field
             :rules="[(v) => !!v || 'هذا الحقل اجباري']"
@@ -31,7 +37,11 @@
           >
           </v-text-field
         ></v-col>
-        <v-col cols="4"
+        <v-col cols="3"
+          ><TheTextFieldLable>الاسم الجد</TheTextFieldLable>
+          <v-text-field v-model="user.grandeFatherName"> </v-text-field
+        ></v-col>
+        <v-col cols="3"
           ><TheTextFieldLable>اللقب</TheTextFieldLable>
           <v-text-field
             :rules="[(v) => !!v || 'هذا الحقل اجباري']"
@@ -419,18 +429,19 @@
                 <!-- add new Paper here -->
                 <v-card-text>
                   <v-form ref="form">
-                    <v-row>
-                      <v-col cols="4">
+                    <v-row
+                      ><v-col cols="12">
                         <TheTextFieldLable
                           >عنوان الإنتاج العلمي</TheTextFieldLable
                         >
                         <v-text-field
+                          style="width: 100%; max-width: 100%"
                           :rules="[(v) => !!v || 'هذا الحقل اجباري']"
                           v-model="editedItem.scientificPaperTitle"
                         >
-                        </v-text-field>
-                      </v-col>
-
+                        </v-text-field> </v-col
+                    ></v-row>
+                    <v-row>
                       <v-col cols="4"
                         ><TheTextFieldLable>جهة النشر</TheTextFieldLable>
                         <v-text-field
@@ -456,25 +467,25 @@
                         >
                         </v-select>
                       </v-col>
-                    </v-row>
-
-                    <v-row>
-                      <v-col cols="4"
-                        ><TheTextFieldLable
-                          >رابط موقع نشر الإنتاج العلمي</TheTextFieldLable
-                        >
-                        <v-text-field
-                          :rules="[(v) => !!v || 'هذا الحقل اجباري']"
-                          v-model="editedItem.scientificPaperUrl"
-                        >
-                        </v-text-field
-                      ></v-col>
                       <v-col cols="4"
                         ><TheTextFieldLable>تاريخ النشر</TheTextFieldLable>
                         <v-text-field
                           type="date"
                           :rules="[(v) => !!v || 'هذا الحقل اجباري']"
                           v-model="editedItem.dateOfpublishing"
+                        >
+                        </v-text-field
+                      ></v-col>
+                    </v-row>
+
+                    <v-row>
+                      <v-col cols="12"
+                        ><TheTextFieldLable
+                          >رابط موقع نشر الإنتاج العلمي</TheTextFieldLable
+                        >
+                        <v-text-field
+                          style="width: 100%; max-width: 100%"
+                          v-model="editedItem.scientificPaperUrl"
                         >
                         </v-text-field
                       ></v-col>
@@ -660,6 +671,8 @@
 
       <v-divider class="ma-2"></v-divider>
 
+      <v-alert></v-alert>
+
       <ApplicationConfirmation
         class="my-2"
         v-if="userRole == 'faculty-member'"
@@ -673,7 +686,11 @@
         <TheH1>إجراءات القسم العلمي</TheH1>
 
         <div>
-          <div>هل تم عرض موضوع الطلب على مجلس القسم؟</div>
+          <div>
+            هل تم عرض موضوع الطلب على مجلس القسم؟<span style="color: red"
+              >*</span
+            >
+          </div>
           <v-radio-group v-model="isShowen">
             <v-radio label="لا" value="false"></v-radio>
             <v-radio label="تعم" value="true"></v-radio>
@@ -684,6 +701,7 @@
           <v-col cols="6"
             ><TheTextFieldLable>تاريخ العرض</TheTextFieldLable>
             <v-text-field
+              style="max-width: 100%; width: 100%"
               v-model="user.showenToDepartment"
               type="date"
               :rules="[(v) => !!v || 'هذا الحقل اجباري']"
@@ -693,6 +711,7 @@
           <v-col cols="6"
             ><TheTextFieldLable>نسخه من محضر إجتماع القسم</TheTextFieldLable
             ><v-file-input
+              style="max-width: 100%; width: 100%"
               v-model="user.departmentMeetingMinutes"
               hide-details="true"
             ></v-file-input
@@ -700,7 +719,12 @@
         </v-row>
 
         <div v-if="isShowen == 'true'">
-          <div>بعد مراجعة البيانات المدرجة بطلب الترقية تبين لمجلس القسم:</div>
+          <div>
+            بعد مراجعة البيانات المدرجة بطلب الترقية تبين لمجلس القسم:<span
+              style="color: red"
+              >*</span
+            >
+          </div>
           <v-radio-group v-model="isComplate">
             <v-radio label="عدم مطابقة" value="false"></v-radio>
             <v-radio label="مطابقة" value="true"></v-radio>
@@ -708,8 +732,13 @@
         </div>
 
         <div v-if="isComplate == 'false'">
-          <TheTextFieldLable>سبب عدم المطابقة</TheTextFieldLable>
+          <TheTextFieldLable
+            >سبب عدم المطابقة<span style="color: red"
+              >*</span
+            ></TheTextFieldLable
+          >
           <v-text-field
+            style="max-width: 100%; width: 100%"
             v-model="user.dhNote"
             :rules="[(v) => !!v || 'هذا الحقل اجباري']"
           >
@@ -720,6 +749,7 @@
           <div>
             وعليه تمت ................................... على استكمال إجراءات
             الترقية للدرجة العلمية التالية.
+            <span style="color: red">*</span>
           </div>
           <v-radio-group v-model="isOkay">
             <v-radio label="عدم الموافقة" value="false"></v-radio>
@@ -730,7 +760,11 @@
         <v-divider class="ma-2"></v-divider>
 
         <div v-if="isComplate == 'true' && isOkay == 'true'">
-          <div>يقترح مجلس القسم لجنة التقييم من الاخوة</div>
+          <div>
+            يقترح مجلس القسم لجنة التقييم من الاخوة<span style="color: red"
+              >*</span
+            >
+          </div>
           <ReviewerCRUD></ReviewerCRUD>
         </div>
 
@@ -761,7 +795,7 @@ export default {
       isOkay: "",
       isShowen: "",
       isComplate: "",
-      num: [0, 1, 2, 3, 4],
+      num: [0, 1, 2, 3, 4, 5],
       selectedFile: [],
       dialog: false,
       dialogDelete: false,

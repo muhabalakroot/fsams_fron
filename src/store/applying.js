@@ -13,7 +13,8 @@ export const useApplyingStore = defineStore("Applyings", {
         isSubmited: "نعم",
         role: "department-head",
         firstName: "رضوان",
-        fatherName: "عبد  الله",
+        fatherName: "علي",
+        grandeFatherName: "",
         lastName: "حسين",
         nationality: "ليبي",
         faculty: "كلية تقنية المعلومات",
@@ -96,6 +97,12 @@ export const useApplyingStore = defineStore("Applyings", {
           },
           {
             id: 5,
+            name: "نموذج إدراج الإنتاج العلمي",
+            description: "رفع صورة من نموذج إدراج الإنتاج العلمي ",
+            file: [],
+          },
+          {
+            id: 6,
             name: "إقرار",
             description: "إقرار منك بصحة البيانات التي ذكرتها في هذا الطلب.",
             file: [],

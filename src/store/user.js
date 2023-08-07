@@ -5,7 +5,8 @@ export const useUsersStore = defineStore("Users", {
   state: () => ({
     users: [
       {
-        role: "department-head",
+        role: "faculty-member",
+        role_ar: "عضو هيئة تدريس",
         firstName: "رضوان",
         fatherName: "عبد  الله",
         lastName: "حسين",

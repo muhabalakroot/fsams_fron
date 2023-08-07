@@ -18,7 +18,7 @@
           <v-btn variant="text" @click="dialog = false" class="mx-2">
             إلغاء
           </v-btn>
-          <v-btn @click="addNewApplication"> حفظ </v-btn>
+          <v-btn @click="addNewApplication"> إنشاء </v-btn>
         </div>
       </v-card>
     </v-dialog>

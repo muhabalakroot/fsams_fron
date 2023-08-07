@@ -7,24 +7,34 @@
   <v-form ref="form">
     <v-container>
       <v-row>
-        <v-col cols="4">
-          <TheTextFieldLable>الاسم الأول</TheTextFieldLable>
+        <v-col cols="3">
+          <TheTextFieldLable
+            >الاسم الأول<span style="color: red">*</span></TheTextFieldLable
+          >
           <v-text-field
             :rules="[(v) => !!v || 'هذا الحقل اجباري']"
             v-model="user.firstName"
           >
           </v-text-field>
         </v-col>
-        <v-col cols="4"
-          ><TheTextFieldLable>الاسم الأب</TheTextFieldLable>
+        <v-col cols="3"
+          ><TheTextFieldLable
+            >الاسم الأب<span style="color: red">*</span></TheTextFieldLable
+          >
           <v-text-field
             :rules="[(v) => !!v || 'هذا الحقل اجباري']"
             v-model="user.fatherName"
           >
           </v-text-field
         ></v-col>
-        <v-col cols="4"
-          ><TheTextFieldLable>اللقب</TheTextFieldLable>
+        <v-col cols="3"
+          ><TheTextFieldLable>الاسم الجد</TheTextFieldLable>
+          <v-text-field v-model="user.grandeFatherName"> </v-text-field
+        ></v-col>
+        <v-col cols="3"
+          ><TheTextFieldLable
+            >اللقب<span style="color: red">*</span></TheTextFieldLable
+          >
           <v-text-field
             :rules="[(v) => !!v || 'هذا الحقل اجباري']"
             v-model="user.lastName"
@@ -35,7 +45,9 @@
 
       <v-row>
         <v-col cols="6"
-          ><TheTextFieldLable>الكلية</TheTextFieldLable>
+          ><TheTextFieldLable
+            >الكلية<span style="color: red">*</span></TheTextFieldLable
+          >
           <v-select
             style="max-width: 1000px"
             :rules="[(v) => !!v || 'هذا الحقل اجباري']"
@@ -49,7 +61,9 @@
 
         <!-- //كلية العلوم -->
         <v-col cols="6" v-if="user.faculty == 'كلية العلوم'"
-          ><TheTextFieldLable>القسم العلمي</TheTextFieldLable>
+          ><TheTextFieldLable
+            >القسم العلمي<span style="color: red">*</span></TheTextFieldLable
+          >
           <v-select
             style="max-width: 1000px"
             :rules="[(v) => !!v || 'هذا الحقل اجباري']"
@@ -70,7 +84,9 @@
 
         <!-- //كلية الهندسة -->
         <v-col cols="6" v-if="user.faculty == 'كلية الهندسة'"
-          ><TheTextFieldLable>القسم العلمي</TheTextFieldLable>
+          ><TheTextFieldLable
+            >القسم العلمي<span style="color: red">*</span></TheTextFieldLable
+          >
           <v-select
             style="max-width: 1000px"
             :rules="[(v) => !!v || 'هذا الحقل اجباري']"
@@ -99,7 +115,9 @@
 
         <!-- //كلية الفنون -->
         <v-col cols="6" v-if="user.faculty == 'كلية الفنون'"
-          ><TheTextFieldLable>القسم العلمي</TheTextFieldLable>
+          ><TheTextFieldLable
+            >القسم العلمي<span style="color: red">*</span></TheTextFieldLable
+          >
           <v-select
             style="max-width: 1000px"
             :rules="[(v) => !!v || 'هذا الحقل اجباري']"
@@ -117,7 +135,9 @@
 
         <!-- //كلية اللغات -->
         <v-col cols="6" v-if="user.faculty == 'كلية اللغات'"
-          ><TheTextFieldLable>القسم العلمي</TheTextFieldLable>
+          ><TheTextFieldLable
+            >القسم العلمي<span style="color: red">*</span></TheTextFieldLable
+          >
           <v-select
             style="max-width: 1000px"
             :rules="[(v) => !!v || 'هذا الحقل اجباري']"
@@ -138,7 +158,9 @@
 
         <!-- //كلية الزراعة -->
         <v-col cols="6" v-if="user.faculty == 'كلية الزراعة'"
-          ><TheTextFieldLable>القسم العلمي</TheTextFieldLable>
+          ><TheTextFieldLable
+            >القسم العلمي<span style="color: red">*</span></TheTextFieldLable
+          >
           <v-select
             style="max-width: 1000px"
             :rules="[(v) => !!v || 'هذا الحقل اجباري']"
@@ -162,7 +184,9 @@
 
         <!-- كليتنا الغالية -->
         <v-col cols="6" v-if="user.faculty == 'كلية تقنية المعلومات'"
-          ><TheTextFieldLable>القسم العلمي</TheTextFieldLable>
+          ><TheTextFieldLable
+            >القسم العلمي<span style="color: red">*</span></TheTextFieldLable
+          >
           <v-select
             style="max-width: 1000px"
             :rules="[(v) => !!v || 'هذا الحقل اجباري']"
@@ -182,7 +206,9 @@
 
       <v-row>
         <v-col cols="6"
-          ><TheTextFieldLable>الجنسية</TheTextFieldLable>
+          ><TheTextFieldLable
+            >الجنسية<span style="color: red">*</span></TheTextFieldLable
+          >
           <v-select
             style="max-width: 1000px"
             :rules="[(v) => !!v || 'هذا الحقل اجباري']"
@@ -194,7 +220,9 @@
         ></v-col>
 
         <v-col cols="6" v-if="user.nationality == 1"
-          ><TheTextFieldLable>الرقم الوطني</TheTextFieldLable>
+          ><TheTextFieldLable
+            >الرقم الوطني<span style="color: red">*</span></TheTextFieldLable
+          >
           <v-text-field
             style="max-width: 1000px"
             :rules="[(v) => !!v || 'هذا الحقل اجباري']"

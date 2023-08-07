@@ -62,17 +62,20 @@
               <v-card-text>
                 <v-form ref="form">
                   <v-row>
-                    <v-col cols="4">
+                    <v-col cols="12">
                       <TheTextFieldLable
                         >عنوان الإنتاج العلمي</TheTextFieldLable
                       >
                       <v-text-field
+                        style="width: 100%; max-width: 100%"
                         :rules="[(v) => !!v || 'هذا الحقل اجباري']"
                         v-model="editedItem.scientificPaperTitle"
                       >
                       </v-text-field>
                     </v-col>
+                  </v-row>
 
+                  <v-row>
                     <v-col cols="4"
                       ><TheTextFieldLable>جهة النشر</TheTextFieldLable>
                       <v-text-field
@@ -98,25 +101,25 @@
                       >
                       </v-select>
                     </v-col>
-                  </v-row>
-
-                  <v-row>
-                    <v-col cols="4"
-                      ><TheTextFieldLable
-                        >رابط موقع نشر الإنتاج العلمي</TheTextFieldLable
-                      >
-                      <v-text-field
-                        :rules="[(v) => !!v || 'هذا الحقل اجباري']"
-                        v-model="editedItem.scientificPaperUrl"
-                      >
-                      </v-text-field
-                    ></v-col>
                     <v-col cols="4"
                       ><TheTextFieldLable>تاريخ النشر</TheTextFieldLable>
                       <v-text-field
                         type="date"
                         :rules="[(v) => !!v || 'هذا الحقل اجباري']"
                         v-model="editedItem.dateOfpublishing"
+                      >
+                      </v-text-field
+                    ></v-col>
+                  </v-row>
+
+                  <v-row>
+                    <v-col cols="12"
+                      ><TheTextFieldLable
+                        >رابط موقع نشر الإنتاج العلمي</TheTextFieldLable
+                      >
+                      <v-text-field
+                        style="width: 100%; max-width: 100%"
+                        v-model="editedItem.scientificPaperUrl"
                       >
                       </v-text-field
                     ></v-col>

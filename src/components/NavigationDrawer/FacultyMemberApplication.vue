@@ -12,6 +12,10 @@
     <v-divider></v-divider>
 
     <v-list density="compact" v-model:selected="selectedItem" @click="navigate">
+      <v-list-item :title="applyings[0].applicationType"> </v-list-item>
+
+      <v-divider class="ma-2"></v-divider>
+
       <v-list-item
         color="primary"
         prepend-icon="mdi-chevron-right"
@@ -70,6 +74,8 @@
   </v-navigation-drawer>
 </template>
 <script>
+import { useApplyingStore } from "@/store/applying";
+import { mapState } from "pinia";
 export default {
   data() {
     return {
@@ -77,6 +83,9 @@ export default {
       scientificDegree: "أستاذ مشارك",
       selectedItem: null,
     };
+  },
+  computed: {
+    ...mapState(useApplyingStore, ["applyings"]),
   },
   methods: {
     logout() {

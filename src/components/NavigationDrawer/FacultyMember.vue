@@ -4,8 +4,8 @@
       <v-list-item
         lines="two"
         prepend-avatar="\uot_logo.png"
-        :title="name"
-        :subtitle="scientificDegree"
+        :title="fullName"
+        :subtitle="user.role_ar"
       ></v-list-item>
     </template>
 
@@ -49,13 +49,21 @@
   </v-navigation-drawer>
 </template>
 <script>
+import { useUsersStore } from "@/store/user";
+import { mapState } from "pinia";
+
 export default {
   data() {
     return {
-      name: "د. رضوان حسين",
-      scientificDegree: "أستاذ مشارك",
+      user: null,
       selectedItem: null,
     };
+  },
+  computed: {
+    ...mapState(useUsersStore, ["users"]),
+    fullName() {
+      return this.user.firstName + " " + this.user.lastName;
+    },
   },
   methods: {
     logout() {
@@ -68,6 +76,12 @@ export default {
       if (this.selectedItem == "User Info")
         this.$router.push({ name: "UserInfo" });
     },
+    initialize() {
+      this.user = this.users[0];
+    },
+  },
+  created() {
+    this.initialize();
   },
 };
 </script>

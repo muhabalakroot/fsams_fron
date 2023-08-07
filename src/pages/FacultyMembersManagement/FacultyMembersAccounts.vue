@@ -8,9 +8,7 @@
   <v-data-table :headers="headers" :items="desserts" class="elevation-1">
     <template v-slot:item="{ item }">
       <tr>
-        <td>
-          {{ item.columns.firstName }}
-        </td>
+        <td>{{ item.columns.firstName }} {{ item.raw.lastName }}</td>
         <td>{{ item.columns.email }}</td>
         <td>
           {{ item.columns.faculty }}
@@ -277,7 +275,10 @@
                       </v-select>
                     </v-col>
                     <v-col cols="4"
-                      ><TheTextFieldLable>تاريخ قرار الترقية</TheTextFieldLable>
+                      ><TheTextFieldLable
+                        >تاريخ قرار الترقية (أو تاريخ مباشرة
+                        العمل)</TheTextFieldLable
+                      >
                       <v-text-field
                         :rules="[(v) => !!v || 'هذا الحقل اجباري']"
                         type="date"
@@ -344,11 +345,11 @@
     </template>
   </v-data-table>
 
-  <div align="left">
+  <!-- <div align="left">
     <v-divider></v-divider>
     <v-btn variant="text" class="mx-2"> </v-btn>
     <v-btn @click="saveToState">حفظ التغييرات</v-btn>
-  </div>
+  </div> -->
 </template>
 <script>
 import { useFacultyMembersStore } from "@/store/facultyMembers";
