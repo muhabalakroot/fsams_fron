@@ -236,7 +236,7 @@
 </template>
 <script>
 import { useUsersStore } from "@/store/user";
-import { useApplyingStore } from "@/store/applying";
+
 import { mapState } from "pinia";
 export default {
   data() {
@@ -273,11 +273,11 @@ export default {
   },
   computed: {
     ...mapState(useUsersStore, ["userRole"]),
-    ...mapState(useApplyingStore, ["applyings"]),
+    ...mapState(useUsersStore, ["users"]),
   },
   methods: {
     initialize() {
-      this.user = this.applyings[0];
+      this.user = this.users[0];
     },
   },
   created() {

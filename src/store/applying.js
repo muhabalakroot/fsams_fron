@@ -36,6 +36,7 @@ export const useApplyingStore = defineStore("Applyings", {
         departmentMeetingMinutes: [],
         showenToDepartment: "",
         promotoinDegreeFile: [],
+        signedApplication: [],
         scientificPaper: [
           {
             id: "1",

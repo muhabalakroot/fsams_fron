@@ -1,6 +1,7 @@
 <template>
   <v-alert type="success">
-    أهلا بك {{ name }} في نظام إدارة شؤون أعضاء هيئة التدريس
+    أهلا بك {{ user.firstName }} {{ user.lastName }} في نظام إدارة شؤون أعضاء
+    هيئة التدريس
   </v-alert>
   <div class="text-center pa-2">
     <v-img class="mx-auto" width="70" src="/uot_logo.png"></v-img>
@@ -60,11 +61,20 @@ import { mapState } from "pinia";
 export default {
   data() {
     return {
-      name: "د. رضوان حسين",
+      user: null,
     };
   },
   computed: {
     ...mapState(useUsersStore, ["userRole"]),
+    ...mapState(useUsersStore, ["users"]),
+  },
+  methods: {
+    initialize() {
+      this.user = this.users[0];
+    },
+  },
+  created() {
+    this.initialize();
   },
 };
 </script>
