@@ -57,9 +57,14 @@
 
             <v-card-text>
               <v-form ref="form">
+                <v-alert type="info"
+                  >عند إضافتك لعضو هيئة تدريس سيتم إرسال بريد إلكتروني إلى بريده
+                  الجامعي. من خلاله يتمكن من تعيين كلمة مرور للدخول إلى
+                  حسابه.</v-alert
+                >
                 <v-container>
                   <v-row
-                    ><v-col cols="4">
+                    ><v-col cols="3">
                       <TheTextFieldLable>الاسم الأول</TheTextFieldLable>
                       <v-text-field
                         :rules="[(v) => !!v || 'هذا الحقل اجباري']"
@@ -67,15 +72,23 @@
                       >
                       </v-text-field>
                     </v-col>
-                    <v-col cols="4"
-                      ><TheTextFieldLable>الاسم الأب</TheTextFieldLable>
+                    <v-col cols="3"
+                      ><TheTextFieldLable>اسم الأب</TheTextFieldLable>
                       <v-text-field
                         :rules="[(v) => !!v || 'هذا الحقل اجباري']"
                         v-model="editedItem.fatherName"
                       >
                       </v-text-field
                     ></v-col>
-                    <v-col cols="4"
+                    <v-col cols="3"
+                      ><TheTextFieldLable>اسم الجد</TheTextFieldLable>
+                      <v-text-field
+                        :rules="[(v) => !!v || 'هذا الحقل اجباري']"
+                        v-model="editedItem.grandefatherName"
+                      >
+                      </v-text-field
+                    ></v-col>
+                    <v-col cols="3"
                       ><TheTextFieldLable>اللقب</TheTextFieldLable>
                       <v-text-field
                         :rules="[(v) => !!v || 'هذا الحقل اجباري']"
@@ -404,6 +417,7 @@ export default {
       email: null,
       firstName: null,
       fatherName: null,
+      grandefatherName: null,
       lastName: null,
       nationality: null,
       faculty: null,
@@ -416,6 +430,7 @@ export default {
       email: null,
       firstName: null,
       fatherName: null,
+      grandefatherName: null,
       lastName: null,
       nationality: null,
       faculty: null,

@@ -693,14 +693,6 @@
               hint="الرجاء رفع صورة من قرار الترقية"
               v-model="user.signedApplication"
             ></v-file-input>
-            <v-btn
-              v-if="
-                $route.name == 'ApplicationReview' &&
-                userRole == 'department-head'
-              "
-              class="ma-1"
-              ><v-icon icon="mdi-eye-outline"></v-icon
-            ></v-btn>
           </v-col>
         </v-row>
 
@@ -891,6 +883,24 @@
         </PrintLayout>
       </div>
 
+      <TheTextFieldLable
+        v-if="
+          $route.name == 'ApplicationReview' &&
+          (userRole == 'department-head' ||
+            userRole == 'faculty-affairs-office')
+        "
+        >نموذج الطلب</TheTextFieldLable
+      >
+      <v-btn
+        v-if="
+          $route.name == 'ApplicationReview' &&
+          (userRole == 'department-head' ||
+            userRole == 'faculty-affairs-office')
+        "
+        class="ma-1"
+        ><v-icon icon="mdi-eye-outline"></v-icon
+      ></v-btn>
+
       <ApplicationConfirmation
         class="my-2"
         v-if="userRole == 'faculty-member'"
@@ -915,82 +925,314 @@
           </v-radio-group>
         </div>
 
-        <v-row v-if="isShowen == 'true'">
-          <v-col cols="6"
-            ><TheTextFieldLable>تاريخ العرض</TheTextFieldLable>
+        <div v-if="isShowen == 'true'">
+          <v-row v-if="isShowen == 'true'">
+            <v-col cols="6"
+              ><TheTextFieldLable>تاريخ العرض</TheTextFieldLable>
+              <v-text-field
+                style="max-width: 100%; width: 100%"
+                v-model="user.showenToDepartment"
+                type="date"
+                :rules="[(v) => !!v || 'هذا الحقل اجباري']"
+              >
+              </v-text-field
+            ></v-col>
+            <v-col cols="6"
+              ><TheTextFieldLable>نسخه من محضر إجتماع القسم</TheTextFieldLable
+              ><v-file-input
+                style="max-width: 100%; width: 100%"
+                v-model="user.departmentMeetingMinutes"
+                hide-details="true"
+              ></v-file-input
+            ></v-col>
+          </v-row>
+
+          <div v-if="isShowen == 'true'">
+            <div>
+              بعد مراجعة البيانات المدرجة بطلب الترقية تبين لمجلس القسم:<span
+                style="color: red"
+                >*</span
+              >
+            </div>
+            <v-radio-group v-model="isComplate">
+              <v-radio label="عدم مطابقة" value="false"></v-radio>
+              <v-radio label="مطابقة" value="true"></v-radio>
+            </v-radio-group>
+          </div>
+
+          <div v-if="isComplate == 'false'">
+            <TheTextFieldLable
+              >سبب عدم المطابقة<span style="color: red"
+                >*</span
+              ></TheTextFieldLable
+            >
             <v-text-field
               style="max-width: 100%; width: 100%"
-              v-model="user.showenToDepartment"
-              type="date"
+              v-model="user.dhNote"
               :rules="[(v) => !!v || 'هذا الحقل اجباري']"
             >
-            </v-text-field
-          ></v-col>
-          <v-col cols="6"
-            ><TheTextFieldLable>نسخه من محضر إجتماع القسم</TheTextFieldLable
-            ><v-file-input
-              style="max-width: 100%; width: 100%"
-              v-model="user.departmentMeetingMinutes"
-              hide-details="true"
-            ></v-file-input
-          ></v-col>
-        </v-row>
-
-        <div v-if="isShowen == 'true'">
-          <div>
-            بعد مراجعة البيانات المدرجة بطلب الترقية تبين لمجلس القسم:<span
-              style="color: red"
-              >*</span
-            >
+            </v-text-field>
           </div>
-          <v-radio-group v-model="isComplate">
-            <v-radio label="عدم مطابقة" value="false"></v-radio>
-            <v-radio label="مطابقة" value="true"></v-radio>
-          </v-radio-group>
-        </div>
 
-        <div v-if="isComplate == 'false'">
+          <div v-if="isComplate == 'true'">
+            <div>
+              وعليه تمت ................................... على استكمال إجراءات
+              الترقية للدرجة العلمية التالية.
+              <span style="color: red">*</span>
+            </div>
+            <v-radio-group v-model="isOkay">
+              <v-radio label="عدم الموافقة" value="false"></v-radio>
+              <v-radio label="الموافقة" value="true"></v-radio>
+            </v-radio-group>
+          </div>
+
+          <v-divider class="ma-2"></v-divider>
+
+          <div v-if="isComplate == 'true' && isOkay == 'true'">
+            <div>
+              يقترح مجلس القسم لجنة التقييم من الاخوة<span style="color: red"
+                >*</span
+              >
+            </div>
+            <ReviewerCRUD></ReviewerCRUD>
+          </div>
+
+          <div
+            v-if="
+              userRole == 'department-head' &&
+              isComplate == 'true' &&
+              isOkay == 'true'
+            "
+          >
+            <v-alert type="info" class="mt-2"
+              >بعد معالجتك للطلب وإدراجك 5 محكمين. قم بطباعة الطلب عن طريق الضغط
+              على زر طباعة،والتوقيع عليه ورفعة من جديد إلى النظام
+            </v-alert>
+
+            <TheTextFieldLable>طباعة الطلب </TheTextFieldLable>
+            <v-btn class="ma-1" variant="outlined" @click="printDHList()"
+              ><v-icon icon="mdi-printer"></v-icon>طباعة</v-btn
+            >
+
+            <v-row>
+              <v-col cols="4"
+                ><TheTextFieldLable
+                  >ارفع الطلب هنا بعد إضافة التوقيع
+                </TheTextFieldLable>
+                <v-file-input
+                  v-if="$route.name == 'ApplicationReview'"
+                  :rules="[(v) => !!v || 'هذا الحقل اجباري']"
+                  hint="الرجاء رفع صورة من قرار الترقية"
+                  v-model="user.signedApplication"
+                ></v-file-input>
+              </v-col>
+            </v-row>
+
+            <PrintLayout
+              dir="rtl"
+              hidden
+              id="DHformToPrint"
+              :firstName="user.firstName"
+              :fatherName="user.fatherName"
+              :lastName="user.lastName"
+              class="ma-auto"
+            >
+              <v-container>
+                <div style="text-align: center">
+                  <img src="@/assets/uot_logo.png" style="width: 150px" />
+                  <h1>جامعة طرابلس</h1>
+                  <h1>إدارة شؤون أعضاء هيئة التدريس</h1>
+                  <h1>إجراءات القسم بشأن ترقية عضو هيئة التدريس</h1>
+                </div>
+
+                <v-row style="margin-top: 10px">
+                  <v-col cols="6" style="text-align: right">
+                    <p class="mb-0" style="font-size: 24px">الكلية</p>
+                    <v-alert
+                      class="mt-0"
+                      style="font-size: 24px"
+                      density="compact"
+                      variant="outlined"
+                      >{{ user.faculty }}
+                    </v-alert>
+                  </v-col>
+                  <v-col cols="6" style="text-align: right">
+                    <p class="mb-0" style="font-size: 24px">القسم التابع له</p>
+                    <v-alert
+                      class="mt-0"
+                      style="font-size: 24px"
+                      density="compact"
+                      variant="outlined"
+                      >{{ user.department }}</v-alert
+                    >
+                  </v-col>
+                </v-row>
+
+                <v-row>
+                  <v-col cols="6" style="text-align: right">
+                    <p class="mb-0" style="font-size: 24px">
+                      تاريخ استلام الطلب
+                    </p>
+                    <v-alert
+                      class="mt-0"
+                      style="font-size: 24px"
+                      variant="outlined"
+                      density="compact"
+                    >
+                      {{ user.dateOfObtaining }}
+                    </v-alert>
+                  </v-col>
+                  <v-col cols="6" style="text-align: right">
+                    <p class="mb-0" style="font-size: 24px">
+                      تاريخ عرض موضوع الطلب على مجلس القسم
+                    </p>
+                    <v-alert
+                      class="mt-0"
+                      style="font-size: 24px"
+                      variant="outlined"
+                      density="compact"
+                    >
+                      {{ user.dateOfObtaining }}
+                    </v-alert>
+                  </v-col>
+                </v-row>
+                <v-row>
+                  <v-col style="text-align: right">
+                    <p class="mb-0" style="font-size: 24px">
+                      ملخص قرار مجلس القسم
+                    </p>
+                    <v-alert
+                      class="mt-0 mb-5"
+                      style="font-size: 24px"
+                      density="compact"
+                      variant="outlined"
+                    >
+                      ملخص قرار مجلس القسم ملخص قرار مجلس القسم ملخص قرار مجلس
+                      القسم ملخص قرار مجلس القسم ملخص قرار مجلس القسم ملخص قرار
+                      مجلس القسم ملخص قرار مجلس القسم ملخص قرار مجلس القسم ملخص
+                      قرار مجلس القسم ملخص قرار مجلس القسم ملخص قرار مجلس القسم
+                      ملخص قرار مجلس القسم ملخص قرار مجلس القسم
+                    </v-alert>
+                  </v-col>
+                </v-row>
+
+                <p class="mb-2" style="font-size: 24px; text-align: right">
+                  وبمراجعة البيانات المدرجة بطلب القسم تبين لمجلس القسم
+                  <span style="font-weight: bolder">مطابقتها</span> وعليه تمت
+                  التوصية بالآتي:
+                </p>
+                <p class="mb-4" style="font-size: 24px; text-align: right">
+                  - <span style="font-weight: bolder">الموافقة</span> على
+                  استكمال إجراءات الترقية للدرجة العلمية التالية.
+                </p>
+
+                <p class="mb-2" style="font-size: 24px; text-align: right">
+                  يقترح مجلس القسم لجنة التقييم من الإخوة:
+                </p>
+
+                <v-table style="border: 2px solid black">
+                  <thead>
+                    <tr style="font-size: 24px; text-align: right">
+                      <th style="font-size: 24px; border: 2px solid black">
+                        اسم المحكم
+                      </th>
+                      <th style="font-size: 24px; border: 2px solid black">
+                        الجامعة التابع لها
+                      </th>
+                      <th style="font-size: 24px; border: 2px solid black">
+                        الدرجة العلمية
+                      </th>
+                      <th style="font-size: 24px; border: 2px solid black">
+                        التخصص
+                      </th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr
+                      style="font-size: 24px; text-align: right"
+                      v-for="item in user.reviewers"
+                      :key="item.id"
+                    >
+                      <td style="font-size: 24px; border: 2px solid black">
+                        {{ item.name }}
+                      </td>
+                      <td style="font-size: 24px; border: 2px solid black">
+                        {{ item.univercity }}
+                      </td>
+                      <td style="font-size: 24px; border: 2px solid black">
+                        {{ item.degree }}
+                      </td>
+                      <td style="font-size: 24px; border: 2px solid black">
+                        {{ item.generalMajor }}
+                      </td>
+                    </tr>
+                  </tbody>
+                </v-table>
+              </v-container>
+
+              <v-row class="mb-0 pb-0">
+                <v-col
+                  cols="4"
+                  style="
+                    font-size: 24px;
+                    font-weight: bolder;
+                    text-align: right;
+                  "
+                  >الاسم: {{ users[0].firstName }} {{ users[0].fatherName }}
+                  {{ users[0].lastName }}</v-col
+                >
+              </v-row>
+              <v-row class="mb-3 pb-0">
+                <v-col
+                  class="mb-0 pb-0"
+                  style="
+                    font-size: 24px;
+                    font-weight: bolder;
+                    text-align: right;
+                  "
+                  cols="4"
+                  >التاريخ: {{ user.createdAt }}</v-col
+                >
+              </v-row>
+              <v-row class="mb-0 pb-0">
+                <v-col
+                  class="mb-0 pb-0"
+                  style="
+                    font-size: 24px;
+                    font-weight: bolder;
+                    text-align: right;
+                    direction: rtl;
+                  "
+                  cols="4"
+                  >التوقيع:..............................</v-col
+                >
+              </v-row>
+            </PrintLayout>
+          </div>
+
           <TheTextFieldLable
-            >سبب عدم المطابقة<span style="color: red"
-              >*</span
-            ></TheTextFieldLable
+            v-if="
+              $route.name == 'ApplicationReview' &&
+              userRole == 'faculty-affairs-office'
+            "
           >
-          <v-text-field
-            style="max-width: 100%; width: 100%"
-            v-model="user.dhNote"
-            :rules="[(v) => !!v || 'هذا الحقل اجباري']"
-          >
-          </v-text-field>
-        </div>
+            نموذج إجراءات القسم العلمي
+          </TheTextFieldLable>
+          <v-btn
+            v-if="
+              $route.name == 'ApplicationReview' &&
+              userRole == 'faculty-affairs-office'
+            "
+            class="ma-1"
+            ><v-icon icon="mdi-eye-outline"></v-icon
+          ></v-btn>
 
-        <div v-if="isComplate == 'true'">
-          <div>
-            وعليه تمت ................................... على استكمال إجراءات
-            الترقية للدرجة العلمية التالية.
-            <span style="color: red">*</span>
+          <div align="left">
+            <ApplicationConfirmation
+              v-if="isComplate == 'true' && isOkay == 'true'"
+              @click="validate"
+            ></ApplicationConfirmation>
           </div>
-          <v-radio-group v-model="isOkay">
-            <v-radio label="عدم الموافقة" value="false"></v-radio>
-            <v-radio label="الموافقة" value="true"></v-radio>
-          </v-radio-group>
-        </div>
-
-        <v-divider class="ma-2"></v-divider>
-
-        <div v-if="isComplate == 'true' && isOkay == 'true'">
-          <div>
-            يقترح مجلس القسم لجنة التقييم من الاخوة<span style="color: red"
-              >*</span
-            >
-          </div>
-          <ReviewerCRUD></ReviewerCRUD>
-        </div>
-
-        <div align="left">
-          <ApplicationConfirmation
-            v-if="isComplate == 'true' && isOkay == 'true'"
-            @click="validate"
-          ></ApplicationConfirmation>
         </div>
       </v-card>
     </v-container>
@@ -1106,7 +1348,7 @@ export default {
   },
   computed: {
     ...mapState(useApplyingStore, ["applyings"]),
-    ...mapState(useUsersStore, ["userRole"]),
+    ...mapState(useUsersStore, ["userRole", "users"]),
     formTitle() {
       return this.editedIndex === -1
         ? "إضافة عضو هيئة تدريس"
@@ -1164,6 +1406,10 @@ export default {
     async printList() {
       console.log(this.applyings);
       await this.$htmlToPaper("formToPrint");
+    },
+    async printDHList() {
+      console.log(this.applyings);
+      await this.$htmlToPaper("DHformToPrint");
     },
   },
   created() {
