@@ -909,7 +909,9 @@
       <v-card
         variant="outlined"
         color="error"
-        v-if="userRole == 'department-head'"
+        v-if="
+          userRole == 'department-head' || userRole == 'faculty-affairs-office'
+        "
       >
         <TheH1>إجراءات القسم العلمي</TheH1>
 
@@ -919,14 +921,14 @@
               >*</span
             >
           </div>
-          <v-radio-group v-model="isShowen">
+          <v-radio-group v-model="user.isShowen">
             <v-radio label="لا" value="false"></v-radio>
             <v-radio label="تعم" value="true"></v-radio>
           </v-radio-group>
         </div>
 
-        <div v-if="isShowen == 'true'">
-          <v-row v-if="isShowen == 'true'">
+        <div v-if="user.isShowen == 'true'">
+          <v-row v-if="user.isShowen == 'true'">
             <v-col cols="6"
               ><TheTextFieldLable>تاريخ العرض</TheTextFieldLable>
               <v-text-field
@@ -947,20 +949,20 @@
             ></v-col>
           </v-row>
 
-          <div v-if="isShowen == 'true'">
+          <div v-if="user.isShowen == 'true'">
             <div>
               بعد مراجعة البيانات المدرجة بطلب الترقية تبين لمجلس القسم:<span
                 style="color: red"
                 >*</span
               >
             </div>
-            <v-radio-group v-model="isComplate">
+            <v-radio-group v-model="user.isComplate">
               <v-radio label="عدم مطابقة" value="false"></v-radio>
               <v-radio label="مطابقة" value="true"></v-radio>
             </v-radio-group>
           </div>
 
-          <div v-if="isComplate == 'false'">
+          <div v-if="user.isComplate == 'false'">
             <TheTextFieldLable
               >سبب عدم المطابقة<span style="color: red"
                 >*</span
@@ -974,13 +976,13 @@
             </v-text-field>
           </div>
 
-          <div v-if="isComplate == 'true'">
+          <div v-if="user.isComplate == 'true'">
             <div>
               وعليه تمت ................................... على استكمال إجراءات
               الترقية للدرجة العلمية التالية.
               <span style="color: red">*</span>
             </div>
-            <v-radio-group v-model="isOkay">
+            <v-radio-group v-model="user.isOkay">
               <v-radio label="عدم الموافقة" value="false"></v-radio>
               <v-radio label="الموافقة" value="true"></v-radio>
             </v-radio-group>
@@ -988,7 +990,7 @@
 
           <v-divider class="ma-2"></v-divider>
 
-          <div v-if="isComplate == 'true' && isOkay == 'true'">
+          <div v-if="user.isComplate == 'true' && user.isOkay == 'true'">
             <div>
               يقترح مجلس القسم لجنة التقييم من الاخوة<span style="color: red"
                 >*</span
@@ -1000,8 +1002,8 @@
           <div
             v-if="
               userRole == 'department-head' &&
-              isComplate == 'true' &&
-              isOkay == 'true'
+              user.isComplate == 'true' &&
+              user.isOkay == 'true'
             "
           >
             <v-alert type="info" class="mt-2"
@@ -1229,7 +1231,7 @@
 
           <div align="left">
             <ApplicationConfirmation
-              v-if="isComplate == 'true' && isOkay == 'true'"
+              v-if="user.isComplate == 'true' && user.isOkay == 'true'"
               @click="validate"
             ></ApplicationConfirmation>
           </div>
@@ -1255,9 +1257,6 @@ export default {
   },
   data() {
     return {
-      isOkay: "",
-      isShowen: "",
-      isComplate: "",
       num: [0, 1, 2, 3, 4, 5],
       selectedFile: [],
       dialog: false,

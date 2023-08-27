@@ -29,10 +29,21 @@
       "
     ></DepartmentHead>
 
+    <FacultyAffairsOffice
+      v-else-if="
+        userRole == 'faculty-affairs-office' &&
+        $route.name !== 'ApplicationPersonaInfo' &&
+        $route.name !== 'ApplicationAcadimecInfo' &&
+        $route.name !== 'ApplicationScientificPaper' &&
+        $route.name !== 'ApplicationAttachment'
+      "
+    ></FacultyAffairsOffice>
+
     <FacultyMembeApplicationNavigationDrawer
       v-else-if="
         userRole == 'faculty-member' ||
         userRole == 'department-head' ||
+        userRole == 'faculty-affairs-office' ||
         ($route.name !== 'ApplicationManagement' &&
           $route.name !== 'Main' &&
           $route.name !== 'FacultyMembersManagment' &&
@@ -46,6 +57,7 @@
 import DepartmentHead from "@/components/NavigationDrawer/DepartmentHead.vue";
 import FacultyMembeApplicationNavigationDrawer from "@/components/NavigationDrawer/FacultyMemberApplication.vue";
 import FacultyMembeNavigationDrawer from "@/components/NavigationDrawer/FacultyMember.vue";
+import FacultyAffairsOffice from "@/components/NavigationDrawer/FacultyAffairsOffice.vue";
 import TheFooter from "@/components/ui/Thefooter.vue";
 
 import { useUsersStore } from "@/store/user";
@@ -56,6 +68,7 @@ export default {
     FacultyMembeNavigationDrawer,
     FacultyMembeApplicationNavigationDrawer,
     DepartmentHead,
+    FacultyAffairsOffice,
   },
   data() {
     return {
