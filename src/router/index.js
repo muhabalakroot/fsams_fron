@@ -179,6 +179,15 @@ const routes = [
       navigationDrawer: "FacultyMember",
     },
   },
+  //Reviewers
+  {
+    path: "/Reviewer",
+    name: "Reviewer",
+    component: () => import("@/pages/Reviewers.vue"),
+    meta: {
+      layout: EmptyLayout,
+    },
+  },
 ];
 
 const router = createRouter({

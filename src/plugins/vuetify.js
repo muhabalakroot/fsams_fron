@@ -30,6 +30,10 @@ export default createVuetify({
       variant: "outlined",
       style: "max-width: 340px",
     },
+    VTextarea: {
+      density: "compact",
+      variant: "outlined",
+    },
     VSelect: {
       density: "compact",
       variant: "outlined",

@@ -101,9 +101,6 @@
             ></TheTextFieldLable
           >
           <v-select
-            v-model="user.currentDegree"
-            item-title="value"
-            item-value="id"
             :rules="[(v) => !!v || 'هذا الحقل اجباري']"
             :items="[
               'محاضر مساعد',
