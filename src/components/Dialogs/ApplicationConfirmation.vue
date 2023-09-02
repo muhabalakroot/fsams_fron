@@ -2,7 +2,15 @@
   <v-row justify="center">
     <v-dialog v-model="dialog" persistent width="auto">
       <template v-slot:activator="{ props }">
-        <v-btn color="error" v-bind="props" class="ma-4"> إرسال </v-btn>
+        <v-btn
+          v-if="userRole == 'faculty-member' || userRole == 'department-head'"
+          color="error"
+          v-bind="props"
+          class="ma-4"
+        >
+          إرسال
+        </v-btn>
+        <v-btn color="error" v-bind="props" class="ma-4"> تسليم </v-btn>
       </template>
       <v-card>
         <v-card-title v-if="userRole == 'faculty-member'" class="text-h5">
@@ -15,6 +23,7 @@
           >عند تسليمك للطلب لم تتمكن من التعديل عليه إلا بإذن رئيس قسمك
           العلمي!</v-card-text
         >
+        <v-card-title v-else class="text-h5"> هل تريد تسليم؟ </v-card-title>
         <v-card-actions>
           <v-spacer></v-spacer>
           <v-btn @click="dialog = false"> إلغاء </v-btn>

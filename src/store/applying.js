@@ -149,6 +149,100 @@ export const useApplyingStore = defineStore("Applyings", {
         isShowen: "false",
         isComplate: 'عدم مطابقة"',
         isOkay: "عدم الموافقة",
+        numberOfDecisionToFormTheCommittee: "123456",
+        dateOfTheDecisionToFormTheCommittee: "2023-08-28",
+        typeOfPaper: [
+          {
+            value: "ورقة بحثية",
+          },
+          {
+            value: "كتاب مرجعي",
+          },
+          {
+            value: "ورقة بحثية",
+          },
+          {
+            value: "ورقة بحثية",
+          },
+          {
+            value: "ورقة بحثية",
+          },
+        ],
+        publishedAt: [
+          {
+            value: "مجلة علمية محلية",
+          },
+          {
+            value: "مجلة علمية محلية",
+          },
+          {
+            value: "مجلة علمية محلية",
+          },
+          {
+            value: "مجلة علمية محلية",
+          },
+          {
+            value: "مجلة علمية محلية",
+          },
+        ],
+        degreeOfRelevance: [
+          {
+            value: "مرتبط بالتخصص",
+          },
+          {
+            value: "غير مرتبط بالتخصص",
+          },
+          {
+            value: "مرتبط بالتخصص",
+          },
+          {
+            value: "مرتبط بالتخصص",
+          },
+          {
+            value: "مرتبط بالتخصص",
+          },
+        ],
+        importance: [
+          {
+            value: "مهم",
+          },
+          {
+            value: "مهم",
+          },
+          {
+            value: "مهم",
+          },
+          {
+            value: "مهم",
+          },
+          {
+            value: "مهم",
+          },
+        ],
+        review: [
+          {
+            value: "مقبول",
+          },
+          {
+            value: "مقبول",
+          },
+          {
+            value: "مقبول",
+          },
+          {
+            value: "مقبول",
+          },
+          {
+            value: "مقبول",
+          },
+        ],
+        promotionDegree: "أستاذ",
+        noteFromReviewer: "",
+        reviewerName: "أحمد محمد الاسطى",
+        reviewerDegree: "أستاذ",
+        placeOfWork: "جامعة قاريونس",
+        bank: "مصرف الجمهورية",
+        bankAccount: 12345678910,
       },
     ],
   }),
