@@ -3,11 +3,17 @@
     <v-btn
       prepend-icon="mdi-chevron-right"
       @click="$router.push({ name: 'FacultyMembersApplicationsManagement' })"
-      v-if="userRole == 'department-head'"
+      v-if="
+        userRole == 'department-head' || userRole == 'faculty-affairs-office'
+      "
       >عودة</v-btn
     >
     <v-container>
-      <TheH1 class="mb-2" v-if="userRole == 'department-head'"
+      <TheH1
+        class="mb-2"
+        v-if="
+          userRole == 'department-head' || userRole == 'faculty-affairs-office'
+        "
         >{{ applyings[0].applicationType }} الخاص بـ{{
           applyings[0].firstName
         }}
@@ -18,6 +24,11 @@
         إجراءات القسم العلمي بأسفل هذه الصفحة وإضغط ارسال. في حال وجود نقص في
         الطلب وأدخل النوافص في خانة سبب عدم المطابقة حتى يتمكن عضو هيئة التدريس
         من إضافة النواقص.</v-alert
+      >
+      <v-alert type="info" v-if="userRole == 'faculty-affairs-office'"
+        >بعد الاتطلاع على الطلب والتحقق من صحته، قم بتعبأت الخانات تحت عنوان
+        إجراءات مكتب شؤون أعضاء هيئة التدريس بأسفل هذه الصفحة وإضغط
+        ارسال.</v-alert
       >
       <TheH1>البيانات الشخصية</TheH1>
       <v-row>
@@ -1003,8 +1014,8 @@
           >
             <v-alert type="info" class="mt-2"
               >بعد معالجتك للطلب وإدراجك 5 محكمين. قم بطباعة الطلب عن طريق الضغط
-              على زر طباعة،والتوقيع عليه ورفعة من جديد إلى النظام
-            </v-alert>
+              على زر طباعة،والتوقيع عليه ورفعة من جديد إلى النظام</v-alert
+            >
 
             <TheTextFieldLable>طباعة الطلب </TheTextFieldLable>
             <v-btn class="ma-1" variant="outlined" @click="printDHList()"
@@ -1407,24 +1418,177 @@
           <TheH1>إجراءات مكتب شؤون أعضاء هيئة التدريس</TheH1>
           <v-row>
             <v-col cols="6">
-              <div>تاريخ استلام المستندات من القسم المختص</div>
+              <TheTextFieldLable
+                >تاريخ استلام المستندات من القسم المختص</TheTextFieldLable
+              >
 
               <v-text-field
+                v-model="user.DHsubmitedAt"
                 style="max-width: 1000px"
                 type="date"
               ></v-text-field>
             </v-col>
             <v-col cols="6">
-              <div>
+              <TheTextFieldLable>
                 عدد المشاريع أو البحوث المستلمة وفق المستندات<span
                   style="color: red"
                   >*</span
                 >
-              </div>
-              <v-text-field style="max-width: 1000px"></v-text-field>
+              </TheTextFieldLable>
+              <v-text-field
+                v-model="user.numberOfPapers"
+                style="max-width: 1000px"
+              ></v-text-field>
             </v-col>
           </v-row>
-          <v-text-field></v-text-field>
+          <TheTextFieldLable
+            >يقر مكتب شؤون أعضاء هيئة التدريس بالكلية أنه بمراجعة البيانات
+            المتعلقة بطلب الترقية والمستندات بالطلب تم التأكد من صحة البيانتا
+            ويوصي المكتب بعرضها على لجنة شؤون أعضاء هيئة
+            التدريس.</TheTextFieldLable
+          >
+          <v-radio-group v-model="user.facultyAffairsOfficeApprovel">
+            <v-radio label="عدم الموافقة" value="false"></v-radio>
+            <v-radio label="الموافقة" value="true"></v-radio>
+          </v-radio-group>
+
+          <TheTextFieldLable>مع الملاحظة:</TheTextFieldLable>
+          <v-textarea v-model="user.FAONotes" variant="outlined"></v-textarea>
+
+          <v-alert type="info" class="mt-2"
+            >بعد معالجتك للطلب والتأكد من المستندات. قم بطباعة الطلب عن طريق
+            الضغط على زر طباعة،والتوقيع عليه ورفعة من جديد إلى النظام</v-alert
+          >
+
+          <TheTextFieldLable>طباعة الطلب </TheTextFieldLable>
+          <v-btn class="ma-1" variant="outlined" @click="printFAOList()"
+            ><v-icon icon="mdi-printer"></v-icon>طباعة</v-btn
+          >
+
+          <v-row>
+            <v-col cols="4"
+              ><TheTextFieldLable
+                >ارفع الطلب هنا بعد إضافة التوقيع
+              </TheTextFieldLable>
+              <v-file-input
+                v-if="$route.name == 'ApplicationReview'"
+                :rules="[(v) => !!v || 'هذا الحقل اجباري']"
+                hint="الرجاء رفع صورة من قرار الترقية"
+                v-model="user.signedFAOApplication"
+              ></v-file-input>
+            </v-col>
+          </v-row>
+          <PrintLayout
+            dir="rtl"
+            hidden
+            id="FAOformToPrint"
+            :firstName="user.firstName"
+            :fatherName="user.fatherName"
+            :lastName="user.lastName"
+            class="ma-auto"
+          >
+            <v-container>
+              <div style="text-align: center">
+                <img src="@/assets/uot_logo.png" style="width: 150px" />
+                <h1>جامعة طرابلس</h1>
+                <h1>إدارة شؤون أعضاء هيئة التدريس</h1>
+                <h1>إجراءات مكتب شئون أعضاء هيئة التدريس بالكلية</h1>
+              </div>
+
+              <v-row class="mt-5">
+                <v-col cols="6" style="text-align: right">
+                  <p class="mb-0" style="font-size: 24px">
+                    تاريخ استلام المستندات من القسم المختص
+                  </p>
+                  <v-alert
+                    class="mt-0"
+                    style="font-size: 24px"
+                    variant="outlined"
+                    density="compact"
+                  >
+                    {{ user.DHsubmitedAt }}
+                  </v-alert>
+                </v-col>
+                <v-col cols="6" style="text-align: right">
+                  <p class="mb-0" style="font-size: 24px">
+                    عدد المشاريع أو البحوث المستلمة وفق المستندات
+                  </p>
+                  <v-alert
+                    class="mt-0"
+                    style="font-size: 24px"
+                    variant="outlined"
+                    density="compact"
+                  >
+                    {{ user.numberOfPapers }}
+                  </v-alert>
+                </v-col>
+              </v-row>
+              <v-row>
+                <v-col style="text-align: right">
+                  <p class="mb-0" style="font-size: 24px">
+                    يقر مكتب شؤون أعضاء هيئة التدريس بالكلية أنه بمراجعة
+                    البيانات المتعلقة بطلب الترقية والمستندات بالطلب تم التأكد
+                    من صحة البيانتا ويوصي المكتب بعرضها على لجنة شؤون أعضاء هيئة
+                    التدريس.
+                  </p>
+                </v-col>
+              </v-row>
+
+              <p class="mb-2 mt-5" style="font-size: 24px; text-align: right">
+                مع ملاحظة:
+              </p>
+              <v-alert
+                style="font-size: 24px; text-align: right"
+                variant="outlined"
+                >{{ user.FAONotes }}</v-alert
+              >
+            </v-container>
+
+            <v-row class="mb-0 pb-0">
+              <v-col
+                cols="5"
+                style="font-size: 24px; font-weight: bolder; text-align: right"
+                >مدير مكتب شئون أعضاء هيئة التدريس</v-col
+              >
+            </v-row>
+
+            <v-row class="mb-0 pb-0">
+              <v-col
+                cols="5"
+                style="font-size: 24px; font-weight: bolder; text-align: right"
+                >الاسم: {{ users[0].firstName }} {{ users[0].fatherName }}
+                {{ users[0].lastName }}</v-col
+              >
+            </v-row>
+            <v-row class="mb-3 pb-0">
+              <v-col
+                class="mb-0 pb-0"
+                style="font-size: 24px; font-weight: bolder; text-align: right"
+                cols="5"
+                >التاريخ: {{ user.createdAt }}</v-col
+              >
+            </v-row>
+            <v-row class="mb-0 pb-0">
+              <v-col
+                class="mb-0 pb-0"
+                style="
+                  font-size: 24px;
+                  font-weight: bolder;
+                  text-align: right;
+                  direction: rtl;
+                "
+                cols="5"
+                >التوقيع:..............................</v-col
+              >
+            </v-row>
+          </PrintLayout>
+
+          <div align="left">
+            <ApplicationConfirmation
+              style="display: inline"
+              @click="validate"
+            ></ApplicationConfirmation>
+          </div>
         </v-card>
       </div>
     </v-container>
@@ -1599,6 +1763,10 @@ export default {
     async printDHList() {
       console.log(this.applyings);
       await this.$htmlToPaper("DHformToPrint");
+    },
+    async printFAOList() {
+      console.log(this.applyings);
+      await this.$htmlToPaper("FAOformToPrint");
     },
   },
   created() {

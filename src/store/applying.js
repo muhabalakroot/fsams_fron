@@ -243,6 +243,12 @@ export const useApplyingStore = defineStore("Applyings", {
         placeOfWork: "جامعة قاريونس",
         bank: "مصرف الجمهورية",
         bankAccount: 12345678910,
+        DHsubmitedAt: "2023-08-28",
+        numberOfPapers: "5",
+        facultyAffairsOfficeApprovel: "false",
+        FAONotes:
+          "ملاحظات يمكن لرئيس مكتب شؤون أعضاء هيئة التدريس بالكلية إضافتها.",
+        signedFAOApplication: [],
       },
     ],
   }),

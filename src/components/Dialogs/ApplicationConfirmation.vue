@@ -3,14 +3,18 @@
     <v-dialog v-model="dialog" persistent width="auto">
       <template v-slot:activator="{ props }">
         <v-btn
-          v-if="userRole == 'faculty-member' || userRole == 'department-head'"
+          v-if="
+            userRole == 'faculty-member' ||
+            userRole == 'department-head' ||
+            userRole == 'faculty-affairs-office'
+          "
           color="error"
           v-bind="props"
           class="ma-4"
         >
           إرسال
         </v-btn>
-        <v-btn color="error" v-bind="props" class="ma-4"> تسليم </v-btn>
+        <v-btn v-else color="error" v-bind="props" class="ma-4"> تسليم </v-btn>
       </template>
       <v-card>
         <v-card-title v-if="userRole == 'faculty-member'" class="text-h5">
