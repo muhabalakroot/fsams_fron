@@ -217,7 +217,12 @@
         </v-text-field
       ></v-col>
     </v-row>
-    <div v-if="userRole == 'department-head'" align="left">
+    <div
+      v-if="
+        userRole == 'department-head' && userRole == 'faculty-affairs-office'
+      "
+      align="left"
+    >
       <v-divider></v-divider>
       <v-btn
         v-if="!editable"

@@ -17,10 +17,21 @@
           ></v-icon>
           <v-card-item>
             <div>
-              <div class="text-h6 mb-1">أعضاء هيئة التدريس بالقسم العلمي</div>
-              <div class="">
+              <div v-if="userRole == 'department-head'" class="text-h6 mb-1">
+                أعضاء هيئة التدريس بالقسم العلمي
+              </div>
+              <div
+                v-if="userRole == 'faculty-affairs-office'"
+                class="text-h6 mb-1"
+              >
+                أعضاء هيئة التدريس بالكلية
+              </div>
+              <div v-if="userRole == 'department-head'">
                 من هذا يمكن إضافة وتعديل وحذف حسابات أعضاء هيئة التدريس بالقسم
                 العلمي
+              </div>
+              <div v-if="userRole == 'faculty-affairs-office'">
+                من هذا يمكن إضافة وتعديل وحذف حسابات أعضاء هيئة التدريس بالكلية
               </div>
             </div>
           </v-card-item>
@@ -51,11 +62,20 @@
           ></v-icon>
           <v-card-item>
             <div>
-              <div class="text-h6 mb-1">
+              <div v-if="userRole == 'department-head'" class="text-h6 mb-1">
                 طلبات أعضاء هيئة التدريس بالقسم العلمي
               </div>
-              <div class="">
+              <div
+                v-if="userRole == 'faculty-affairs-office'"
+                class="text-h6 mb-1"
+              >
+                أعضاء هيئة التدريس بالكلية
+              </div>
+              <div v-if="userRole == 'department-head'" class="">
                 من هذا يمكن معالجة طلبات أعضاء هيئة التدريس بالقسم العلمي.
+              </div>
+              <div v-if="userRole == 'faculty-affairs-office'">
+                من هذا يمكن معالجة طلبات أعضاء هيئة التدريس بالكلية.
               </div>
             </div>
           </v-card-item>
@@ -76,3 +96,13 @@
     </v-row>
   </v-container>
 </template>
+<script>
+import { useUsersStore } from "@/store/user";
+import { mapState } from "pinia";
+
+export default {
+  computed: {
+    ...mapState(useUsersStore, ["userRole"]),
+  },
+};
+</script>

@@ -146,7 +146,7 @@ export const useApplyingStore = defineStore("Applyings", {
             generalMajor: "تطوير برمجيات",
           },
         ],
-        isShowen: "false",
+        isShowen: "true",
         isComplate: 'عدم مطابقة"',
         isOkay: "عدم الموافقة",
         numberOfDecisionToFormTheCommittee: "123456",

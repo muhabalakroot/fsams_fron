@@ -695,192 +695,6 @@
             ></v-file-input>
           </v-col>
         </v-row>
-
-        <!-- Form to print -->
-        <PrintLayout
-          dir="rtl"
-          hidden
-          id="formToPrint"
-          :firstName="user.firstName"
-          :fatherName="user.fatherName"
-          :lastName="user.lastName"
-          class="ma-auto"
-        >
-          <v-container>
-            <div style="text-align: center">
-              <img src="@/assets/uot_logo.png" style="width: 150px" />
-              <h1>جامعة طرابلس</h1>
-              <h1>إدارة شؤون أعضاء هيئة التدريس</h1>
-              <h1>طلب ترقية عضو هيئة تدريس</h1>
-            </div>
-
-            <v-row>
-              <v-col style="text-align: right">
-                <p class="mb-0" style="font-size: 24px">الاسم بالكامل</p>
-                <v-alert
-                  class="mt-0"
-                  style="font-size: 24px"
-                  density="compact"
-                  variant="outlined"
-                  >{{ user.firstName }} {{ user.fatherName }}
-                  {{ user.lastName }}</v-alert
-                >
-              </v-col>
-            </v-row>
-            <v-row>
-              <v-col cols="6" style="text-align: right">
-                <p class="mb-0" style="font-size: 24px">الكلية</p>
-                <v-alert
-                  class="mt-0"
-                  style="font-size: 24px"
-                  density="compact"
-                  variant="outlined"
-                  >{{ user.faculty }}
-                </v-alert>
-              </v-col>
-              <v-col cols="6" style="text-align: right">
-                <p class="mb-0" style="font-size: 24px">القسم التابع له</p>
-                <v-alert
-                  class="mt-0"
-                  style="font-size: 24px"
-                  density="compact"
-                  variant="outlined"
-                  >{{ user.department }}</v-alert
-                >
-              </v-col>
-            </v-row>
-            <v-row>
-              <v-col cols="6" style="text-align: right">
-                <p class="mb-0" style="font-size: 24px">المؤهل</p>
-                <v-alert
-                  class="mt-0"
-                  style="font-size: 24px"
-                  variant="outlined"
-                  density="compact"
-                  >{{ user.qualification }}</v-alert
-                >
-              </v-col>
-              <v-col cols="6" style="text-align: right">
-                <p class="mb-0" style="font-size: 24px">
-                  تاريخ ومكان الحصول عليها
-                </p>
-                <v-alert
-                  class="mt-0"
-                  style="font-size: 24px"
-                  variant="outlined"
-                  density="compact"
-                  >{{ user.univercity }} - {{ user.dateOfObtaining }}
-                </v-alert>
-              </v-col>
-            </v-row>
-
-            <v-row>
-              <v-col cols="6" style="text-align: right">
-                <p class="mb-0" style="font-size: 24px">
-                  الدرجة العلمية الحالية
-                </p>
-                <v-alert
-                  class="mt-0"
-                  style="font-size: 24px"
-                  variant="outlined"
-                  density="compact"
-                  >{{ user.currentDegree }}
-                </v-alert>
-              </v-col>
-              <v-col cols="6" style="text-align: right">
-                <p class="mb-0" style="font-size: 24px">رقم القرار وتاريخه</p>
-                <v-alert
-                  class="mt-0"
-                  style="font-size: 24px"
-                  variant="outlined"
-                  density="compact"
-                  >{{ user.promotoinDegreeNumber }} -
-                  {{ user.degreeDateOfObtaing }}
-                </v-alert>
-              </v-col>
-            </v-row>
-
-            <v-divider class="ma-4"></v-divider>
-
-            <p class="mb-2" style="font-size: 24px; text-align: right">
-              بيان بالبحوث العلمية أو الكتب المؤلفة أو العمل الإبداعي المبتكر
-              المقدم للترقية.
-            </p>
-
-            <v-table style="border: 2px solid black">
-              <thead>
-                <tr style="font-size: 24px; text-align: right">
-                  <th style="font-size: 24px; border: 2px solid black">ر.م</th>
-                  <th style="font-size: 24px; border: 2px solid black">
-                    عنوان البحث أو الكتاب أو العمل الإبداعي
-                  </th>
-                  <th style="font-size: 24px; border: 2px solid black">
-                    جهة النشر
-                  </th>
-                  <th style="font-size: 24px; border: 2px solid black">
-                    تاريج النشر
-                  </th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr
-                  style="font-size: 24px; text-align: right"
-                  v-for="(item, i) in user.scientificPaper"
-                  :key="item.id"
-                >
-                  <td style="font-size: 24px; border: 2px solid black">
-                    {{ i + 1 }}
-                  </td>
-                  <td style="font-size: 24px; border: 2px solid black">
-                    {{ item.scientificPaperTitle }}
-                  </td>
-                  <td style="font-size: 24px; border: 2px solid black">
-                    {{ item.publisher }}
-                  </td>
-                  <td style="font-size: 24px; border: 2px solid black">
-                    {{ item.dateOfpublishing }}
-                  </td>
-                </tr>
-              </tbody>
-            </v-table>
-
-            <p class="mb-2" style="font-size: 24px; text-align: right">
-              يقر عضو هيئة التدريس بصحة البيانات المدونة أعلاه والتي يأكد من
-              خلالها استيفاءه للشروط الطلوبة للتقديم على الترقية ويتحمل مسؤولة
-              ذلك.
-            </p></v-container
-          >
-
-          <v-row class="mb-0 pb-0">
-            <v-col
-              cols="4"
-              style="font-size: 24px; font-weight: bolder; text-align: right"
-              >الاسم: {{ user.firstName }} {{ user.fatherName }}
-              {{ user.lastName }}</v-col
-            >
-          </v-row>
-          <v-row class="mb-3 pb-0">
-            <v-col
-              class="mb-0 pb-0"
-              style="font-size: 24px; font-weight: bolder; text-align: right"
-              cols="4"
-              >التاريخ: {{ user.createdAt }}</v-col
-            >
-          </v-row>
-          <v-row class="mb-0 pb-0">
-            <v-col
-              class="mb-0 pb-0"
-              style="
-                font-size: 24px;
-                font-weight: bolder;
-                text-align: right;
-                direction: rtl;
-              "
-              cols="4"
-              >التوقيع:..............................</v-col
-            >
-          </v-row>
-        </PrintLayout>
       </div>
 
       <TheTextFieldLable
@@ -900,6 +714,189 @@
         class="ma-1"
         ><v-icon icon="mdi-eye-outline"></v-icon
       ></v-btn>
+      <!-- Form to print -->
+      <PrintLayout
+        dir="rtl"
+        hidden
+        id="formToPrint"
+        :firstName="user.firstName"
+        :fatherName="user.fatherName"
+        :lastName="user.lastName"
+        class="ma-auto"
+      >
+        <v-container>
+          <div style="text-align: center">
+            <img src="@/assets/uot_logo.png" style="width: 150px" />
+            <h1>جامعة طرابلس</h1>
+            <h1>إدارة شؤون أعضاء هيئة التدريس</h1>
+            <h1>طلب ترقية عضو هيئة تدريس</h1>
+          </div>
+
+          <v-row>
+            <v-col style="text-align: right">
+              <p class="mb-0" style="font-size: 24px">الاسم بالكامل</p>
+              <v-alert
+                class="mt-0"
+                style="font-size: 24px"
+                density="compact"
+                variant="outlined"
+                >{{ user.firstName }} {{ user.fatherName }}
+                {{ user.lastName }}</v-alert
+              >
+            </v-col>
+          </v-row>
+          <v-row>
+            <v-col cols="6" style="text-align: right">
+              <p class="mb-0" style="font-size: 24px">الكلية</p>
+              <v-alert
+                class="mt-0"
+                style="font-size: 24px"
+                density="compact"
+                variant="outlined"
+                >{{ user.faculty }}
+              </v-alert>
+            </v-col>
+            <v-col cols="6" style="text-align: right">
+              <p class="mb-0" style="font-size: 24px">القسم التابع له</p>
+              <v-alert
+                class="mt-0"
+                style="font-size: 24px"
+                density="compact"
+                variant="outlined"
+                >{{ user.department }}</v-alert
+              >
+            </v-col>
+          </v-row>
+          <v-row>
+            <v-col cols="6" style="text-align: right">
+              <p class="mb-0" style="font-size: 24px">المؤهل</p>
+              <v-alert
+                class="mt-0"
+                style="font-size: 24px"
+                variant="outlined"
+                density="compact"
+                >{{ user.qualification }}</v-alert
+              >
+            </v-col>
+            <v-col cols="6" style="text-align: right">
+              <p class="mb-0" style="font-size: 24px">
+                تاريخ ومكان الحصول عليها
+              </p>
+              <v-alert
+                class="mt-0"
+                style="font-size: 24px"
+                variant="outlined"
+                density="compact"
+                >{{ user.univercity }} - {{ user.dateOfObtaining }}
+              </v-alert>
+            </v-col>
+          </v-row>
+
+          <v-row>
+            <v-col cols="6" style="text-align: right">
+              <p class="mb-0" style="font-size: 24px">الدرجة العلمية الحالية</p>
+              <v-alert
+                class="mt-0"
+                style="font-size: 24px"
+                variant="outlined"
+                density="compact"
+                >{{ user.currentDegree }}
+              </v-alert>
+            </v-col>
+            <v-col cols="6" style="text-align: right">
+              <p class="mb-0" style="font-size: 24px">رقم القرار وتاريخه</p>
+              <v-alert
+                class="mt-0"
+                style="font-size: 24px"
+                variant="outlined"
+                density="compact"
+                >{{ user.promotoinDegreeNumber }} -
+                {{ user.degreeDateOfObtaing }}
+              </v-alert>
+            </v-col>
+          </v-row>
+
+          <v-divider class="ma-4"></v-divider>
+
+          <p class="mb-2" style="font-size: 24px; text-align: right">
+            بيان بالبحوث العلمية أو الكتب المؤلفة أو العمل الإبداعي المبتكر
+            المقدم للترقية.
+          </p>
+
+          <v-table style="border: 2px solid black">
+            <thead>
+              <tr style="font-size: 24px; text-align: right">
+                <th style="font-size: 24px; border: 2px solid black">ر.م</th>
+                <th style="font-size: 24px; border: 2px solid black">
+                  عنوان البحث أو الكتاب أو العمل الإبداعي
+                </th>
+                <th style="font-size: 24px; border: 2px solid black">
+                  جهة النشر
+                </th>
+                <th style="font-size: 24px; border: 2px solid black">
+                  تاريج النشر
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr
+                style="font-size: 24px; text-align: right"
+                v-for="(item, i) in user.scientificPaper"
+                :key="item.id"
+              >
+                <td style="font-size: 24px; border: 2px solid black">
+                  {{ i + 1 }}
+                </td>
+                <td style="font-size: 24px; border: 2px solid black">
+                  {{ item.scientificPaperTitle }}
+                </td>
+                <td style="font-size: 24px; border: 2px solid black">
+                  {{ item.publisher }}
+                </td>
+                <td style="font-size: 24px; border: 2px solid black">
+                  {{ item.dateOfpublishing }}
+                </td>
+              </tr>
+            </tbody>
+          </v-table>
+
+          <p class="mb-2" style="font-size: 24px; text-align: right">
+            يقر عضو هيئة التدريس بصحة البيانات المدونة أعلاه والتي يأكد من
+            خلالها استيفاءه للشروط الطلوبة للتقديم على الترقية ويتحمل مسؤولة
+            ذلك.
+          </p></v-container
+        >
+
+        <v-row class="mb-0 pb-0">
+          <v-col
+            cols="4"
+            style="font-size: 24px; font-weight: bolder; text-align: right"
+            >الاسم: {{ user.firstName }} {{ user.fatherName }}
+            {{ user.lastName }}</v-col
+          >
+        </v-row>
+        <v-row class="mb-3 pb-0">
+          <v-col
+            class="mb-0 pb-0"
+            style="font-size: 24px; font-weight: bolder; text-align: right"
+            cols="4"
+            >التاريخ: {{ user.createdAt }}</v-col
+          >
+        </v-row>
+        <v-row class="mb-0 pb-0">
+          <v-col
+            class="mb-0 pb-0"
+            style="
+              font-size: 24px;
+              font-weight: bolder;
+              text-align: right;
+              direction: rtl;
+            "
+            cols="4"
+            >التوقيع:..............................</v-col
+          >
+        </v-row>
+      </PrintLayout>
 
       <ApplicationConfirmation
         class="my-2"
@@ -909,9 +906,7 @@
       <v-card
         variant="outlined"
         color="error"
-        v-if="
-          userRole == 'department-head' || userRole == 'faculty-affairs-office'
-        "
+        v-if="userRole == 'department-head'"
       >
         <TheH1>إجراءات القسم العلمي</TheH1>
 
@@ -1212,23 +1207,6 @@
             </PrintLayout>
           </div>
 
-          <TheTextFieldLable
-            v-if="
-              $route.name == 'ApplicationReview' &&
-              userRole == 'faculty-affairs-office'
-            "
-          >
-            نموذج إجراءات القسم العلمي
-          </TheTextFieldLable>
-          <v-btn
-            v-if="
-              $route.name == 'ApplicationReview' &&
-              userRole == 'faculty-affairs-office'
-            "
-            class="ma-1"
-            ><v-icon icon="mdi-eye-outline"></v-icon
-          ></v-btn>
-
           <div align="left">
             <ApplicationConfirmation
               v-if="user.isComplate == 'true' && user.isOkay == 'true'"
@@ -1237,6 +1215,218 @@
           </div>
         </div>
       </v-card>
+      <TheTextFieldLable
+        v-if="
+          $route.name == 'ApplicationReview' &&
+          userRole == 'faculty-affairs-office'
+        "
+      >
+        نموذج إجراءات القسم العلمي
+      </TheTextFieldLable>
+      <v-btn
+        v-if="
+          $route.name == 'ApplicationReview' &&
+          userRole == 'faculty-affairs-office'
+        "
+        class="ma-1"
+        ><v-icon icon="mdi-eye-outline"></v-icon
+      ></v-btn>
+      <PrintLayout
+        dir="rtl"
+        hidden
+        id="DHformToPrint"
+        :firstName="user.firstName"
+        :fatherName="user.fatherName"
+        :lastName="user.lastName"
+        class="ma-auto"
+      >
+        <v-container>
+          <div style="text-align: center">
+            <img src="@/assets/uot_logo.png" style="width: 150px" />
+            <h1>جامعة طرابلس</h1>
+            <h1>إدارة شؤون أعضاء هيئة التدريس</h1>
+            <h1>إجراءات القسم بشأن ترقية عضو هيئة التدريس</h1>
+          </div>
+
+          <v-row style="margin-top: 10px">
+            <v-col cols="6" style="text-align: right">
+              <p class="mb-0" style="font-size: 24px">الكلية</p>
+              <v-alert
+                class="mt-0"
+                style="font-size: 24px"
+                density="compact"
+                variant="outlined"
+                >{{ user.faculty }}
+              </v-alert>
+            </v-col>
+            <v-col cols="6" style="text-align: right">
+              <p class="mb-0" style="font-size: 24px">القسم التابع له</p>
+              <v-alert
+                class="mt-0"
+                style="font-size: 24px"
+                density="compact"
+                variant="outlined"
+                >{{ user.department }}</v-alert
+              >
+            </v-col>
+          </v-row>
+
+          <v-row>
+            <v-col cols="6" style="text-align: right">
+              <p class="mb-0" style="font-size: 24px">تاريخ استلام الطلب</p>
+              <v-alert
+                class="mt-0"
+                style="font-size: 24px"
+                variant="outlined"
+                density="compact"
+              >
+                {{ user.dateOfObtaining }}
+              </v-alert>
+            </v-col>
+            <v-col cols="6" style="text-align: right">
+              <p class="mb-0" style="font-size: 24px">
+                تاريخ عرض موضوع الطلب على مجلس القسم
+              </p>
+              <v-alert
+                class="mt-0"
+                style="font-size: 24px"
+                variant="outlined"
+                density="compact"
+              >
+                {{ user.dateOfObtaining }}
+              </v-alert>
+            </v-col>
+          </v-row>
+          <v-row>
+            <v-col style="text-align: right">
+              <p class="mb-0" style="font-size: 24px">ملخص قرار مجلس القسم</p>
+              <v-alert
+                class="mt-0 mb-5"
+                style="font-size: 24px"
+                density="compact"
+                variant="outlined"
+              >
+                ملخص قرار مجلس القسم ملخص قرار مجلس القسم ملخص قرار مجلس القسم
+                ملخص قرار مجلس القسم ملخص قرار مجلس القسم ملخص قرار مجلس القسم
+                ملخص قرار مجلس القسم ملخص قرار مجلس القسم ملخص قرار مجلس القسم
+                ملخص قرار مجلس القسم ملخص قرار مجلس القسم ملخص قرار مجلس القسم
+                ملخص قرار مجلس القسم
+              </v-alert>
+            </v-col>
+          </v-row>
+
+          <p class="mb-2" style="font-size: 24px; text-align: right">
+            وبمراجعة البيانات المدرجة بطلب القسم تبين لمجلس القسم
+            <span style="font-weight: bolder">مطابقتها</span> وعليه تمت التوصية
+            بالآتي:
+          </p>
+          <p class="mb-4" style="font-size: 24px; text-align: right">
+            - <span style="font-weight: bolder">الموافقة</span> على استكمال
+            إجراءات الترقية للدرجة العلمية التالية.
+          </p>
+
+          <p class="mb-2" style="font-size: 24px; text-align: right">
+            يقترح مجلس القسم لجنة التقييم من الإخوة:
+          </p>
+
+          <v-table style="border: 2px solid black">
+            <thead>
+              <tr style="font-size: 24px; text-align: right">
+                <th style="font-size: 24px; border: 2px solid black">
+                  اسم المحكم
+                </th>
+                <th style="font-size: 24px; border: 2px solid black">
+                  الجامعة التابع لها
+                </th>
+                <th style="font-size: 24px; border: 2px solid black">
+                  الدرجة العلمية
+                </th>
+                <th style="font-size: 24px; border: 2px solid black">التخصص</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr
+                style="font-size: 24px; text-align: right"
+                v-for="item in user.reviewers"
+                :key="item.id"
+              >
+                <td style="font-size: 24px; border: 2px solid black">
+                  {{ item.name }}
+                </td>
+                <td style="font-size: 24px; border: 2px solid black">
+                  {{ item.univercity }}
+                </td>
+                <td style="font-size: 24px; border: 2px solid black">
+                  {{ item.degree }}
+                </td>
+                <td style="font-size: 24px; border: 2px solid black">
+                  {{ item.generalMajor }}
+                </td>
+              </tr>
+            </tbody>
+          </v-table>
+        </v-container>
+
+        <v-row class="mb-0 pb-0">
+          <v-col
+            cols="4"
+            style="font-size: 24px; font-weight: bolder; text-align: right"
+            >الاسم: {{ users[0].firstName }} {{ users[0].fatherName }}
+            {{ users[0].lastName }}</v-col
+          >
+        </v-row>
+        <v-row class="mb-3 pb-0">
+          <v-col
+            class="mb-0 pb-0"
+            style="font-size: 24px; font-weight: bolder; text-align: right"
+            cols="4"
+            >التاريخ: {{ user.createdAt }}</v-col
+          >
+        </v-row>
+        <v-row class="mb-0 pb-0">
+          <v-col
+            class="mb-0 pb-0"
+            style="
+              font-size: 24px;
+              font-weight: bolder;
+              text-align: right;
+              direction: rtl;
+            "
+            cols="4"
+            >التوقيع:..............................</v-col
+          >
+        </v-row>
+      </PrintLayout>
+      <div
+        v-if="
+          $route.name == 'ApplicationReview' &&
+          userRole == 'faculty-affairs-office'
+        "
+      >
+        <v-card variant="outlined" color="error">
+          <TheH1>إجراءات مكتب شؤون أعضاء هيئة التدريس</TheH1>
+          <v-row>
+            <v-col cols="6">
+              <div>تاريخ استلام المستندات من القسم المختص</div>
+
+              <v-text-field
+                style="max-width: 1000px"
+                type="date"
+              ></v-text-field>
+            </v-col>
+            <v-col cols="6">
+              <div>
+                عدد المشاريع أو البحوث المستلمة وفق المستندات<span
+                  style="color: red"
+                  >*</span
+                >
+              </div>
+              <v-text-field style="max-width: 1000px"></v-text-field>
+            </v-col>
+          </v-row>
+          <v-text-field></v-text-field>
+        </v-card>
+      </div>
     </v-container>
   </v-form>
 </template>

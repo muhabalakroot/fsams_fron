@@ -20,6 +20,7 @@
         value="Main"
       ></v-list-item>
       <v-list-item
+        v-if="user.currentDegree !== 'أستاذ'"
         :active="
           $route.name === 'ApplicationManagement' ||
           $route.name === 'applicationStatus'
