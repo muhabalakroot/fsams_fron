@@ -52,7 +52,6 @@
         <v-text-field style="max-width: 1000px" v-model="user.faculty">
         </v-text-field>
       </v-col>
-      <!-- //كلية العلوم -->
       <v-col cols="6"
         ><TheTextFieldLable>القسم العلمي</TheTextFieldLable>
         <v-text-field style="max-width: 1000px" v-model="user.department">
