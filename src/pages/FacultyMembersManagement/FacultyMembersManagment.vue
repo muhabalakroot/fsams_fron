@@ -26,12 +26,21 @@
               >
                 أعضاء هيئة التدريس بالكلية
               </div>
+              <div
+                v-if="userRole == 'faculty-affairs-administration'"
+                class="text-h6 mb-1"
+              >
+                أعضاء هيئة التدريس بالجامعة
+              </div>
               <div v-if="userRole == 'department-head'">
                 من هذا يمكن إضافة وتعديل وحذف حسابات أعضاء هيئة التدريس بالقسم
                 العلمي
               </div>
               <div v-if="userRole == 'faculty-affairs-office'">
                 من هذا يمكن إضافة وتعديل وحذف حسابات أعضاء هيئة التدريس بالكلية
+              </div>
+              <div v-if="userRole == 'faculty-affairs-administration'">
+                من هذا يمكن إضافة وتعديل وحذف حسابات أعضاء هيئة التدريس بالجامعة
               </div>
             </div>
           </v-card-item>
@@ -69,13 +78,22 @@
                 v-if="userRole == 'faculty-affairs-office'"
                 class="text-h6 mb-1"
               >
-                أعضاء هيئة التدريس بالكلية
+                طلبات أعضاء هيئة التدريس بالكلية
+              </div>
+              <div
+                v-if="userRole == 'faculty-affairs-administration'"
+                class="text-h6 mb-1"
+              >
+                طلبات أعضاء هيئة التدريس بالجامعة
               </div>
               <div v-if="userRole == 'department-head'" class="">
                 من هذا يمكن معالجة طلبات أعضاء هيئة التدريس بالقسم العلمي.
               </div>
               <div v-if="userRole == 'faculty-affairs-office'">
                 من هذا يمكن معالجة طلبات أعضاء هيئة التدريس بالكلية.
+              </div>
+              <div v-if="userRole == 'faculty-affairs-administration'">
+                من هذا يمكن معالجة طلبات أعضاء هيئة التدريس بالجامعة.
               </div>
             </div>
           </v-card-item>

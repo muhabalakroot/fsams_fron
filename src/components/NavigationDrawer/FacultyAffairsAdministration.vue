@@ -27,8 +27,20 @@
         "
         color="primary"
         prepend-icon="mdi-note-edit-outline"
-        title="إدارة الطلبات"
+        title="طلباتك"
         value="Application Management"
+      ></v-list-item>
+      <v-list-item
+        :active="
+          $route.name === 'FacultyMembersManagment' ||
+          $route.name === 'FacultyMembersAccounts' ||
+          $route.name === 'FacultyMembersApplicationsManagement' ||
+          $route.name === 'ApplicationReview'
+        "
+        color="primary"
+        prepend-icon="mdi-account-group-outline"
+        title="أعضاء هيئة التدريس"
+        value="FacultyMembersManagment"
       ></v-list-item>
       <v-list-item
         :active="$route.name === 'UserInfo'"
@@ -41,6 +53,7 @@
       <v-divider class="ma-2"></v-divider>
 
       <v-list-item
+        :active="$route.name === 'Login'"
         color="primary"
         prepend-icon="mdi-logout"
         title="تسجيل الخروج"
@@ -74,6 +87,8 @@ export default {
       if (this.selectedItem == "Main") this.$router.push({ name: "Main" });
       if (this.selectedItem == "Application Management")
         this.$router.push({ name: "ApplicationManagement" });
+      if (this.selectedItem == "FacultyMembersManagment")
+        this.$router.push({ name: "FacultyMembersManagment" });
       if (this.selectedItem == "User Info")
         this.$router.push({ name: "UserInfo" });
     },

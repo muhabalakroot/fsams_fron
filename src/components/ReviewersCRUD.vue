@@ -1,7 +1,22 @@
 <template>
-  <v-data-table :headers="headers" :items="reviewers" class="elevation-1 mt-3">
+  <v-data-table
+    :headers="headers"
+    :items="reviewers"
+    item-value="id"
+    class="elevation-1 mt-3"
+    show-select
+    v-model="selected"
+  >
+    <template v-slot:item.data-table-select="{ on, props }">
+      <v-simple-checkbox
+        color="green"
+        v-bind="props"
+        v-on="on"
+      ></v-simple-checkbox>
+    </template>
     <template v-slot:item="{ item }">
       <tr>
+        <td></td>
         <td>
           {{ item.columns.name }}
         </td>
@@ -13,18 +28,20 @@
           {{ item.columns.generalMajor }}
         </td>
         <td>
-          <v-btn class="ma-1"
-            ><v-icon
-              @click="editItem(item.raw)"
-              icon="mdi-pencil-outline"
-            ></v-icon
-          ></v-btn>
-          <v-btn color="error" class="ma-1"
-            ><v-icon
-              icon="mdi-delete-outline"
-              @click="deleteItem(item.raw)"
-            ></v-icon
-          ></v-btn>
+          <div v-if="userRole == 'department-head'">
+            <v-btn class="ma-1"
+              ><v-icon
+                @click="editItem(item.raw)"
+                icon="mdi-pencil-outline"
+              ></v-icon
+            ></v-btn>
+            <v-btn color="error" class="ma-1"
+              ><v-icon
+                icon="mdi-delete-outline"
+                @click="deleteItem(item.raw)"
+              ></v-icon
+            ></v-btn>
+          </div>
         </td>
       </tr>
     </template>
@@ -33,7 +50,11 @@
         <v-toolbar-title>لجنة التقييم</v-toolbar-title>
         <v-divider class="mx-4" inset vertical></v-divider>
         <v-spacer></v-spacer>
-        <v-dialog v-model="dialog" width="1024">
+        <v-dialog
+          v-if="userRole == 'department-head'"
+          v-model="dialog"
+          width="1024"
+        >
           <template v-slot:activator="{ props }">
             <v-btn
               color="primary"
@@ -50,7 +71,6 @@
               <span class="text-h5">{{ formTitle }}</span>
             </v-card-title>
 
-            <!-- add new Paper here -->
             <v-card-text>
               <v-form ref="form">
                 <v-row>
@@ -128,7 +148,11 @@
             </v-card-actions>
           </v-card>
         </v-dialog>
-        <v-dialog v-model="dialogDelete" max-width="500px">
+        <v-dialog
+          v-if="userRole == 'department-head'"
+          v-model="dialogDelete"
+          max-width="500px"
+        >
           <v-card>
             <v-card-title>سيتم حذف هذه المحكم!</v-card-title>
             <v-card-actions>
@@ -167,10 +191,14 @@
 </template>
 <script>
 import { useApplyingStore } from "@/store/applying";
+import { useUsersStore } from "@/store/user";
 import { mapWritableState } from "pinia";
+import { mapState } from "pinia";
+
 export default {
   data() {
     return {
+      selected: [],
       reviewers: null,
       dialog: false,
       dialogDelete: false,
@@ -204,6 +232,7 @@ export default {
     };
   },
   computed: {
+    ...mapState(useUsersStore, ["userRole"]),
     ...mapWritableState(useApplyingStore, ["applyings"]),
     formTitle() {
       return this.editedIndex === -1 ? "إضافة محكم" : "تعديل البيانات";
