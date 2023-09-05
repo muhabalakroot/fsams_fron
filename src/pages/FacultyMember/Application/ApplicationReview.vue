@@ -1699,12 +1699,13 @@
 
           <div>
             <div>
-              <v-alert type="info" class="mt-2"
+              <v-alert v-if="!isSend" type="info" class="mt-2"
                 >في ما يلي قائمة من أعضاء هيئة تدريس يقترها مجلس القسم لتكوين
-                لجنة التقييم.</v-alert
+                لجنة التقييم. الرجاء تحديد 3 منهم والضعظ على ارسال الطلب الى
+                لجنة التحكيم.</v-alert
               >
             </div>
-            <ReviewerCRUD></ReviewerCRUD>
+            <ReviewersSelect></ReviewersSelect>
           </div>
 
           <div align="left">
@@ -1713,6 +1714,34 @@
               @click="validate"
             ></ApplicationConfirmation>
           </div>
+        </div>
+
+        <div Class="mt-6">
+          وقد عرضت النتائج النهائية على لجنة شؤون أعضاء هيئة التدريس في اجتماعها
+          رقم...
+        </div>
+
+        <v-row>
+          <v-col cols="6"
+            ><div>رقم الاجتماع<span style="color: red">*</span></div>
+            <v-text-field
+              style="max-width: 100%; width: 100%"
+              :rules="[(v) => !!v || 'هذا الحقل اجباري']"
+            >
+            </v-text-field
+          ></v-col>
+          <v-col cols="6"
+            ><div>تاريخ الاجتماع<span style="color: red">*</span></div>
+            <v-text-field
+              type="date"
+              style="max-width: 100%; width: 100%"
+              hide-details="true"
+            ></v-text-field
+          ></v-col>
+        </v-row>
+        <div align="left">
+          <v-btn class="mx-2" color="error">رفض الطلب</v-btn>
+          <v-btn>اتمام اجراءات الطلب والترقية</v-btn>
         </div>
       </v-card>
       <PrintLayout
@@ -1893,14 +1922,18 @@ import PrintLayout from "@/layouts/PrintLayout.vue";
 
 import ApplicationConfirmation from "@/components/Dialogs/ApplicationConfirmation.vue";
 import ReviewerCRUD from "@/components/ReviewersCRUD.vue";
+import ReviewersSelect from "@/components/ReviewersSelect.vue";
+
 export default {
   components: {
     ApplicationConfirmation,
     ReviewerCRUD,
+    ReviewersSelect,
     PrintLayout,
   },
   data() {
     return {
+      isSend: false,
       num: [0, 1, 2, 3, 4, 5],
       selectedFile: [],
       dialog: false,
@@ -2007,6 +2040,9 @@ export default {
     },
   },
   methods: {
+    sendToReviewer() {
+      this.isSend = !this.isSend;
+    },
     initialize() {
       this.user = this.applyings[0];
       this.scientificPaper = this.applyings[0].scientificPaper;

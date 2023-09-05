@@ -249,6 +249,7 @@ export const useApplyingStore = defineStore("Applyings", {
         FAONotes:
           "ملاحظات يمكن لرئيس مكتب شؤون أعضاء هيئة التدريس بالكلية إضافتها.",
         signedFAOApplication: [],
+        selectedReviewers: [],
       },
     ],
   }),
@@ -265,6 +266,9 @@ export const useApplyingStore = defineStore("Applyings", {
     },
     addScientificPapers(newScientificPaper) {
       this.users[0].scientificPaper.push(newScientificPaper);
+    },
+    addSselectedReviewers(selectedReviewer) {
+      this.applyings[0].selectedReviewers.push(selectedReviewer);
     },
   },
 });

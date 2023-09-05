@@ -4,19 +4,10 @@
     :items="reviewers"
     item-value="id"
     class="elevation-1 mt-3"
-    show-select
     v-model="selected"
   >
-    <template v-slot:item.data-table-select="{ on, props }">
-      <v-simple-checkbox
-        color="green"
-        v-bind="props"
-        v-on="on"
-      ></v-simple-checkbox>
-    </template>
     <template v-slot:item="{ item }">
       <tr>
-        <td></td>
         <td>
           {{ item.columns.name }}
         </td>
@@ -39,6 +30,14 @@
               ><v-icon
                 icon="mdi-delete-outline"
                 @click="deleteItem(item.raw)"
+              ></v-icon
+            ></v-btn>
+          </div>
+          <div v-if="userRole == 'faculty-affairs-administration'">
+            <v-btn class="ma-1"
+              ><v-icon
+                @click="editItem(item.raw)"
+                icon="mdi-eye-outline"
               ></v-icon
             ></v-btn>
           </div>
