@@ -250,6 +250,8 @@ export const useApplyingStore = defineStore("Applyings", {
           "ملاحظات يمكن لرئيس مكتب شؤون أعضاء هيئة التدريس بالكلية إضافتها.",
         signedFAOApplication: [],
         selectedReviewers: [],
+        isSubmitedByFAA: true,
+        isSubmitedByFAO: true,
       },
     ],
   }),

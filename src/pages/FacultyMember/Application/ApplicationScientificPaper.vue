@@ -332,13 +332,13 @@ export default {
       }
     },
     async validate() {
-      const { valid } = await this.$refs.form.validate();
-      if (valid) {
-        this.$router.push({
-          name: "ApplicationAttachment",
-          id: this.$route.params.id,
-        });
-      }
+      // const { valid } = await this.$refs.form.validate();
+      // if (valid) {
+      this.$router.push({
+        name: "ApplicationAttachment",
+        id: this.$route.params.id,
+      });
+      // }
     },
     initialize() {
       this.scientificPaper = this.applyings[0].scientificPaper;

@@ -1462,17 +1462,25 @@
           <TheTextFieldLable>مع الملاحظة:</TheTextFieldLable>
           <v-textarea v-model="user.FAONotes" variant="outlined"></v-textarea>
 
-          <v-alert type="info" class="mt-2"
+          <v-alert type="info" class="mt-2" v-if="user.isSubmitedByFAA !== true"
             >بعد معالجتك للطلب والتأكد من المستندات. قم بطباعة الطلب عن طريق
             الضغط على زر طباعة،والتوقيع عليه ورفعة من جديد إلى النظام</v-alert
           >
 
-          <TheTextFieldLable>طباعة الطلب </TheTextFieldLable>
-          <v-btn class="ma-1" variant="outlined" @click="printFAOList()"
+          <ReviewersSelect></ReviewersSelect>
+
+          <TheTextFieldLable v-if="user.isSubmitedByFAA !== true"
+            >طباعة الطلب
+          </TheTextFieldLable>
+          <v-btn
+            v-if="user.isSubmitedByFAA !== true"
+            class="ma-1"
+            variant="outlined"
+            @click="printFAOList()"
             ><v-icon icon="mdi-printer"></v-icon>طباعة</v-btn
           >
 
-          <v-row>
+          <v-row v-if="user.isSubmitedByFAA !== true">
             <v-col cols="4"
               ><TheTextFieldLable
                 >ارفع الطلب هنا بعد إضافة التوقيع
@@ -1699,7 +1707,10 @@
 
           <div>
             <div>
-              <v-alert v-if="!isSend" type="info" class="mt-2"
+              <v-alert
+                v-if="!isSend && user.isSubmitedByFAO !== true"
+                type="info"
+                class="mt-2"
                 >في ما يلي قائمة من أعضاء هيئة تدريس يقترها مجلس القسم لتكوين
                 لجنة التقييم. الرجاء تحديد 3 منهم والضعظ على ارسال الطلب الى
                 لجنة التحكيم.</v-alert
@@ -1917,6 +1928,7 @@
 import { useApplyingStore } from "@/store/applying";
 import { useUsersStore } from "@/store/user";
 import { mapState } from "pinia";
+import { mapWritableState } from "pinia";
 
 import PrintLayout from "@/layouts/PrintLayout.vue";
 
@@ -2023,8 +2035,9 @@ export default {
     };
   },
   computed: {
-    ...mapState(useApplyingStore, ["applyings"]),
+    ...mapWritableState(useApplyingStore, ["applyings"]),
     ...mapState(useUsersStore, ["userRole", "users"]),
+
     formTitle() {
       return this.editedIndex === -1
         ? "إضافة عضو هيئة تدريس"

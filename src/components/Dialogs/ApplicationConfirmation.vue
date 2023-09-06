@@ -20,9 +20,9 @@
         <v-card-title v-if="userRole == 'faculty-member'" class="text-h5">
           هل تريد تسليم الطلب؟
         </v-card-title>
-        <v-card-title v-if="userRole == 'department-head'" class="text-h5">
+        <!-- <v-card-title v-if="userRole == 'department-head'" class="text-h5">
           هل تريد تسليم؟
-        </v-card-title>
+        </v-card-title> -->
         <v-card-text v-if="userRole == 'faculty-member'"
           >عند تسليمك للطلب لم تتمكن من التعديل عليه إلا بإذن رئيس قسمك
           العلمي!</v-card-text

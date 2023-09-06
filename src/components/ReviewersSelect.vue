@@ -1,51 +1,20 @@
 <template>
+  <v-alert
+    v-if="userRole == 'faculty-affairs-office' && user.isSubmitedByFAA == true"
+    type="info"
+    >في ما يلي قائمة باعضاء لجنة القييم تم اختيارها من قبل إدارة شؤون أعضاء هيئة
+    التدريس.</v-alert
+  >
   <v-data-table
+    v-if="user.isSubmitedByFAA !== true || user.isSubmitedByFAO !== true"
     :headers="headers"
-    :items="reviewers"
+    :items="userRole == 'faculty-affairs-administration' ? reviewers : selected"
     item-value="id"
     class="elevation-1 mt-3"
-    show-select
+    :show-select="userRole == 'faculty-affairs-administration' ? true : false"
     return-object
     v-model="selected"
   >
-    <!-- <template v-slot:item.data-table-select="{ on, props }">
-      <v-simple-checkbox
-        color="green"
-        v-bind="props"
-        v-on="on"
-      ></v-simple-checkbox>
-    </template>
-    <template v-slot:item="{ item }">
-      <tr>
-        <td></td>
-        <td>
-          {{ item.columns.name }}
-        </td>
-        <td>{{ item.columns.univercity }}</td>
-        <td>
-          {{ item.columns.degree }}
-        </td>
-        <td>
-          {{ item.columns.generalMajor }}
-        </td>
-        <td>
-          <div v-if="userRole == 'department-head'">
-            <v-btn class="ma-1"
-              ><v-icon
-                @click="editItem(item.raw)"
-                icon="mdi-pencil-outline"
-              ></v-icon
-            ></v-btn>
-            <v-btn color="error" class="ma-1"
-              ><v-icon
-                icon="mdi-delete-outline"
-                @click="deleteItem(item.raw)"
-              ></v-icon
-            ></v-btn>
-          </div>
-        </td>
-      </tr>
-    </template> -->
     <template v-slot:top>
       <v-toolbar flat>
         <v-toolbar-title>لجنة التقييم</v-toolbar-title>
@@ -60,16 +29,37 @@
       <v-btn color="primary" @click="initialize"> Reset </v-btn>
     </template>
   </v-data-table>
-  <v-alert v-if="isSend" type="success" class="mt-2"
-    >تم ارسال الطلب الى لجنة التحكيم بنجاح. وستظهم النتائج هنا بعد أكمال التقييم
-    من قبل اللجنة.</v-alert
+  <v-alert
+    v-if="isSend && userRole == 'faculty-affairs-administration'"
+    type="success"
+    class="mt-2"
+    >تم ارسال الطلب الى مكتب شؤون أعضاء التدريس بالكلية بنجاح ليقوم باحالتها الى
+    لجنة التقييم. وستظهم النتائج هنا بعد أكمال التقييم من قبل اللجنة.</v-alert
+  >
+  <v-alert
+    v-if="isSend && userRole == 'faculty-affairs-office'"
+    type="success"
+    class="mt-2"
+    >تم ارسال الطلب الى لجنة التقييم بنجاح. وستظهم النتائج على حساب إدارة شؤون
+    أعضاء هيئة التدريس بعد أكمال التقييم من قبل اللجنة.</v-alert
   >
   <div v-if="!isSend" align="left">
-    <v-btn @click="select">ارسال الطلب الى لجنة التحكيم</v-btn>
+    <v-btn v-if="userRole == 'faculty-affairs-office'" @click="select"
+      >ارسال الطلب الى لجنة التحكيم</v-btn
+    >
+    <v-btn
+      v-if="
+        userRole == 'faculty-affairs-administration' &&
+        user.isSubmitedByFAA !== true &&
+        user.isSubmitedByFAO !== true
+      "
+      @click="select"
+      >ارسال الطلب الى القسم المختص</v-btn
+    >
   </div>
 
   <v-data-table
-    v-if="isSend"
+    v-if="user.isSubmitedByFAO == true"
     :headers="header"
     :items="selected"
     item-value="id"
@@ -120,8 +110,31 @@ export default {
   },
   data() {
     return {
+      user: null,
       isSend: false,
-      selected: [],
+      selected: [
+        {
+          id: 3,
+          name: "عزالدين شليبك",
+          univercity: "جامعة النجم الساطع",
+          degree: "أستاذ",
+          generalMajor: "تقنيات إنترنت",
+        },
+        {
+          id: 4,
+          name: "مؤيد العكاري",
+          univercity: "جامعة قاريونس",
+          degree: "أستاذ",
+          generalMajor: "هندسة كبيوتر",
+        },
+        {
+          id: 5,
+          name: "أسامة ساسي",
+          univercity: "جامعة طرابلس",
+          degree: "أستاذ",
+          generalMajor: "تطوير برمجيات",
+        },
+      ],
       reviewers: null,
       dialog: false,
       dialogDelete: false,
@@ -166,8 +179,9 @@ export default {
     };
   },
   computed: {
+    ...mapState(useApplyingStore, ["applyings"]),
     ...mapState(useUsersStore, ["userRole"]),
-    ...mapWritableState(useApplyingStore, ["applyings"]),
+
     formTitle() {
       return this.editedIndex === -1 ? "إضافة محكم" : "تعديل البيانات";
     },
@@ -236,6 +250,7 @@ export default {
       }
     },
     initialize() {
+      this.user = this.applyings[0];
       this.reviewers = this.applyings[0].reviewers;
       console.log(this.reviewers);
     },
