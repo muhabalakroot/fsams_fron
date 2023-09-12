@@ -47,6 +47,7 @@
         </tr>
       </tbody>
     </v-table>
+    <v-alert type="error">يجب ملئ الحقول الاجبارية</v-alert>
 
     <div align="left">
       <v-divider></v-divider>

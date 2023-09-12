@@ -1520,7 +1520,7 @@ export default {
         });
     },
     initialize() {
-      this.user = this.applyings[0];
+      this.user = this.applyings[0].reviewers[0];
       this.scientificPaper = this.applyings[0].scientificPaper;
     },
     async printList() {

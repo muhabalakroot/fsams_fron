@@ -4,14 +4,18 @@
     @click="$router.push({ name: 'FacultyMembersManagment' })"
     >عودة</v-btn
   >
-  <v-data-table :headers="headers" :items="desserts" class="elevation-1">
+  <v-data-table
+    :headers="userRole == 'department-head' ? DHheaders : headers"
+    :items="desserts"
+    class="elevation-1"
+  >
     <template v-slot:item="{ item }">
       <tr>
         <td>
           {{ item.columns.applicationType }}
         </td>
         <td>{{ item.columns.firstName }} {{ item.raw.lastName }}</td>
-        <td>
+        <td v-if="userRole !== 'department-head'">
           {{ item.columns.department }}
         </td>
         <td>{{ item.columns.currentDegree }}</td>
@@ -374,6 +378,8 @@
 import PrintLayout from "@/layouts/PrintLayout.vue";
 
 import { useApplyingStore } from "@/store/applying";
+import { useUsersStore } from "@/store/user";
+
 import { mapState } from "pinia";
 export default {
   components: {
@@ -395,10 +401,23 @@ export default {
       { title: "تاريخ التقديم", key: "createdAt" },
       { title: "الإجراءات", key: "actions", sortable: false },
     ],
+    DHheaders: [
+      {
+        title: "نوع الطلب",
+        align: "start",
+        key: "applicationType",
+        sortable: false,
+      },
+      { title: "مقدم الطلب", key: "firstName" },
+      { title: "الدرجة العلمي", key: "currentDegree" },
+      { title: "تاريخ التقديم", key: "createdAt" },
+      { title: "الإجراءات", key: "actions", sortable: false },
+    ],
   }),
 
   computed: {
     ...mapState(useApplyingStore, ["applyings"]),
+    ...mapState(useUsersStore, ["userRole"]),
   },
 
   created() {

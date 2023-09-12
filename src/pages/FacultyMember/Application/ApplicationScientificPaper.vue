@@ -64,7 +64,9 @@
                   <v-row>
                     <v-col cols="12">
                       <TheTextFieldLable
-                        >عنوان الإنتاج العلمي</TheTextFieldLable
+                        >عنوان الإنتاج العلمي<span style="color: red"
+                          >*</span
+                        ></TheTextFieldLable
                       >
                       <v-text-field
                         style="width: 100%; max-width: 100%"
@@ -77,7 +79,11 @@
 
                   <v-row>
                     <v-col cols="4"
-                      ><TheTextFieldLable>جهة النشر</TheTextFieldLable>
+                      ><TheTextFieldLable
+                        >جهة النشر<span style="color: red"
+                          >*</span
+                        ></TheTextFieldLable
+                      >
                       <v-text-field
                         :rules="[(v) => !!v || 'هذا الحقل اجباري']"
                         v-model="editedItem.publisher"
@@ -86,7 +92,11 @@
                     ></v-col>
 
                     <v-col cols="4"
-                      ><TheTextFieldLable>نوع جهة النشر</TheTextFieldLable>
+                      ><TheTextFieldLable
+                        >نوع جهة النشر<span style="color: red"
+                          >*</span
+                        ></TheTextFieldLable
+                      >
                       <v-select
                         v-model="editedItem.publisherType"
                         :rules="[(v) => !!v || 'هذا الحقل اجباري']"
@@ -102,7 +112,11 @@
                       </v-select>
                     </v-col>
                     <v-col cols="4"
-                      ><TheTextFieldLable>تاريخ النشر</TheTextFieldLable>
+                      ><TheTextFieldLable
+                        >تاريخ النشر<span style="color: red"
+                          >*</span
+                        ></TheTextFieldLable
+                      >
                       <v-text-field
                         type="date"
                         :rules="[(v) => !!v || 'هذا الحقل اجباري']"
@@ -133,7 +147,11 @@
 
                   <v-row>
                     <v-col cols="4"
-                      ><TheTextFieldLable>الإنتاج العلمي</TheTextFieldLable>
+                      ><TheTextFieldLable
+                        >الإنتاج العلمي<span style="color: red"
+                          >*</span
+                        ></TheTextFieldLable
+                      >
                       <v-file-input
                         :rules="[(v) => !!v || 'هذا الحقل اجباري']"
                         hint="الإنتاج العلمي بدون أسماء"
@@ -274,9 +292,7 @@ export default {
   computed: {
     ...mapWritableState(useApplyingStore, ["applyings"]),
     formTitle() {
-      return this.editedIndex === -1
-        ? "إضافة عضو هيئة تدريس"
-        : "تعديل البيانات";
+      return this.editedIndex === -1 ? "إضافة إنتاج علمي" : "تعديل البيانات";
     },
   },
   watch: {

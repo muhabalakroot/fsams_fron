@@ -300,6 +300,23 @@
                       </v-text-field
                     ></v-col>
                   </v-row>
+                  <v-row v-if="userRole == 'faculty-affairs-office'">
+                    <v-col cols="4">
+                      <TheTextFieldLable
+                        >صلاحية رئيس قسم علمي</TheTextFieldLable
+                      >
+                      <v-switch color="primary" hide-details inset></v-switch>
+                    </v-col>
+                  </v-row>
+                  <v-row v-if="userRole == 'faculty-affairs-administration'">
+                    <v-col cols="4">
+                      <TheTextFieldLable
+                        >صلاحية مكتب شؤون أعضاء هيئة التدريس
+                        بكلية</TheTextFieldLable
+                      >
+                      <v-switch color="primary" hide-details inset></v-switch>
+                    </v-col>
+                  </v-row>
                 </v-container>
               </v-form>
             </v-card-text>
@@ -366,6 +383,7 @@
 </template>
 <script>
 import { useFacultyMembersStore } from "@/store/facultyMembers";
+import { useUsersStore } from "@/store/user";
 import { mapState, mapActions } from "pinia";
 export default {
   data: () => ({
@@ -443,6 +461,7 @@ export default {
 
   computed: {
     ...mapState(useFacultyMembersStore, ["FacultyMembers"]),
+    ...mapState(useUsersStore, ["userRole"]),
     formTitle() {
       return this.editedIndex === -1
         ? "إضافة عضو هيئة تدريس"

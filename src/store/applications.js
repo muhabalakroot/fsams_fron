@@ -6,14 +6,14 @@ export const useAppicationsStore = defineStore("Appications", {
     applications: [
       {
         applicationId: "1",
-        applicationType: "طلب ترقية ربيع 2023",
+        applicationType: "طلب ترقية",
         createdAt: "5/1/2023",
         status: "قيد المعالجة",
         isSubmited: "نعم",
       },
       {
         applicationId: "2",
-        applicationType: "طلب ترقية خريف 2019",
+        applicationType: "طلب ترقية",
         createdAt: "5/8/2019",
         status: "مرفوض",
         isSubmited: "نعم",
