@@ -1267,6 +1267,9 @@ export const useApplyingStore = defineStore("Applyings", {
     ],
   }),
   actions: {
+    addToLocal() {
+      localStorage.setItem("apply", JSON.stringify(this.applyings[0]));
+    },
     addAttachment(index, file) {
       this.applyings.attachments[index].file = file;
     },

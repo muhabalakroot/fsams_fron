@@ -282,7 +282,7 @@ export default {
   },
   methods: {
     initialize() {
-      this.user = this.users[0];
+      this.user = JSON.parse(localStorage.getItem("user"));
     },
   },
   created() {

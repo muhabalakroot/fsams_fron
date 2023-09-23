@@ -4,7 +4,7 @@
 
     <v-main style="background-color: #f7f7f7">
       <v-container class="h-100">
-        <v-card :loading="isLoading"><slot></slot></v-card>
+        <v-card><slot></slot></v-card>
       </v-container>
     </v-main>
 

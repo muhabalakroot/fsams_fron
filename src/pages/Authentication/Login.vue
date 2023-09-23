@@ -80,8 +80,9 @@
   </div>
 </template>
 <script>
-// import { mapActions } from "pinia";
-// import { useUsersStore } from "@/store/user";
+import { mapActions } from "pinia";
+import { useUsersStore } from "@/store/user";
+import { useApplyingStore } from "@/store/applying";
 export default {
   data: () => ({
     isLoading: false,
@@ -100,14 +101,15 @@ export default {
   }),
   methods: {
     ...mapActions(useUsersStore, ["login"]),
-
+    ...mapActions(useApplyingStore, ["addToLocal"]),
     async validate() {
       // window.open("/src/assets/uot_logo.png", "_blank");
       const { valid } = await this.$refs.form.validate();
 
+      this.login(this.email, this.password);
+      this.addToLocal();
       if (valid) {
         this.isLoading = true;
-        // this.login(this.email, this.password);
         setTimeout(() => {
           this.$router.push({ name: "Main" });
           this.isLoading = false;

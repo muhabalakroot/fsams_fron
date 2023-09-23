@@ -352,7 +352,7 @@ export default {
       }, 1500);
     },
     initialize() {
-      this.user = this.applyings[0];
+      this.user = JSON.parse(localStorage.getItem("apply"));
     },
   },
   created() {

@@ -68,6 +68,8 @@ export default {
   },
   methods: {
     logout() {
+      localStorage.removeItem("user");
+      localStorage.removeItem("apply");
       this.$router.push({ name: "Login" });
     },
     navigate() {
@@ -78,7 +80,7 @@ export default {
         this.$router.push({ name: "UserInfo" });
     },
     initialize() {
-      this.user = this.users[0];
+      this.user = JSON.parse(localStorage.getItem("user"));
     },
   },
   created() {
