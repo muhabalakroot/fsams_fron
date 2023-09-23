@@ -11,7 +11,7 @@
         </v-card-title>
         <v-card-text>
           <ThaTextFieldLable>الطلبات المتاحة</ThaTextFieldLable>
-          <v-select :items="['طلب ترقية خريف 2024']"></v-select>
+          <v-select :items="['طلب ترقية']"></v-select>
         </v-card-text>
         <div align="left">
           <v-divider></v-divider>
@@ -31,18 +31,22 @@ export default {
   data: () => ({
     dialog: false,
   }),
+
   methods: {
     ...mapActions(useAppicationsStore, ["addApplication"]),
     addNewApplication() {
       this.addApplication({
         applicationId: "3",
-        applicationType: "طلب ترقية خريف 2024",
+        applicationType: "طلب ترقية ",
         createdAt: new Date().toLocaleDateString(),
         status: "جديد",
         isSubmited: "لا",
       });
       this.dialog = false;
     },
+  },
+  created() {
+    console.log(this.applications.length);
   },
 };
 </script>

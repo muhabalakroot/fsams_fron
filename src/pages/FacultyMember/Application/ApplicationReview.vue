@@ -724,7 +724,10 @@
             </TheTextFieldLable>
             <v-file-input
               v-if="$route.name == 'ApplicationReview'"
-              :rules="[(v) => !!v || 'هذا الحقل اجباري']"
+              :rules="[
+                (v) => !!v || 'هذا الحقل اجباري',
+                (v) => (v && v.length > 0) || 'هذا الحقل اجباري',
+              ]"
               hint="الرجاء رفع صورة من قرار الترقية"
               v-model="user.signedApplication"
             ></v-file-input>
@@ -916,10 +919,10 @@
         </v-row>
       </PrintLayout>
 
-      <v-alert type="error"
+      <!-- <v-alert type="error"
         >يوجد حقول إجبارية لم يتم ملؤها. الرجاء ملئ جميع الحقوق الاجبارية لتتمكن
         من تسليم الطلب</v-alert
-      >
+      > -->
 
       <ApplicationConfirmation
         class="my-2"

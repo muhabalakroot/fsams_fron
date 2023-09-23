@@ -101,6 +101,7 @@
             ></TheTextFieldLable
           >
           <v-select
+            v-model="user.currentDegree"
             :rules="[(v) => !!v || 'هذا الحقل اجباري']"
             :items="[
               'محاضر مساعد',
@@ -145,7 +146,10 @@
             >قرار الترقية<span style="color: red">*</span></TheTextFieldLable
           >
           <v-file-input
-            :rules="[(v) => !!v || 'هذا الحقل اجباري']"
+            :rules="[
+              (v) => !!v || 'هذا الحقل اجباري',
+              (v) => (v && v.length > 0) || 'هذا الحقل اجباري',
+            ]"
             hint="الرجاء رفع صورة من قرار الترقية"
             v-model="user.promotoinDegreeFile"
           ></v-file-input>
@@ -155,8 +159,31 @@
       <v-divider></v-divider>
 
       <div align="left">
-        <v-btn variant="text" class="mx-2"> حفظ </v-btn>
-        <v-btn @click="validate"> حفظ واستمرار </v-btn>
+        <v-btn
+          variant="text"
+          color="error"
+          class="mx-2"
+          @click="goback"
+          prepend-icon="mdi-chevron-right"
+          >عودة
+        </v-btn>
+
+        <v-btn
+          variant="text"
+          class="mx-2"
+          @click="save"
+          :loading="isLoading"
+          :disabled="isLoading"
+        >
+          حفظ
+        </v-btn>
+        <v-btn
+          @click="validate"
+          :loading="isLoadingAndGO"
+          :disabled="isLoadingAndGO"
+        >
+          حفظ واستمرار
+        </v-btn>
       </div>
     </v-container>
   </v-form>
@@ -164,11 +191,13 @@
 <script>
 import { useApplyingStore } from "@/store/applying";
 import { mapState } from "pinia";
-
+import swal from "sweetalert";
 export default {
   data() {
     return {
       user: null,
+      isLoading: false,
+      isLoadingAndGO: false,
     };
   },
   computed: {
@@ -177,14 +206,37 @@ export default {
   methods: {
     async validate() {
       const { valid } = await this.$refs.form.validate();
-      if (valid)
-        this.$router.push({
-          name: "ApplicationScientificPaper",
-          params: { id: this.$route.params.id },
-        });
+      this.isLoadingAndGO = true;
+      setTimeout(() => {
+        if (valid)
+          this.$router.push({
+            name: "ApplicationScientificPaper",
+            params: { id: this.$route.params.id },
+          });
+        this.isLoadingAndGO = false;
+      }, 1500);
     },
     initialize() {
       this.user = this.applyings[0];
+    },
+    save() {
+      this.isLoading = true;
+      setTimeout(() => {
+        swal({
+          title: "تم الحفظ",
+          icon: "success",
+          button: null,
+          timer: 1000,
+        });
+        this.isLoading = false;
+      }, 1500);
+    },
+
+    goback() {
+      this.$router.push({
+        name: "ApplicationPersonaInfo",
+        params: { id: this.$route.params.id },
+      });
     },
   },
   created() {

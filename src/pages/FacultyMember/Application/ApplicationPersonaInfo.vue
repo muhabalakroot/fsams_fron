@@ -244,8 +244,22 @@
 
       <div align="left">
         <v-divider></v-divider>
-        <v-btn variant="text" class="mx-2"> حفظ </v-btn>
-        <v-btn @click="goToAcadimec"> حفظ واستمرار </v-btn>
+        <v-btn
+          :loading="isLoading"
+          :disabled="isLoading"
+          variant="text"
+          class="mx-2"
+          @click="save"
+        >
+          حفظ
+        </v-btn>
+        <v-btn
+          @click="goToAcadimec"
+          :loading="isLoadingAndGO"
+          :disabled="isLoadingAndGO"
+        >
+          حفظ واستمرار
+        </v-btn>
       </div>
     </v-container>
   </v-form>
@@ -253,9 +267,12 @@
 <script>
 import { useApplyingStore } from "@/store/applying";
 import { mapState } from "pinia";
+import swal from "sweetalert";
 export default {
   data() {
     return {
+      isLoading: false,
+      isLoadingAndGO: false,
       user: null,
       colleges: [
         { id: 1, value: "كلية العلوم" },
@@ -312,11 +329,27 @@ export default {
   methods: {
     async goToAcadimec() {
       const { valid } = await this.$refs.form.validate();
-      if (valid)
-        this.$router.push({
-          name: "ApplicationAcadimecInfo",
-          params: this.$route.params.id,
+      this.isLoadingAndGO = true;
+      setTimeout(() => {
+        if (valid)
+          this.$router.push({
+            name: "ApplicationAcadimecInfo",
+            params: this.$route.params.id,
+          });
+        this.isLoadingAndGO = false;
+      }, 1500);
+    },
+    save() {
+      this.isLoading = true;
+      setTimeout(() => {
+        swal({
+          title: "تم الحفظ",
+          icon: "success",
+          button: null,
+          timer: 1000,
         });
+        this.isLoading = false;
+      }, 1500);
     },
     initialize() {
       this.user = this.applyings[0];

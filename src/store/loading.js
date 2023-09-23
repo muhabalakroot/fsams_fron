@@ -4,13 +4,6 @@ import { defineStore } from "pinia";
 export const useAppicationsStore = defineStore("Appications", {
   state: () => ({
     applications: [
-      // {
-      //   applicationId: "1",
-      //   applicationType: "طلب ترقية",
-      //   createdAt: "9/23/2023",
-      //   status: "قيد المعالجة",
-      //   isSubmited: "نعم",
-      // },
       {
         applicationId: "6009c0eee65f6dce28fb3e50",
         applicationType: "طلب ترقية ",

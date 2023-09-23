@@ -11,6 +11,7 @@
     "@mdi/font": "7.0.96",
     "pinia": "^2.0.23",
     "roboto-fontface": "*",
+    "sweetalert": "^2.1.2",
     "vue": "^3.2.0",
     "vue-html-to-paper": "^2.0.3",
     "vue-router": "^4.0.0",

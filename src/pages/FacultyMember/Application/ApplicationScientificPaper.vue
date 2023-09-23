@@ -153,7 +153,10 @@
                         ></TheTextFieldLable
                       >
                       <v-file-input
-                        :rules="[(v) => !!v || 'هذا الحقل اجباري']"
+                        :rules="[
+                          (v) => !!v || 'هذا الحقل اجباري',
+                          (v) => (v && v.length > 0) || 'هذا الحقل اجباري',
+                        ]"
                         hint="الإنتاج العلمي بدون أسماء"
                         v-model="editedItem.scientificPaperNoNamesFile"
                       ></v-file-input>
@@ -173,7 +176,6 @@
                         >رسالة بقبول الإنتاج العلمي</TheTextFieldLable
                       >
                       <v-file-input
-                        :rules="[(v) => !!v || 'هذا الحقل اجباري']"
                         v-model="editedItem.acceptanceLetter"
                       ></v-file-input>
                     </v-col>
@@ -241,17 +243,43 @@
 
     <div align="left">
       <v-divider></v-divider>
-      <v-btn variant="text" class="mx-2"> حفظ </v-btn>
-      <v-btn @click="validate"> حفظ واستمرار </v-btn>
+      <v-btn
+        variant="text"
+        color="error"
+        class="mx-2"
+        @click="goback"
+        prepend-icon="mdi-chevron-right"
+        >عودة
+      </v-btn>
+      <v-btn
+        variant="text"
+        class="mx-2"
+        :loading="isLoading"
+        :disabled="isLoading"
+        @click="saveAndGo"
+      >
+        حفظ
+      </v-btn>
+      <v-btn
+        @click="validate"
+        :loading="isLoadingAndGO"
+        :disabled="isLoadingAndGO"
+      >
+        حفظ واستمرار
+      </v-btn>
     </div>
   </v-form>
 </template>
 <script>
 import { useApplyingStore } from "@/store/applying";
 import { mapActions, mapWritableState } from "pinia";
+import swal from "sweetalert";
+
 export default {
   data() {
     return {
+      isLoadingAndGO: false,
+      isLoading: false,
       scientificPaper: null,
       dialog: false,
       dialogDelete: false,
@@ -348,13 +376,34 @@ export default {
       }
     },
     async validate() {
-      // const { valid } = await this.$refs.form.validate();
-      // if (valid) {
+      const { valid } = await this.$refs.form.validate();
+      this.isLoadingAndGO = true;
+      setTimeout(() => {
+        if (valid)
+          this.$router.push({
+            name: "ApplicationAttachment",
+            params: this.$route.params.id,
+          });
+        this.isLoadingAndGO = false;
+      }, 1500);
+    },
+    goback() {
       this.$router.push({
-        name: "ApplicationAttachment",
-        id: this.$route.params.id,
+        name: "ApplicationAcadimecInfo",
+        params: { id: this.$route.params.id },
       });
-      // }
+    },
+    saveAndGo() {
+      this.isLoading = true;
+      setTimeout(() => {
+        swal({
+          title: "تم الحفظ",
+          icon: "success",
+          button: null,
+          timer: 1000,
+        });
+        this.isLoading = false;
+      }, 1500);
     },
     initialize() {
       this.scientificPaper = this.applyings[0].scientificPaper;

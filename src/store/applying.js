@@ -14,7 +14,7 @@ export const useApplyingStore = defineStore("Applyings", {
         role: "department-head",
         firstName: "رضوان",
         fatherName: "علي",
-        grandeFatherName: "",
+        grandeFatherName: "بلقاسم",
         lastName: "حسين",
         nationality: "ليبي",
         faculty: "كلية تقنية المعلومات",
@@ -23,8 +23,8 @@ export const useApplyingStore = defineStore("Applyings", {
         nationalNumber: "119690457898",
         passport: null,
         qualification: "دكتوراه",
-        generalMajor: " الذكاء االصطناعي",
-        exaxtMajor: "استخدام الذكاء االصطناعي في التحكم باألنظمة المركبة",
+        generalMajor: " الذكاء الاصطناعي",
+        exaxtMajor: "استخدام الذكاء الاصطناعي في التحكم بالأنظمة المركبة",
         univercity: " جامعة ستيرلنق",
         country: "بريطانيا",
         city: "اسكتالندا - قلاسكو",
@@ -36,7 +36,7 @@ export const useApplyingStore = defineStore("Applyings", {
         departmentMeetingMinutes: [],
         showenToDepartment: "",
         promotoinDegreeFile: [],
-        signedApplication: [],
+        signedApplication: null,
         scientificPaper: [
           {
             id: "1",

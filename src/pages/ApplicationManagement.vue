@@ -7,7 +7,6 @@
 
   <v-data-table
     hover
-    :loading="false"
     v-model:page="page"
     :headers="headers"
     :items="applications"
@@ -25,6 +24,8 @@
         <td>{{ item.columns.isSubmited }}</td>
         <td>
           <v-btn
+            :loading="isLoading"
+            :disabled="isLoading"
             v-if="item.columns.isSubmited == 'لا'"
             @click="openApplicationPage(item.columns.applicationId)"
             >فتح الطلب</v-btn
@@ -48,7 +49,10 @@
     <v-btn @click="addApplication">إنشاء طلب</v-btn>
   </div> -->
 
-  <NewApplicationDialog class="ma-2"></NewApplicationDialog>
+  <NewApplicationDialog
+    v-if="applications.length == 0"
+    class="ma-2"
+  ></NewApplicationDialog>
 </template>
 <script>
 import NewApplicationDialog from "@/components/Dialogs/NewApplicationDialog.vue";
@@ -62,6 +66,7 @@ export default {
   },
   data() {
     return {
+      isLoading: false,
       page: 1,
       itemsPerPage: 5,
       headers: [
@@ -90,7 +95,14 @@ export default {
       this.$router.push({ name: "applicationStatus", params: { id: id } });
     },
     openApplicationPage(id) {
-      this.$router.push({ name: "ApplicationPersonaInfo", params: { id: id } });
+      this.isLoading = true;
+      setTimeout(() => {
+        this.$router.push({
+          name: "ApplicationPersonaInfo",
+          params: { id: id },
+        });
+        this.isLoading = false;
+      }, 2000);
     },
   },
 };
