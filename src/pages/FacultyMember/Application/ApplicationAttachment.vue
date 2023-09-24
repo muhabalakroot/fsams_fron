@@ -33,6 +33,7 @@
             <v-btn v-if="attachments[i].file.name" class="ma-1"
               ><v-icon
                 v-model="attachments[i].file"
+                @click="openFile"
                 icon="mdi-eye-outline"
               ></v-icon
             ></v-btn>
@@ -103,7 +104,7 @@ export default {
       num: [0, 1, 2, 3, 4, 5],
       isSelecting: false,
       selectedFile: [],
-      users: null,
+      user: null,
       page: 1,
       itemsPerPage: 5,
       attachmentHeader: [
@@ -186,6 +187,9 @@ export default {
         });
         this.isLoading = false;
       }, 1500);
+    },
+    openFile() {
+      window.open("/src/assets/6009c0eee65f6dce28fb3e50.pdf", "_blank");
     },
   },
   created() {

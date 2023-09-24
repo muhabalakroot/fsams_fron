@@ -82,7 +82,6 @@ export default {
   methods: {
     logout() {
       localStorage.removeItem("user");
-      localStorage.removeItem("apply");
       this.$router.push({ name: "Login" });
     },
     navigate() {

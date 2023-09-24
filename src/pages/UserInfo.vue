@@ -192,27 +192,14 @@
     <v-row>
       <v-col cols="4"
         ><TheTextFieldLable>الدرجة العلمية الحالية</TheTextFieldLable>
-        <v-select
-          :readonly="editable"
-          v-model="user.currentDegree"
-          item-title="value"
-          item-value="id"
-          :rules="[(v) => !!v || 'هذا الحقل اجباري']"
-          :items="[
-            'محاضر مساعد',
-            'محاضر',
-            'أستاذ مساعد',
-            'أستاذ مشارك',
-            'أستاذ',
-          ]"
-        >
-        </v-select
+        <v-text-field :readonly="editable" v-model="user.degree"> </v-text-field
       ></v-col>
       <v-col cols="4"
         ><TheTextFieldLable>تاريخ الحصول عليها</TheTextFieldLable>
         <v-text-field
+          type="date"
           :readonly="editable"
-          v-model="user.promotionDegreeNumberDate"
+          v-model="user.degreeDateOfObtaing"
         >
         </v-text-field
       ></v-col>

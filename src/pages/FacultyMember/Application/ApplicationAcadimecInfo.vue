@@ -191,6 +191,7 @@
 <script>
 import { useApplyingStore } from "@/store/applying";
 import { mapState } from "pinia";
+import { mapActions } from "pinia";
 import swal from "sweetalert";
 export default {
   data() {
@@ -204,9 +205,11 @@ export default {
     ...mapState(useApplyingStore, ["applyings"]),
   },
   methods: {
+    ...mapActions(useApplyingStore, ["updateApplying"]),
     async validate() {
       const { valid } = await this.$refs.form.validate();
       this.isLoadingAndGO = true;
+      this.updateApplying(this.user);
       setTimeout(() => {
         if (valid)
           this.$router.push({
@@ -217,10 +220,12 @@ export default {
       }, 1500);
     },
     initialize() {
-      this.user = this.applyings[0];
+      this.user = JSON.parse(localStorage.getItem("apply"));
     },
     save() {
       this.isLoading = true;
+      this.updateApplying(this.user);
+
       setTimeout(() => {
         swal({
           title: "تم الحفظ",

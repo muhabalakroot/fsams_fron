@@ -1,5 +1,7 @@
 // Utilities
 import { defineStore } from "pinia";
+import { mapActions } from "pinia";
+import { useApplyingStore } from "./applying";
 
 export const useUsersStore = defineStore("Users", {
   state: () => ({
@@ -7,10 +9,11 @@ export const useUsersStore = defineStore("Users", {
   }),
   getters: {
     userRole() {
-      return this.users[0].role;
+      return JSON.parse(localStorage.getItem("user")).role;
     },
   },
   actions: {
+    ...mapActions(useApplyingStore, ["addToLocal"]),
     login(email, password) {
       console.log(email, password);
       if (email == "r@uot.edu.ly") {
@@ -19,15 +22,15 @@ export const useUsersStore = defineStore("Users", {
             role: "faculty-member",
             role_ar: "عضو هيئة تدريس",
             firstName: "رضوان",
-            fatherName: "",
+            fatherName: "علي",
             lastName: "حسين",
             nationality: "ليبي",
             faculty: "كلية تقنية المعلومات",
             department: "قسم هندسة البرمجيات",
-            degree: "أستاذ مساعد",
+            degree: "أستاذ مشارك",
             nationalNumber: null,
             passport: null,
-            qualification: "ماجيستير",
+            qualification: "دكتوراه",
             generalMajor: null,
             exaxtMajor: null,
             univercity: null,
@@ -35,8 +38,8 @@ export const useUsersStore = defineStore("Users", {
             city: null,
             dateOfObtaining: null,
             currentDegree: null,
-            promotoinDegreeNumber: null,
-            degreeDateOfObtaing: null,
+            promotoinDegreeNumber: 123456,
+            degreeDateOfObtaing: "2018-11-25",
             promotoinDegreeFile: [],
             scientificPaper: [
               {
@@ -93,6 +96,7 @@ export const useUsersStore = defineStore("Users", {
             ],
           },
         ];
+        this.addToLocal();
         localStorage.setItem("user", JSON.stringify(this.users[0]));
       } else if (email == "m@uot.edu.ly") {
         this.users = [

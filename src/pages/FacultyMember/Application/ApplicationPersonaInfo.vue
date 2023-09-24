@@ -267,6 +267,7 @@
 <script>
 import { useApplyingStore } from "@/store/applying";
 import { mapState } from "pinia";
+import { mapActions } from "pinia";
 import swal from "sweetalert";
 export default {
   data() {
@@ -323,13 +324,13 @@ export default {
       ],
     };
   },
-  computed: {
-    ...mapState(useApplyingStore, ["applyings"]),
-  },
   methods: {
+    ...mapActions(useApplyingStore, ["updateApplying"]),
     async goToAcadimec() {
       const { valid } = await this.$refs.form.validate();
       this.isLoadingAndGO = true;
+      this.updateApplying(this.user);
+
       setTimeout(() => {
         if (valid)
           this.$router.push({
@@ -341,6 +342,7 @@ export default {
     },
     save() {
       this.isLoading = true;
+      this.updateApplying(this.user);
       setTimeout(() => {
         swal({
           title: "تم الحفظ",

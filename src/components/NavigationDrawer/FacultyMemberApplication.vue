@@ -12,7 +12,7 @@
     <v-divider></v-divider>
 
     <v-list density="compact" v-model:selected="selectedItem" @click="navigate">
-      <v-list-item :title="applyings[0].applicationType"> </v-list-item>
+      <v-list-item :title="applyings.applicationType"> </v-list-item>
 
       <v-divider class="ma-2"></v-divider>
 
@@ -74,7 +74,6 @@
   </v-navigation-drawer>
 </template>
 <script>
-import { useApplyingStore } from "@/store/applying";
 import { useUsersStore } from "@/store/user";
 import { mapState } from "pinia";
 export default {
@@ -82,10 +81,10 @@ export default {
     return {
       user: null,
       selectedItem: null,
+      applyings: null,
     };
   },
   computed: {
-    ...mapState(useApplyingStore, ["applyings"]),
     ...mapState(useUsersStore, ["users"]),
     fullName() {
       return this.user.firstName + " " + this.user.lastName;
@@ -94,7 +93,6 @@ export default {
   methods: {
     logout() {
       localStorage.removeItem("user");
-      localStorage.removeItem("apply");
       this.$router.push({ name: "login" });
     },
     navigate() {
@@ -118,6 +116,7 @@ export default {
     },
     initialize() {
       this.user = JSON.parse(localStorage.getItem("user"));
+      this.applyings = JSON.parse(localStorage.getItem("apply"));
     },
   },
   created() {

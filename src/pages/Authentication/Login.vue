@@ -107,7 +107,6 @@ export default {
       const { valid } = await this.$refs.form.validate();
 
       this.login(this.email, this.password);
-      this.addToLocal();
       if (valid) {
         this.isLoading = true;
         setTimeout(() => {

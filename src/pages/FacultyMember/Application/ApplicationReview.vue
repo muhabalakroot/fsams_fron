@@ -14,10 +14,8 @@
         v-if="
           userRole == 'department-head' || userRole == 'faculty-affairs-office'
         "
-        >{{ applyings[0].applicationType }} الخاص بـ{{
-          applyings[0].firstName
-        }}
-        {{ applyings[0].lastName }}</TheH1
+        >{{ user.applicationType }} الخاص بـ{{ user.firstName }}
+        {{ user.lastName }}</TheH1
       >
       <v-alert type="info" v-if="userRole == 'department-head'"
         >بعد الاتطلاع على الطلب والتحقق من صحته، قم بتعبأت الخانات تحت عنوان
@@ -88,161 +86,34 @@
         <v-row>
           <v-col cols="6"
             ><TheTextFieldLable>الكلية</TheTextFieldLable>
-            <v-select
+            <v-text-field
               style="max-width: 1000px"
               :rules="[(v) => !!v || 'هذا الحقل اجباري']"
-              item-title="value"
-              item-value="value"
-              :items="colleges"
               v-model="user.faculty"
             >
-            </v-select
+            </v-text-field
           ></v-col>
 
-          <!-- //كلية العلوم -->
-          <v-col cols="6" v-if="user.faculty == 'كلية العلوم'"
+          <!-- //كلينا الغالية -->
+          <v-col cols="6"
             ><TheTextFieldLable>القسم العلمي</TheTextFieldLable>
-            <v-select
+            <v-text-field
               style="max-width: 1000px"
               :rules="[(v) => !!v || 'هذا الحقل اجباري']"
-              :items="[
-                'قسم الرياضيات',
-                'قسم علم الحيوان',
-                'قسم الفيزياء',
-                'قسم الكيمياء',
-                'قسم علم النبات',
-                'قسم الجيولوجيا',
-                'قسم علوم الحاسب الآلي',
-                'قسم الإحصاء',
-              ]"
               v-model="user.department"
             >
-            </v-select
-          ></v-col>
-
-          <!-- //كلية الهندسة -->
-          <v-col cols="6" v-if="user.faculty == 'كلية الهندسة'"
-            ><TheTextFieldLable>القسم العلمي</TheTextFieldLable>
-            <v-select
-              style="max-width: 1000px"
-              :rules="[(v) => !!v || 'هذا الحقل اجباري']"
-              :items="[
-                'قسم الهندسة الكهربائية والالكترونية',
-                'قسم الهندسة الميكانيكية والصناعية',
-                'قسم الهندسة الكيميائية',
-                'قسم هندسة العمارة والتخطيط العمراني',
-                'قسم هندسة النفط',
-                'قسم الهندسة الجيولوجية',
-                'قسم هندسة التعدين',
-                'قسم الهندسة النووية',
-                'قسم هندسة الحاسب الآلي',
-                'قسم هندسة المواد والمعادن',
-                'قسم الهندسة البحرية والمنصات العائمة',
-                'قسم هندسة الطيران',
-                'قسم الهندسة المدنية',
-                'قسم الدراسة والامتحانات والمرحلة العامة',
-                'قسم الهندسة الطبية',
-                'قسم الإدارة الهندسية',
-              ]"
-              v-model="user.department"
-            >
-            </v-select
-          ></v-col>
-
-          <!-- //كلية الفنون -->
-          <v-col cols="6" v-if="user.faculty == 'كلية الفنون'"
-            ><TheTextFieldLable>القسم العلمي</TheTextFieldLable>
-            <v-select
-              style="max-width: 1000px"
-              :rules="[(v) => !!v || 'هذا الحقل اجباري']"
-              :items="[
-                'قسم الفنون المرئية',
-                'قسم الفنون الدرامية',
-                'قسم التصميم الداخلي',
-                'قسم الفنون الموسيقية',
-                'قسم الفنون الجميلة والتطبيقية',
-              ]"
-              v-model="user.department"
-            >
-            </v-select
-          ></v-col>
-
-          <!-- //كلية اللغات -->
-          <v-col cols="6" v-if="user.faculty == 'كلية اللغات'"
-            ><TheTextFieldLable>القسم العلمي</TheTextFieldLable>
-            <v-select
-              style="max-width: 1000px"
-              :rules="[(v) => !!v || 'هذا الحقل اجباري']"
-              :items="[
-                'قسم اللغة الإنجليزية',
-                'قسم اللغة العربية',
-                'قسم اللغة الاسبانية',
-                'قسم اللغات الأفروآسيوية',
-                'قسم اللغة الإيطالية',
-                'قسم الترجمة والتعريب',
-                'المرحلة العامة',
-                'قسم اللغة الفرنسية',
-              ]"
-              v-model="user.department"
-            >
-            </v-select
-          ></v-col>
-
-          <!-- //كلية الزراعة -->
-          <v-col cols="6" v-if="user.faculty == 'كلية الزراعة'"
-            ><TheTextFieldLable>القسم العلمي</TheTextFieldLable>
-            <v-select
-              style="max-width: 1000px"
-              :rules="[(v) => !!v || 'هذا الحقل اجباري']"
-              :items="[
-                'قسم الاقتصاد الزراعي',
-                'قسم الزراعات المائية',
-                'قسم المراعي والغابات',
-                'قسم اقتصاد المنزلي',
-                'قسم المحاصيل الزراعية',
-                'قسم الهندسة الزراعية',
-                'قسم البستنة',
-                'قسم وقاية النبات',
-                'قسم التربة والمياه',
-                'قسم الانتاج الحيواني',
-                'قسم علوم وتقنية الاغذية',
-              ]"
-              v-model="user.department"
-            >
-            </v-select
-          ></v-col>
-
-          <!-- كليتنا الغالية -->
-          <v-col cols="6" v-if="user.faculty == 'كلية تقنية المعلومات'"
-            ><TheTextFieldLable>القسم العلمي</TheTextFieldLable>
-            <v-select
-              style="max-width: 1000px"
-              :rules="[(v) => !!v || 'هذا الحقل اجباري']"
-              :items="[
-                'قسم هندسة البرمجيات',
-                'قسم الشبكات',
-                'قسم نظم المعلومات',
-                'قسم الحوسبة المتنقلة',
-                'قسم تقنيات الإنترنت',
-                'قسم المرحلة العامة',
-              ]"
-              v-model="user.department"
-            >
-            </v-select
+            </v-text-field
           ></v-col>
         </v-row>
 
         <v-row>
           <v-col cols="6"
             ><TheTextFieldLable>الجنسية</TheTextFieldLable>
-            <v-select
+            <v-text-field
               style="max-width: 1000px"
               :rules="[(v) => !!v || 'هذا الحقل اجباري']"
-              item-title="value"
-              item-value="id"
               v-model="user.nationality"
-              :items="nationalityList"
-            ></v-select
+            ></v-text-field
           ></v-col>
 
           <v-col cols="6" v-if="user.nationality == 1"
@@ -274,14 +145,11 @@
         <v-row>
           <v-col cols="4">
             <TheTextFieldLable>المؤهل العلمي</TheTextFieldLable>
-            <v-select
-              v-model="user.qualification"
+            <v-text-field
               :rules="[(v) => !!v || 'هذا الحقل اجباري']"
-              item-title="value"
-              item-value="id"
-              :items="['ماجيستير', 'دكتوراه']"
+              v-model="user.qualification"
             >
-            </v-select>
+            </v-text-field>
           </v-col>
           <v-col cols="4"
             ><TheTextFieldLable>التخصص</TheTextFieldLable>
@@ -345,20 +213,11 @@
         <v-row>
           <v-col cols="4">
             <TheTextFieldLable>الدرجة العلمية الحالية</TheTextFieldLable>
-            <v-select
+            <v-text-field
               v-model="user.currentDegree"
-              item-title="value"
-              item-value="id"
               :rules="[(v) => !!v || 'هذا الحقل اجباري']"
-              :items="[
-                'محاضر مساعد',
-                'محاضر',
-                'أستاذ مساعد',
-                'أستاذ مشارك',
-                'أستاذ',
-              ]"
             >
-            </v-select>
+            </v-text-field>
           </v-col>
           <v-col cols="4"
             ><TheTextFieldLable>رقم قرار الترقية</TheTextFieldLable>
@@ -388,7 +247,10 @@
               hint="الرجاء رفع صورة من قرار الترقية"
               v-model="user.promotoinDegreeFile"
             ></v-file-input>
-            <v-btn v-if="$route.name == 'ApplicationReview'" class="ma-1"
+            <v-btn
+              v-if="$route.name == 'ApplicationReview'"
+              @click="openFile"
+              class="ma-1"
               ><v-icon icon="mdi-eye-outline"></v-icon
             ></v-btn>
           </v-col>
@@ -491,14 +353,6 @@
                         <v-select
                           v-model="editedItem.publisherType"
                           :rules="[(v) => !!v || 'هذا الحقل اجباري']"
-                          item-title="value"
-                          item-value="id"
-                          :items="[
-                            { id: 1, value: 'مجلة علمية محلية' },
-                            { id: 2, value: 'مجلة علمية عالمية' },
-                            { id: 3, value: 'مؤتمر علمي محلي' },
-                            { id: 4, value: 'مؤتمر علمي عالمي' },
-                          ]"
                         >
                         </v-select>
                       </v-col>
@@ -544,6 +398,7 @@
                         <v-btn
                           v-if="$route.name == 'ApplicationReview'"
                           class="ma-1"
+                          @click="openFile"
                           ><v-icon icon="mdi-eye-outline"></v-icon
                         ></v-btn>
                       </v-col>
@@ -567,6 +422,7 @@
                           v-model="editedItem.acceptanceLetter"
                         ></v-file-input>
                         <v-btn
+                          disabled
                           v-if="$route.name == 'ApplicationReview'"
                           class="ma-1"
                           ><v-icon icon="mdi-eye-outline"></v-icon
@@ -639,10 +495,6 @@
         <template v-slot:bottom>
           <div></div>
         </template>
-
-        <template v-slot:no-data>
-          <v-btn color="primary" @click="initialize"> Reset </v-btn>
-        </template>
       </v-data-table>
 
       <v-divider class="ma-2"></v-divider>
@@ -654,21 +506,14 @@
           <tr>
             <th class="text-right">البيان</th>
             <th class="text-right">الوصف</th>
-            <th class="text-right">تم</th>
-            <th class="text-center">الإجراءات</th>
+            <th class="text-center">عرض</th>
           </tr>
         </thead>
         <tbody>
           <tr v-for="i in num" :key="i">
             <td>{{ attachments[i].name }}</td>
             <td>{{ attachments[i].description }}</td>
-            <td>
-              <v-icon
-                :icon="attachments[i].file.name ? 'mdi-check' : ''"
-                color="success"
-              >
-              </v-icon>
-            </td>
+
             <td>
               <v-file-input
                 v-if="
@@ -683,6 +528,7 @@
                 v-if="
                   attachments[i].file.name || $route.name == 'ApplicationReview'
                 "
+                @click="openFile"
                 class="ma-1"
                 ><v-icon
                   v-model="attachments[i].file"
@@ -1202,8 +1048,8 @@
                     font-weight: bolder;
                     text-align: right;
                   "
-                  >الاسم: {{ users[0].firstName }} {{ users[0].fatherName }}
-                  {{ users[0].lastName }}</v-col
+                  >الاسم: {{ users.firstName }} {{ users.fatherName }}
+                  {{ users.lastName }}</v-col
                 >
               </v-row>
               <v-row class="mb-3 pb-0">
@@ -1400,8 +1246,8 @@
           <v-col
             cols="4"
             style="font-size: 24px; font-weight: bolder; text-align: right"
-            >الاسم: {{ users[0].firstName }} {{ users[0].fatherName }}
-            {{ users[0].lastName }}</v-col
+            >الاسم: {{ users.firstName }} {{ users.fatherName }}
+            {{ users.lastName }}</v-col
           >
         </v-row>
         <v-row class="mb-3 pb-0">
@@ -1584,8 +1430,8 @@
               <v-col
                 cols="5"
                 style="font-size: 24px; font-weight: bolder; text-align: right"
-                >الاسم: {{ users[0].firstName }} {{ users[0].fatherName }}
-                {{ users[0].lastName }}</v-col
+                >الاسم: {{ users.firstName }} {{ users.fatherName }}
+                {{ users.lastName }}</v-col
               >
             </v-row>
             <v-row class="mb-3 pb-0">
@@ -1912,8 +1758,8 @@
           <v-col
             cols="4"
             style="font-size: 24px; font-weight: bolder; text-align: right"
-            >الاسم: {{ users[0].firstName }} {{ users[0].fatherName }}
-            {{ users[0].lastName }}</v-col
+            >الاسم: {{ users.firstName }} {{ users.fatherName }}
+            {{ users.lastName }}</v-col
           >
         </v-row>
         <v-row class="mb-3 pb-0">
@@ -1943,8 +1789,9 @@
 </template>
 <script>
 import { useApplyingStore } from "@/store/applying";
-import { useUsersStore } from "@/store/user";
+
 import { mapState } from "pinia";
+
 import { mapWritableState } from "pinia";
 
 import PrintLayout from "@/layouts/PrintLayout.vue";
@@ -1952,6 +1799,7 @@ import PrintLayout from "@/layouts/PrintLayout.vue";
 import ApplicationConfirmation from "@/components/Dialogs/ApplicationConfirmation.vue";
 import ReviewerCRUD from "@/components/ReviewersCRUD.vue";
 import ReviewersSelect from "@/components/ReviewersSelect.vue";
+import { useUsersStore } from "@/store/user";
 
 export default {
   components: {
@@ -1976,7 +1824,7 @@ export default {
         },
         { title: "جهة النشر", key: "publisher" },
         { title: "تاريخ النشر", key: "dateOfpublishing" },
-        { title: "إجراءات", key: "id", align: "center" },
+        { title: "عرض", key: "id", align: "center" },
       ],
       colleges: [
         { id: 1, value: "كلية العلوم" },
@@ -2025,6 +1873,7 @@ export default {
         { id: 18, value: "صومالي" },
         { id: 19, value: "جيبوتي" },
       ],
+      users: null,
       user: null,
       attachments: null,
       scientificPaper: null,
@@ -2053,8 +1902,7 @@ export default {
   },
   computed: {
     ...mapWritableState(useApplyingStore, ["applyings"]),
-    ...mapState(useUsersStore, ["userRole", "users"]),
-
+    ...mapState(useUsersStore, ["userRole"]),
     formTitle() {
       return this.editedIndex === -1
         ? "إضافة عضو هيئة تدريس"
@@ -2074,9 +1922,11 @@ export default {
       this.isSend = !this.isSend;
     },
     initialize() {
-      this.user = this.applyings[0];
-      this.scientificPaper = this.applyings[0].scientificPaper;
-      this.attachments = this.applyings[0].attachments;
+      this.user = JSON.parse(localStorage.getItem("apply"));
+      this.users = JSON.parse(localStorage.getItem("user"));
+
+      this.scientificPaper = this.user.scientificPaper;
+      this.attachments = this.user.attachments;
     },
     editItem(item) {
       this.editedIndex = this.scientificPaper.indexOf(item);
@@ -2123,6 +1973,9 @@ export default {
     async printFAOList() {
       console.log(this.applyings);
       await this.$htmlToPaper("FAOformToPrint");
+    },
+    openFile() {
+      window.open("/src/assets/6009c0eee65f6dce28fb3e50.pdf", "_blank");
     },
   },
   created() {

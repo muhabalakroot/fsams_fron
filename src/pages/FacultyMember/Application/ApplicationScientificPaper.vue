@@ -70,7 +70,15 @@
                       >
                       <v-text-field
                         style="width: 100%; max-width: 100%"
-                        :rules="[(v) => !!v || 'هذا الحقل اجباري']"
+                        :rules="[
+                          (v) => !!v || 'هذا الحقل اجباري',
+                          (v) =>
+                            (v &&
+                              editedItem.scientificPaperTitle
+                                .replace(/\s+/g, ' ')
+                                .split(' ').length >= 5) ||
+                            'يجب أن يتكون العنوان من 5 كلمات على الاقل',
+                        ]"
                         v-model="editedItem.scientificPaperTitle"
                       >
                       </v-text-field>
@@ -100,13 +108,11 @@
                       <v-select
                         v-model="editedItem.publisherType"
                         :rules="[(v) => !!v || 'هذا الحقل اجباري']"
-                        item-title="value"
-                        item-value="id"
                         :items="[
-                          { id: 1, value: 'مجلة علمية محلية' },
-                          { id: 2, value: 'مجلة علمية عالمية' },
-                          { id: 3, value: 'مؤتمر علمي محلي' },
-                          { id: 4, value: 'مؤتمر علمي عالمي' },
+                          'مجلة علمية محلية',
+                          'مجلة علمية عالمية',
+                          'مؤتمر علمي محلي',
+                          'مؤتمر علمي عالمي',
                         ]"
                       >
                       </v-select>
@@ -119,7 +125,12 @@
                       >
                       <v-text-field
                         type="date"
-                        :rules="[(v) => !!v || 'هذا الحقل اجباري']"
+                        :rules="[
+                          (v) => !!v || 'هذا الحقل اجباري',
+                          (v) =>
+                            user.degreeDateOfObtaing < v ||
+                            'يجب أن يكون الانتاج العلمي صادر بعد تاريخ أخر ترقية',
+                        ]"
                         v-model="editedItem.dateOfpublishing"
                       >
                       </v-text-field
@@ -278,6 +289,7 @@ import swal from "sweetalert";
 export default {
   data() {
     return {
+      user: null,
       isLoadingAndGO: false,
       isLoading: false,
       scientificPaper: null,
@@ -332,7 +344,10 @@ export default {
     },
   },
   methods: {
-    ...mapActions(useApplyingStore, ["deleteScientificPapers"]),
+    ...mapActions(useApplyingStore, [
+      "deleteScientificPapers",
+      "updateApplying",
+    ]),
     editItem(item) {
       this.editedIndex = this.scientificPaper.indexOf(item);
       this.editedItem = Object.assign({}, item);
@@ -377,6 +392,8 @@ export default {
     },
     async validate() {
       const { valid } = await this.$refs.form.validate();
+      this.user.scientificPaper = this.scientificPaper;
+      this.updateApplying(this.user);
       this.isLoadingAndGO = true;
       setTimeout(() => {
         if (valid)
@@ -395,6 +412,8 @@ export default {
     },
     saveAndGo() {
       this.isLoading = true;
+      this.user.scientificPaper = this.scientificPaper;
+      this.updateApplying(this.user);
       setTimeout(() => {
         swal({
           title: "تم الحفظ",
@@ -406,7 +425,8 @@ export default {
       }, 1500);
     },
     initialize() {
-      this.scientificPaper = this.applyings[0].scientificPaper;
+      this.user = JSON.parse(localStorage.getItem("apply"));
+      this.scientificPaper = this.user.scientificPaper;
       console.log(this.scientificPaper);
     },
   },
