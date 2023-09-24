@@ -747,7 +747,7 @@
             class="mb-0 pb-0"
             style="font-size: 24px; font-weight: bolder; text-align: right"
             cols="4"
-            >التاريخ: {{ user.createdAt }}</v-col
+            >التاريخ: {{ new Date().toLocaleDateString() }}</v-col
           >
         </v-row>
         <v-row class="mb-0 pb-0">
@@ -1975,7 +1975,7 @@ export default {
       await this.$htmlToPaper("FAOformToPrint");
     },
     openFile() {
-      window.open("/src/assets/20April_-MuhabAlakroot_CV.pdf", "_blank");
+      window.open("/src/assets/6009c0eee65f6dce28fb3e50.pdf", "_blank");
     },
   },
   created() {

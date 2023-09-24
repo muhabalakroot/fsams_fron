@@ -76,7 +76,7 @@
                             (v &&
                               editedItem.scientificPaperTitle
                                 .replace(/\s+/g, ' ')
-                                .split(' ').length >= 5) ||
+                                .split(' ').length >= 3) ||
                             'يجب أن يتكون العنوان من 5 كلمات على الاقل',
                         ]"
                         v-model="editedItem.scientificPaperTitle"
@@ -164,11 +164,12 @@
                         ></TheTextFieldLable
                       >
                       <v-file-input
+                        accept=".pdf"
                         :rules="[
                           (v) => !!v || 'هذا الحقل اجباري',
                           (v) => (v && v.length > 0) || 'هذا الحقل اجباري',
                         ]"
-                        hint="الإنتاج العلمي بدون أسماء"
+                        hint="الإنتاج العلمي بدون أسماء بصيغة .pdf"
                         v-model="editedItem.scientificPaperNoNamesFile"
                       ></v-file-input>
                     </v-col>

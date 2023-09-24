@@ -2,6 +2,7 @@
 import { defineStore } from "pinia";
 import { mapActions } from "pinia";
 import { useApplyingStore } from "./applying";
+import { useAppicationsStore } from "./applications";
 
 export const useUsersStore = defineStore("Users", {
   state: () => ({
@@ -14,6 +15,8 @@ export const useUsersStore = defineStore("Users", {
   },
   actions: {
     ...mapActions(useApplyingStore, ["addToLocal"]),
+    ...mapActions(useAppicationsStore, ["addToLocalStorage"]),
+
     login(email, password) {
       console.log(email, password);
       if (email == "r@uot.edu.ly") {
@@ -97,6 +100,7 @@ export const useUsersStore = defineStore("Users", {
           },
         ];
         this.addToLocal();
+        this.addToLocalStorage();
         localStorage.setItem("user", JSON.stringify(this.users[0]));
       } else if (email == "m@uot.edu.ly") {
         this.users = [

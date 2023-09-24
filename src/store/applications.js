@@ -22,7 +22,7 @@ export const useAppicationsStore = defineStore("Appications", {
   }),
   actions: {
     addToLocalStorage() {
-      localStorage.setItem("apply", JSON.stringify(this.applyings[0]));
+      localStorage.setItem("application", JSON.stringify(this.applications));
     },
     updateApplication(newApplication) {
       localStorage.removeItem("application");

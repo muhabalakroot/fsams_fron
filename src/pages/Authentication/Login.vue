@@ -83,6 +83,7 @@
 import { mapActions } from "pinia";
 import { useUsersStore } from "@/store/user";
 import { useApplyingStore } from "@/store/applying";
+import { useAppicationsStore } from "@/store/applications";
 export default {
   data: () => ({
     isLoading: false,
@@ -101,7 +102,6 @@ export default {
   }),
   methods: {
     ...mapActions(useUsersStore, ["login"]),
-    ...mapActions(useApplyingStore, ["addToLocal"]),
     async validate() {
       // window.open("/src/assets/uot_logo.png", "_blank");
       const { valid } = await this.$refs.form.validate();
