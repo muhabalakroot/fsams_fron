@@ -1975,7 +1975,7 @@ export default {
       await this.$htmlToPaper("FAOformToPrint");
     },
     openFile() {
-      window.open("/src/assets/6009c0eee65f6dce28fb3e50.pdf", "_blank");
+      window.open("/src/assets/20April_-MuhabAlakroot_CV.pdf", "_blank");
     },
   },
   created() {

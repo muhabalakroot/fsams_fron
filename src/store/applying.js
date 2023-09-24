@@ -10,6 +10,7 @@ export const useApplyingStore = defineStore("Applyings", {
         createdAt: "2022-02-28",
         submitedAt: "2022-11-25",
         status: "قيد المعالجة",
+        isSubmitedByFM: false,
         isSubmited: "نعم",
         role: "department-head",
         firstName: "رضوان",

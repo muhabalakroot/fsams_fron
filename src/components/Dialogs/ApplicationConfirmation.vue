@@ -39,7 +39,9 @@
 </template>
 <script>
 import { useUsersStore } from "@/store/user";
-import { mapState } from "pinia";
+import { useAppicationsStore } from "@/store/applications";
+import { mapState, mapActions } from "pinia";
+
 export default {
   data() {
     return {
@@ -50,7 +52,9 @@ export default {
     ...mapState(useUsersStore, ["userRole"]),
   },
   methods: {
+    ...mapActions(useAppicationsStore, ["updateAfterSubmit"]),
     submit() {
+      this.updateAfterSubmit();
       this.dialog = false;
       this.$router.push({ name: "ApplicationSubmited" });
     },

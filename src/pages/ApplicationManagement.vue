@@ -9,7 +9,7 @@
     hover
     v-model:page="page"
     :headers="headers"
-    :items="applications"
+    :items="application"
     :items-per-page="itemsPerPage"
     hide-default-footer
     class="elevation-1 mt-2"
@@ -30,6 +30,8 @@
             @click="openApplicationPage(item.columns.applicationId)"
             >فتح الطلب</v-btn
           ><v-btn
+            :loading="isLoading"
+            :disabled="isLoading"
             variant="text"
             @click="openStatusePage(item.columns.applicationId)"
             v-else
@@ -50,7 +52,7 @@
   </div> -->
 
   <NewApplicationDialog
-    v-if="applications.length == 0"
+    v-if="application.length == 0"
     class="ma-2"
   ></NewApplicationDialog>
 </template>
@@ -58,6 +60,7 @@
 import NewApplicationDialog from "@/components/Dialogs/NewApplicationDialog.vue";
 
 import { mapState } from "pinia";
+import { mapActions } from "pinia";
 
 import { useAppicationsStore } from "@/store/applications";
 export default {
@@ -66,6 +69,7 @@ export default {
   },
   data() {
     return {
+      application: null,
       isLoading: false,
       page: 1,
       itemsPerPage: 5,
@@ -90,9 +94,16 @@ export default {
     },
   },
   methods: {
+    ...mapActions(useAppicationsStore, ["updateApplication"]),
     openStatusePage(id) {
-      console.log(id);
-      this.$router.push({ name: "applicationStatus", params: { id: id } });
+      this.isLoading = true;
+      setTimeout(() => {
+        this.$router.push({
+          name: "applicationStatus",
+          params: { id: id },
+        });
+        this.isLoading = false;
+      }, 2000);
     },
     openApplicationPage(id) {
       this.isLoading = true;
@@ -104,6 +115,12 @@ export default {
         this.isLoading = false;
       }, 2000);
     },
+    init() {
+      this.application = JSON.parse(localStorage.getItem("application"));
+    },
+  },
+  created() {
+    this.init();
   },
 };
 </script>

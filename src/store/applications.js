@@ -21,8 +21,23 @@ export const useAppicationsStore = defineStore("Appications", {
     ],
   }),
   actions: {
+    addToLocalStorage() {
+      localStorage.setItem("apply", JSON.stringify(this.applyings[0]));
+    },
+    updateApplication(newApplication) {
+      localStorage.removeItem("application");
+      localStorage.setItem("application", JSON.stringify(newApplication));
+      this.applyings[0] = newApplication;
+    },
     addApplication(newApplication) {
       this.applications.push(newApplication);
+    },
+    updateAfterSubmit() {
+      console.log("from app");
+      this.applications[0].isSubmited = "نعم";
+      this.applications[0].status = "قيد المعالجة";
+      localStorage.removeItem("application");
+      localStorage.setItem("application", JSON.stringify(this.applications));
     },
   },
 });
