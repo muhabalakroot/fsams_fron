@@ -857,10 +857,8 @@
               :rules="[(v) => !!v || 'هذا الحقل اجباري']"
             >
             </v-text-field>
-            <div align="left">
-              <ApplicationConfirmation
-                @click="validate"
-              ></ApplicationConfirmation>
+            <div align="center">
+              <v-btn @click="missing" color="error">إرسال</v-btn>
             </div>
           </div>
 
@@ -1801,8 +1799,10 @@
 </template>
 <script>
 import { useApplyingStore } from "@/store/applying";
+import { useAppicationsStore } from "@/store/applications";
 
 import { mapState } from "pinia";
+import { mapActions } from "pinia";
 
 import { mapWritableState } from "pinia";
 
@@ -1930,6 +1930,8 @@ export default {
     },
   },
   methods: {
+    ...mapActions(useApplyingStore, ["updateApplying"]),
+    ...mapActions(useAppicationsStore, ["updateAfterSubmit"]),
     sendToReviewer() {
       this.isSend = !this.isSend;
     },
@@ -1994,6 +1996,11 @@ export default {
     },
     openFile2() {
       window.open("/src/assets/6010c0eee65f6dce28fb3e42.pdf", "_blank");
+    },
+    missing() {
+      this.updateApplying(this.user);
+      this.updateAfterSubmit();
+      this.$router.push({ name: "ApplicationSubmited" });
     },
   },
   created() {

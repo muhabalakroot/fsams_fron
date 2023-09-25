@@ -22,28 +22,40 @@
           تتم الان معالجة طلبك من قبل رئيس قسمك العلمي
         </v-alert>
       </v-timeline-item>
+      <div
+        v-if="this.apply.isSubmitedByDH && this.apply.dhNoteWhenFalse == null"
+      >
+        <v-timeline-item min-width="100%" dot-color="info" size="small">
+          <div class="text-h6">رئيس القسم العلمي</div>
+          <v-alert type="success">
+            تتم الموافقة علي طلبك من قبل رئيس قسمك العلمي، وتمت إحالته إلى مكتب
+            شؤون أعضاء هيئة التدريس بالكلية
+          </v-alert>
+        </v-timeline-item>
+        <v-timeline-item min-width="100%" dot-color="info" size="small">
+          <div class="text-h6">مكتب شؤون أعضاء هيئة التدريس</div>
+          <v-alert type="info">
+            تتم الأن معالجة طلبك من قبل مكتب شؤون أعضاء هيئة التدريس بالكلية
+          </v-alert>
+        </v-timeline-item>
+      </div>
       <v-timeline-item
-        v-if="this.apply.isSubmitedByDH"
+        v-if="this.apply.isSubmitedByDH && this.apply.dhNoteWhenFalse !== null"
         min-width="100%"
         dot-color="info"
         size="small"
       >
         <div class="text-h6">رئيس القسم العلمي</div>
-        <v-alert type="success">
-          تتم الموافقة علي طلبك من قبل رئيس قسمك العلمي، وتمت إحالته إلى مكتب
-          شؤون أعضاء هيئة التدريس بالكلية
+        <v-alert type="error">
+          يوجد نقص في طلبك:
+          {{ apply.dhNoteWhenFalse }}
         </v-alert>
-      </v-timeline-item>
-      <v-timeline-item
-        v-if="this.apply.isSubmitedByDH"
-        min-width="100%"
-        dot-color="info"
-        size="small"
-      >
-        <div class="text-h6">مكتب شؤون أعضاء هيئة التدريس</div>
-        <v-alert type="info">
-          تتم الأن معالجة طلبك من قبل مكتب شؤون أعضاء هيئة التدريس بالكلية
-        </v-alert>
+        <v-btn
+          :loading="isLoading"
+          :disabled="isLoading"
+          @click="openApplicationPage()"
+          >فتح الطلب</v-btn
+        >
       </v-timeline-item>
     </v-timeline>
   </v-container>
@@ -52,6 +64,7 @@
 export default {
   data() {
     return {
+      isLoading: false,
       apply: null,
       items: [
         {
@@ -76,6 +89,16 @@ export default {
   methods: {
     init() {
       this.apply = JSON.parse(localStorage.getItem("apply"));
+    },
+    openApplicationPage() {
+      this.isLoading = true;
+      setTimeout(() => {
+        this.$router.push({
+          name: "ApplicationPersonaInfo",
+          params: { id: this.$route.params.id },
+        });
+        this.isLoading = false;
+      }, 2000);
     },
   },
   created() {
