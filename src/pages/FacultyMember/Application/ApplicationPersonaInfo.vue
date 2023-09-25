@@ -266,6 +266,7 @@
 </template>
 <script>
 import { useApplyingStore } from "@/store/applying";
+import { useUsersStore } from "@/store/user";
 import { mapState } from "pinia";
 import { mapActions } from "pinia";
 import swal from "sweetalert";
@@ -323,6 +324,9 @@ export default {
         { id: 19, value: "جيبوتي" },
       ],
     };
+  },
+  computed: {
+    ...mapState(useUsersStore, ["userRole"]),
   },
   methods: {
     ...mapActions(useApplyingStore, ["updateApplying"]),

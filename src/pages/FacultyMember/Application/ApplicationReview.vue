@@ -1,5 +1,5 @@
 <template>
-  <v-form readonly ref="form">
+  <v-form ref="form">
     <v-btn
       prepend-icon="mdi-chevron-right"
       @click="$router.push({ name: 'FacultyMembersApplicationsManagement' })"
@@ -38,9 +38,10 @@
             userRole == 'faculty-affairs-office' ||
             userRole == 'faculty-affairs-administration')
         "
-        >نموذج الطلب عضو هية التدريس</TheTextFieldLable
+        >نموذج طلب عضو هيئة التدريس</TheTextFieldLable
       >
       <v-btn
+        @click="openFile"
         v-if="
           $route.name == 'ApplicationReview' &&
           (userRole == 'department-head' ||
@@ -249,7 +250,7 @@
             ></v-file-input>
             <v-btn
               v-if="$route.name == 'ApplicationReview'"
-              @click="openFile"
+              @click="openFile1"
               class="ma-1"
               ><v-icon icon="mdi-eye-outline"></v-icon
             ></v-btn>
@@ -398,7 +399,7 @@
                         <v-btn
                           v-if="$route.name == 'ApplicationReview'"
                           class="ma-1"
-                          @click="openFile"
+                          @click="openFile2"
                           ><v-icon icon="mdi-eye-outline"></v-icon
                         ></v-btn>
                       </v-col>
@@ -528,7 +529,7 @@
                 v-if="
                   attachments[i].file.name || $route.name == 'ApplicationReview'
                 "
-                @click="openFile"
+                @click="openFile1"
                 class="ma-1"
                 ><v-icon
                   v-model="attachments[i].file"
@@ -565,9 +566,7 @@
 
         <v-row>
           <v-col cols="4"
-            ><TheTextFieldLable
-              >ارفع الطلب هنا بعد إضافة التوقيع
-            </TheTextFieldLable>
+            ><TheTextFieldLable>ارفع الطلب هنا بعد التوقيع </TheTextFieldLable>
             <v-file-input
               v-if="$route.name == 'ApplicationReview'"
               :rules="[
@@ -817,6 +816,22 @@
             ></v-col>
           </v-row>
 
+          <v-row v-if="user.isShowen == 'true'">
+            <v-col cols="12"
+              ><TheTextFieldLable
+                >ملخص قرار مجلس القسم<span style="color: red"
+                  >*</span
+                ></TheTextFieldLable
+              >
+              <v-text-field
+                style="max-width: 100%; width: 100%"
+                v-model="user.dhNote"
+                :rules="[(v) => !!v || 'هذا الحقل اجباري']"
+              >
+              </v-text-field
+            ></v-col>
+          </v-row>
+
           <div v-if="user.isShowen == 'true'">
             <div>
               بعد مراجعة البيانات المدرجة بطلب الترقية تبين لمجلس القسم:<span
@@ -838,10 +853,15 @@
             >
             <v-text-field
               style="max-width: 100%; width: 100%"
-              v-model="user.dhNote"
+              v-model="user.dhNoteWhenFalse"
               :rules="[(v) => !!v || 'هذا الحقل اجباري']"
             >
             </v-text-field>
+            <div align="left">
+              <ApplicationConfirmation
+                @click="validate"
+              ></ApplicationConfirmation>
+            </div>
           </div>
 
           <div v-if="user.isComplate == 'true'">
@@ -949,7 +969,7 @@
                       variant="outlined"
                       density="compact"
                     >
-                      {{ user.dateOfObtaining }}
+                      {{ user.createdAt }}
                     </v-alert>
                   </v-col>
                   <v-col cols="6" style="text-align: right">
@@ -962,7 +982,7 @@
                       variant="outlined"
                       density="compact"
                     >
-                      {{ user.dateOfObtaining }}
+                      {{ user.showenToDepartment }}
                     </v-alert>
                   </v-col>
                 </v-row>
@@ -977,11 +997,7 @@
                       density="compact"
                       variant="outlined"
                     >
-                      ملخص قرار مجلس القسم ملخص قرار مجلس القسم ملخص قرار مجلس
-                      القسم ملخص قرار مجلس القسم ملخص قرار مجلس القسم ملخص قرار
-                      مجلس القسم ملخص قرار مجلس القسم ملخص قرار مجلس القسم ملخص
-                      قرار مجلس القسم ملخص قرار مجلس القسم ملخص قرار مجلس القسم
-                      ملخص قرار مجلس القسم ملخص قرار مجلس القسم
+                      {{ user.dhNote || " " }}
                     </v-alert>
                   </v-col>
                 </v-row>
@@ -1155,7 +1171,7 @@
                 variant="outlined"
                 density="compact"
               >
-                {{ user.dateOfObtaining }}
+                {{ user.createdAt }}
               </v-alert>
             </v-col>
             <v-col cols="6" style="text-align: right">
@@ -1168,7 +1184,7 @@
                 variant="outlined"
                 density="compact"
               >
-                {{ user.dateOfObtaining }}
+                {{ user.showenToDepartment }}
               </v-alert>
             </v-col>
           </v-row>
@@ -1181,11 +1197,7 @@
                 density="compact"
                 variant="outlined"
               >
-                ملخص قرار مجلس القسم ملخص قرار مجلس القسم ملخص قرار مجلس القسم
-                ملخص قرار مجلس القسم ملخص قرار مجلس القسم ملخص قرار مجلس القسم
-                ملخص قرار مجلس القسم ملخص قرار مجلس القسم ملخص قرار مجلس القسم
-                ملخص قرار مجلس القسم ملخص قرار مجلس القسم ملخص قرار مجلس القسم
-                ملخص قرار مجلس القسم
+                {{ user.dhNote }}
               </v-alert>
             </v-col>
           </v-row>
@@ -1975,7 +1987,13 @@ export default {
       await this.$htmlToPaper("FAOformToPrint");
     },
     openFile() {
+      window.open("/src/assets/6010c0eee65f6dce28fb3e49.pdf", "_blank");
+    },
+    openFile1() {
       window.open("/src/assets/6009c0eee65f6dce28fb3e50.pdf", "_blank");
+    },
+    openFile2() {
+      window.open("/src/assets/6010c0eee65f6dce28fb3e42.pdf", "_blank");
     },
   },
   created() {

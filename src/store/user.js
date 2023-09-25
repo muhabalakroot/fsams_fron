@@ -99,8 +99,11 @@ export const useUsersStore = defineStore("Users", {
             ],
           },
         ];
-        this.addToLocal();
-        this.addToLocalStorage();
+        if (JSON.parse(localStorage.getItem("apply")).length == 0)
+          this.addToLocal();
+        if (JSON.parse(localStorage.getItem("application")).length == 0)
+          this.addToLocalStorage();
+
         localStorage.setItem("user", JSON.stringify(this.users[0]));
       } else if (email == "m@uot.edu.ly") {
         this.users = [

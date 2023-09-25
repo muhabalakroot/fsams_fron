@@ -63,6 +63,7 @@ import { mapState } from "pinia";
 import { mapActions } from "pinia";
 
 import { useAppicationsStore } from "@/store/applications";
+import { useUsersStore } from "@/store/user";
 export default {
   components: {
     NewApplicationDialog,
@@ -88,6 +89,7 @@ export default {
     };
   },
   computed: {
+    ...mapState(useUsersStore, ["userRole"]),
     ...mapState(useAppicationsStore, ["applications"]),
     pageCount() {
       return Math.ceil(this.applications.length / this.itemsPerPage);
@@ -116,7 +118,18 @@ export default {
       }, 2000);
     },
     init() {
-      this.application = JSON.parse(localStorage.getItem("application"));
+      this.application =
+        this.userRole == "department-head"
+          ? [
+              {
+                applicationId: "6009c0eee65f6dce28fb3e49",
+                applicationType: "طلب ترقية ",
+                createdAt: new Date().toLocaleDateString(),
+                status: "جديد",
+                isSubmited: "لا",
+              },
+            ]
+          : JSON.parse(localStorage.getItem("application"));
     },
   },
   created() {

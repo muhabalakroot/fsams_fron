@@ -12,15 +12,37 @@
   <v-container>
     <v-timeline side="end">
       <v-timeline-item
+        v-if="this.apply.isSubmitedByFM"
         min-width="100%"
-        v-for="item in items"
-        :key="item.id"
-        :dot-color="item.color"
+        dot-color="info"
         size="small"
       >
-        <div class="text-h6">{{ item.title }}</div>
-        <v-alert :value="true" :color="item.color" :icon="item.icon">
-          {{ item.massage }}
+        <div class="text-h6">رئيس القسم العلمي</div>
+        <v-alert type="info">
+          تتم الان معالجة طلبك من قبل رئيس قسمك العلمي
+        </v-alert>
+      </v-timeline-item>
+      <v-timeline-item
+        v-if="this.apply.isSubmitedByDH"
+        min-width="100%"
+        dot-color="info"
+        size="small"
+      >
+        <div class="text-h6">رئيس القسم العلمي</div>
+        <v-alert type="success">
+          تتم الموافقة علي طلبك من قبل رئيس قسمك العلمي، وتمت إحالته إلى مكتب
+          شؤون أعضاء هيئة التدريس بالكلية
+        </v-alert>
+      </v-timeline-item>
+      <v-timeline-item
+        v-if="this.apply.isSubmitedByDH"
+        min-width="100%"
+        dot-color="info"
+        size="small"
+      >
+        <div class="text-h6">مكتب شؤون أعضاء هيئة التدريس</div>
+        <v-alert type="info">
+          تتم الأن معالجة طلبك من قبل مكتب شؤون أعضاء هيئة التدريس بالكلية
         </v-alert>
       </v-timeline-item>
     </v-timeline>
@@ -30,22 +52,8 @@
 export default {
   data() {
     return {
+      apply: null,
       items: [
-        {
-          id: 1,
-          title: "رئيس القسم العلمي",
-          massage: "تتم الان معالجة طلبك من قبل رئيس قسمك العلمي",
-          color: "info",
-          icon: "mdi-information",
-        },
-        {
-          id: 2,
-          title: "رئيس القسم العلمي",
-          massage:
-            "تتم الموافقة علي  طلبك من قبل رئيس قسمك العلمي، وتمت إحالته إلى مكتب شؤون أعضاء هيئة التدريس بالكلية",
-          color: "success",
-          icon: "mdi-check-circle",
-        },
         {
           id: 3,
           title: "مكتب شؤون أعضاء هيئة التدريس",
@@ -64,6 +72,14 @@ export default {
         },
       ],
     };
+  },
+  methods: {
+    init() {
+      this.apply = JSON.parse(localStorage.getItem("apply"));
+    },
+  },
+  created() {
+    this.init();
   },
 };
 </script>

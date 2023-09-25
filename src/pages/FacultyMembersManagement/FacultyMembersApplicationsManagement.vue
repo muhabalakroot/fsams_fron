@@ -23,7 +23,7 @@
 
         <td>
           <v-btn class="ma-1" variant="outlined"
-            ><v-icon icon="mdi-printer" @click="printList()"></v-icon
+            ><v-icon icon="mdi-printer" @click="openFile()"></v-icon
           ></v-btn>
           <!-- department-head form -->
           <!-- <PrintLayout
@@ -358,7 +358,7 @@
             </v-row>
           </PrintLayout>
           <!--end of Form to print -->
-          <v-btn class="ma-1"
+          <v-btn class="ma-1" :loading="isLoading" :disabled="isLoading"
             ><v-icon
               @click="reviewItem(item.raw.applyingId)"
               icon="mdi-eye-outline"
@@ -413,6 +413,7 @@ export default {
       { title: "تاريخ التقديم", key: "createdAt" },
       { title: "الإجراءات", key: "actions", sortable: false },
     ],
+    isLoading: false,
   }),
 
   computed: {
@@ -427,15 +428,21 @@ export default {
   methods: {
     // ...mapActions(useFacultyMembersStore, ["crudChange"]),
     reviewItem(id) {
-      console.log(id);
-      this.$router.push({ name: "ApplicationReview", params: { id: id } });
+      this.isLoading = true;
+      setTimeout(() => {
+        this.$router.push({ name: "ApplicationReview", params: { id: id } });
+        this.isLoading = false;
+      }, 2000);
     },
     initialize() {
-      this.desserts = this.applyings;
+      this.desserts = [JSON.parse(localStorage.getItem("apply"))];
     },
     async printList() {
       console.log(this.applyings);
       await this.$htmlToPaper("formToPrint");
+    },
+    openFile() {
+      window.open("/src/assets/6010c0eee65f6dce28fb3e49.pdf", "_blank");
     },
   },
 };

@@ -73,7 +73,7 @@
             <v-card-text>
               <v-form ref="form">
                 <v-row>
-                  <v-col cols="6">
+                  <v-col cols="4">
                     <TheTextFieldLable>اسم المحكم</TheTextFieldLable>
                     <v-text-field
                       :rules="[(v) => !!v || 'هذا الحقل اجباري']"
@@ -82,7 +82,7 @@
                     </v-text-field>
                   </v-col>
 
-                  <v-col cols="6"
+                  <v-col cols="4"
                     ><TheTextFieldLable>الجامعة التابع لها</TheTextFieldLable>
                     <v-text-field
                       :rules="[(v) => !!v || 'هذا الحقل اجباري']"
@@ -90,10 +90,18 @@
                     >
                     </v-text-field
                   ></v-col>
+                  <v-col cols="4"
+                    ><TheTextFieldLable>البريد الإلكتروني</TheTextFieldLable>
+                    <v-text-field
+                      :rules="[(v) => !!v || 'هذا الحقل اجباري']"
+                      v-model="editedItem.reviewerEmail"
+                    >
+                    </v-text-field
+                  ></v-col>
                 </v-row>
 
                 <v-row>
-                  <v-col cols="6">
+                  <v-col cols="4">
                     <TheTextFieldLable
                       >الدرجة العلمية الحالية</TheTextFieldLable
                     >
@@ -112,11 +120,19 @@
                     >
                     </v-select>
                   </v-col>
-                  <v-col cols="6"
+                  <v-col cols="4"
                     ><TheTextFieldLable>التخصص</TheTextFieldLable>
                     <v-text-field
                       :rules="[(v) => !!v || 'هذا الحقل اجباري']"
                       v-model="editedItem.generalMajor"
+                    >
+                    </v-text-field
+                  ></v-col>
+                  <v-col cols="4"
+                    ><TheTextFieldLable>البريد الإلكتروني</TheTextFieldLable>
+                    <v-text-field
+                      :rules="[(v) => !!v || 'هذا الحقل اجباري']"
+                      v-model="editedItem.reviewerPhone"
                     >
                     </v-text-field
                   ></v-col>
@@ -193,6 +209,7 @@ import { useApplyingStore } from "@/store/applying";
 import { useUsersStore } from "@/store/user";
 import { mapWritableState } from "pinia";
 import { mapState } from "pinia";
+import swal from "sweetalert";
 
 export default {
   data() {
@@ -228,6 +245,7 @@ export default {
         degree: "",
         generalMajor: "",
       },
+      user: null,
     };
   },
   computed: {
@@ -276,11 +294,18 @@ export default {
     },
     async save() {
       const { valid } = await this.$refs.form.validate();
+
       if (valid) {
         if (this.editedIndex > -1) {
           Object.assign(this.reviewers[this.editedIndex], this.editedItem);
         } else {
           this.reviewers.push(this.editedItem);
+          swal({
+            title: "تم الحفظ",
+            icon: "success",
+            button: null,
+            timer: 1000,
+          });
         }
         this.close();
       }
@@ -295,7 +320,8 @@ export default {
       }
     },
     initialize() {
-      this.reviewers = this.applyings[0].reviewers;
+      this.user = JSON.parse(localStorage.getItem("apply"));
+      this.reviewers = this.user.reviewers;
       console.log(this.reviewers);
     },
   },

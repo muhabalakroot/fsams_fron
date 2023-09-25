@@ -1,5 +1,7 @@
 // Utilities
 import { defineStore } from "pinia";
+import { mapActions } from "pinia";
+import { useApplyingStore } from "./applying";
 
 export const useAppicationsStore = defineStore("Appications", {
   state: () => ({
@@ -21,6 +23,7 @@ export const useAppicationsStore = defineStore("Appications", {
     ],
   }),
   actions: {
+    ...mapActions(useApplyingStore, ["updateAfterFM", "updateAfterDH"]),
     addToLocalStorage() {
       localStorage.setItem("application", JSON.stringify(this.applications));
     },
@@ -38,6 +41,8 @@ export const useAppicationsStore = defineStore("Appications", {
       this.applications[0].status = "قيد المعالجة";
       localStorage.removeItem("application");
       localStorage.setItem("application", JSON.stringify(this.applications));
+      this.updateAfterFM();
+      this.updateAfterDH();
     },
   },
 });

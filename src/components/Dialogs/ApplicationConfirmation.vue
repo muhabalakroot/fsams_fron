@@ -11,6 +11,8 @@
           color="error"
           v-bind="props"
           class="ma-4"
+          :loading="isLoading"
+          :disabled="isLoading"
         >
           إرسال
         </v-btn>
@@ -31,7 +33,14 @@
         <v-card-actions>
           <v-spacer></v-spacer>
           <v-btn @click="dialog = false"> إلغاء </v-btn>
-          <v-btn color="error" @click="submit"> تسليم </v-btn>
+          <v-btn
+            :loading="isLoading"
+            :disabled="isLoading"
+            color="error"
+            @click="submit"
+          >
+            تسليم
+          </v-btn>
         </v-card-actions>
       </v-card>
     </v-dialog>
@@ -46,6 +55,7 @@ export default {
   data() {
     return {
       dialog: false,
+      isLoading: false,
     };
   },
   computed: {
@@ -54,9 +64,13 @@ export default {
   methods: {
     ...mapActions(useAppicationsStore, ["updateAfterSubmit"]),
     submit() {
-      this.updateAfterSubmit();
-      this.dialog = false;
-      this.$router.push({ name: "ApplicationSubmited" });
+      this.isLoading = true;
+      setTimeout(() => {
+        this.$router.push({ name: "ApplicationSubmited" });
+        this.isLoading = false;
+        this.updateAfterSubmit();
+        this.dialog = false;
+      }, 2000);
     },
   },
 };

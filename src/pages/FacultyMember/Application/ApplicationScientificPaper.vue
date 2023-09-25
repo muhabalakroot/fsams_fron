@@ -72,12 +72,12 @@
                         style="width: 100%; max-width: 100%"
                         :rules="[
                           (v) => !!v || 'هذا الحقل اجباري',
-                          (v) =>
-                            (v &&
-                              editedItem.scientificPaperTitle
-                                .replace(/\s+/g, ' ')
-                                .split(' ').length >= 3) ||
-                            'يجب أن يتكون العنوان من 5 كلمات على الاقل',
+                          // (v) =>
+                          //   (v &&
+                          //     editedItem.scientificPaperTitle
+                          //       .replace(/\s+/g, ' ')
+                          //       .split(' ').length > 3) ||
+                          //   'يجب أن يتكون العنوان من 3 كلمات على الاقل',
                         ]"
                         v-model="editedItem.scientificPaperTitle"
                       >

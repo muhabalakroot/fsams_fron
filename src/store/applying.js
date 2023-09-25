@@ -5,12 +5,13 @@ export const useApplyingStore = defineStore("Applyings", {
   state: () => ({
     applyings: [
       {
-        applyingId: "2",
+        applyingId: "6009c0eee65f6dce28fb3e42",
         applicationType: "طلب ترقية",
-        createdAt: "2022-02-28",
+        createdAt: "2023-09-25",
         submitedAt: "2022-11-25",
         status: "قيد المعالجة",
         isSubmitedByFM: false,
+        isSubmitedByDH: false,
         isSubmited: "نعم",
         role: "department-head",
         firstName: "رضوان",
@@ -33,9 +34,10 @@ export const useApplyingStore = defineStore("Applyings", {
         currentDegree: "أستاذ مشارك",
         promotoinDegreeNumber: "123456",
         degreeDateOfObtaing: "2019-09-18",
-        dhNote: null,
+        dhNote: " هنا يتم إدخال ملخص قرار مجلس القسم",
+        dhNoteWhenFalse: null,
         departmentMeetingMinutes: [],
-        showenToDepartment: "",
+        showenToDepartment: "2023-09-25",
         promotoinDegreeFile: [],
         signedApplication: null,
         scientificPaper: [
@@ -142,6 +144,8 @@ export const useApplyingStore = defineStore("Applyings", {
             univercity: "جامعة مصراتة",
             degree: "أستاذ",
             generalMajor: "هندسة برمجيات",
+            reviewerPhone: "0911234567",
+            reviewerEmail: "osama@gmail.com",
             typeOfPaper: [
               {
                 value: "ورقة بحثية",
@@ -234,6 +238,8 @@ export const useApplyingStore = defineStore("Applyings", {
             univercity: "جامعة سبها",
             degree: "أستاذ مشارك",
             generalMajor: "تطوير برمجيات",
+            reviewerPhone: "0911234567",
+            reviewerEmail: "aymen@gmail.com",
             typeOfPaper: [
               {
                 value: "ورقة بحثية",
@@ -326,6 +332,8 @@ export const useApplyingStore = defineStore("Applyings", {
             univercity: "جامعة النجم الساطع",
             degree: "أستاذ",
             generalMajor: "تقنيات إنترنت",
+            reviewerPhone: "0911234567",
+            reviewerEmail: "ezzedin@gmail.com",
             typeOfPaper: [
               {
                 value: "ورقة بحثية",
@@ -418,6 +426,8 @@ export const useApplyingStore = defineStore("Applyings", {
             univercity: "جامعة قاريونس",
             degree: "أستاذ",
             generalMajor: "هندسة كبيوتر",
+            reviewerPhone: "0911234567",
+            reviewerEmail: "moayed@gmail.com",
             typeOfPaper: [
               {
                 value: "ورقة بحثية",
@@ -510,6 +520,8 @@ export const useApplyingStore = defineStore("Applyings", {
             univercity: "جامعة طرابلس",
             degree: "أستاذ",
             generalMajor: "تطوير برمجيات",
+            reviewerPhone: "0911234567",
+            reviewerEmail: "osamasasi@gmail.com",
             typeOfPaper: [
               {
                 value: "ورقة بحثية",
@@ -598,8 +610,8 @@ export const useApplyingStore = defineStore("Applyings", {
           },
         ],
         isShowen: "true",
-        isComplate: 'عدم مطابقة"',
-        isOkay: "عدم الموافقة",
+        isComplate: "true",
+        isOkay: "true",
         numberOfDecisionToFormTheCommittee: "123456",
         dateOfTheDecisionToFormTheCommittee: "2023-08-28",
         promotionDegree: "أستاذ",
@@ -1273,6 +1285,21 @@ export const useApplyingStore = defineStore("Applyings", {
       localStorage.removeItem("apply");
       localStorage.setItem("apply", JSON.stringify(newApplying));
       this.applyings[0] = newApplying;
+    },
+    updateAfterFM() {
+      const x = JSON.parse(localStorage.getItem("apply"));
+      x.isSubmitedByFM = true;
+      console.log("in FM");
+      console.log(x);
+      localStorage.removeItem("apply");
+      localStorage.setItem("apply", JSON.stringify(x));
+    },
+    updateAfterDH() {
+      console.log("in DH");
+      const x = JSON.parse(localStorage.getItem("apply"));
+      x.isSubmitedByDH = true;
+      localStorage.removeItem("apply");
+      localStorage.setItem("apply", JSON.stringify(x));
     },
     addAttachment(index, file) {
       this.applyings.attachments[index].file = file;

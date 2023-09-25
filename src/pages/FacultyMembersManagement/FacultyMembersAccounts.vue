@@ -5,15 +5,21 @@
     @click="$router.push({ name: 'FacultyMembersManagment' })"
     >عودة</v-btn
   >
-  <v-data-table :headers="headers" :items="desserts" class="elevation-1">
+  <v-data-table
+    :headers="userRole == 'department-head' ? DHheaders : headers"
+    :items="desserts"
+    class="elevation-1"
+  >
     <template v-slot:item="{ item }">
       <tr>
         <td>{{ item.columns.firstName }} {{ item.raw.lastName }}</td>
         <td>{{ item.columns.email }}</td>
-        <td>
+        <td v-if="userRole !== 'department-head'">
           {{ item.columns.faculty }}
         </td>
-        <td>{{ item.columns.department }}</td>
+        <td v-if="userRole !== 'department-head'">
+          {{ item.columns.department }}
+        </td>
         <td>{{ item.columns.qualification }}</td>
         <td>{{ item.columns.currentDegree }}</td>
         <td>
@@ -65,7 +71,11 @@
                 <v-container>
                   <v-row
                     ><v-col cols="3">
-                      <TheTextFieldLable>الاسم الأول</TheTextFieldLable>
+                      <TheTextFieldLable
+                        >الاسم الأول<span style="color: red"
+                          >*</span
+                        ></TheTextFieldLable
+                      >
                       <v-text-field
                         :rules="[(v) => !!v || 'هذا الحقل اجباري']"
                         v-model="editedItem.firstName"
@@ -73,7 +83,11 @@
                       </v-text-field>
                     </v-col>
                     <v-col cols="3"
-                      ><TheTextFieldLable>اسم الأب</TheTextFieldLable>
+                      ><TheTextFieldLable
+                        >اسم الأب<span style="color: red"
+                          >*</span
+                        ></TheTextFieldLable
+                      >
                       <v-text-field
                         :rules="[(v) => !!v || 'هذا الحقل اجباري']"
                         v-model="editedItem.fatherName"
@@ -81,15 +95,23 @@
                       </v-text-field
                     ></v-col>
                     <v-col cols="3"
-                      ><TheTextFieldLable>اسم الجد</TheTextFieldLable>
+                      ><TheTextFieldLable
+                        >اسم الجد<span style="color: red"
+                          >*</span
+                        ></TheTextFieldLable
+                      >
                       <v-text-field
                         :rules="[(v) => !!v || 'هذا الحقل اجباري']"
-                        v-model="editedItem.grandefatherName"
+                        v-model="editedItem.grandeFatherName"
                       >
                       </v-text-field
                     ></v-col>
                     <v-col cols="3"
-                      ><TheTextFieldLable>اللقب</TheTextFieldLable>
+                      ><TheTextFieldLable
+                        >اللقب<span style="color: red"
+                          >*</span
+                        ></TheTextFieldLable
+                      >
                       <v-text-field
                         :rules="[(v) => !!v || 'هذا الحقل اجباري']"
                         v-model="editedItem.lastName"
@@ -98,7 +120,11 @@
                   ></v-row>
                   <v-row>
                     <v-col cols="4"
-                      ><TheTextFieldLable>البريد الجامعي</TheTextFieldLable>
+                      ><TheTextFieldLable
+                        >البريد الجامعي<span style="color: red"
+                          >*</span
+                        ></TheTextFieldLable
+                      >
                       <v-text-field
                         placeholder="example@uot.edu.ly"
                         :rules="[
@@ -112,7 +138,11 @@
                       </v-text-field
                     ></v-col>
                     <v-col cols="4"
-                      ><TheTextFieldLable>الكلية</TheTextFieldLable>
+                      ><TheTextFieldLable
+                        >الكلية<span style="color: red"
+                          >*</span
+                        ></TheTextFieldLable
+                      >
                       <v-select
                         style="max-width: 1000px"
                         :rules="[(v) => !!v || 'هذا الحقل اجباري']"
@@ -241,7 +271,11 @@
                     <v-col
                       cols="4"
                       v-if="editedItem.faculty == 'كلية تقنية المعلومات'"
-                      ><TheTextFieldLable>القسم العلمي</TheTextFieldLable>
+                      ><TheTextFieldLable
+                        >القسم العلمي<span style="color: red"
+                          >*</span
+                        ></TheTextFieldLable
+                      >
                       <v-select
                         style="max-width: 1000px"
                         :rules="[(v) => !!v || 'هذا الحقل اجباري']"
@@ -262,7 +296,11 @@
                   </v-row>
                   <v-row>
                     <v-col cols="4">
-                      <TheTextFieldLable>المؤهل العلمي</TheTextFieldLable>
+                      <TheTextFieldLable
+                        >المؤهل العلمي<span style="color: red"
+                          >*</span
+                        ></TheTextFieldLable
+                      >
                       <v-select
                         v-model="editedItem.qualification"
                         :rules="[(v) => !!v || 'هذا الحقل اجباري']"
@@ -272,7 +310,9 @@
                     </v-col>
                     <v-col cols="4">
                       <TheTextFieldLable
-                        >الدرجة العلمية الحالية</TheTextFieldLable
+                        >الدرجة العلمية الحالية<span style="color: red"
+                          >*</span
+                        ></TheTextFieldLable
                       >
                       <v-select
                         v-model="editedItem.currentDegree"
@@ -289,13 +329,15 @@
                     </v-col>
                     <v-col cols="4"
                       ><TheTextFieldLable
-                        >تاريخ قرار الترقية (أو تاريخ مباشرة
-                        العمل)</TheTextFieldLable
+                        >تاريخ قرار الترقية (أو تاريخ مباشرة العمل)<span
+                          style="color: red"
+                          >*</span
+                        ></TheTextFieldLable
                       >
                       <v-text-field
                         :rules="[(v) => !!v || 'هذا الحقل اجباري']"
                         type="date"
-                        v-model="editedItem.degreeDateOfObtaing"
+                        v-model="editedItem.dateOfObtaining"
                       >
                       </v-text-field
                     ></v-col>
@@ -429,6 +471,18 @@ export default {
       { title: "الدرجة العلمي", key: "currentDegree" },
       { title: "الإجراءات", key: "actions", sortable: false },
     ],
+    DHheaders: [
+      {
+        title: "الاسم",
+        align: "start",
+        key: "firstName",
+        sortable: false,
+      },
+      { title: "البريد الجامعي", key: "email" },
+      { title: "المؤهل العلمي", key: "qualification" },
+      { title: "الدرجة العلمي", key: "currentDegree" },
+      { title: "الإجراءات", key: "actions", sortable: false },
+    ],
     desserts: [],
     editedIndex: -1,
     editedItem: {
@@ -460,7 +514,7 @@ export default {
   }),
 
   computed: {
-    ...mapState(useFacultyMembersStore, ["FacultyMembers"]),
+    ...mapState(useFacultyMembersStore, ["itDepartment"]),
     ...mapState(useUsersStore, ["userRole"]),
     formTitle() {
       return this.editedIndex === -1
@@ -488,7 +542,8 @@ export default {
       this.crudChange(this.desserts);
     },
     initialize() {
-      this.desserts = this.FacultyMembers;
+      this.desserts =
+        this.userRole == "department-head" ? this.itDepartment : null;
     },
 
     editItem(item) {
